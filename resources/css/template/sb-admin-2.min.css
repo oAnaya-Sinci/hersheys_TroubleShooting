@@ -10490,8 +10490,9 @@ a:focus {
 
 .sidebar .nav-item .nav-link .img-profile,
 .topbar .nav-item .nav-link .img-profile {
-    height: 2rem;
-    width: 2rem
+    height: 3rem;
+    width: 3rem;
+    margin-right: 1rem;
 }
 
 .topbar {
@@ -10522,9 +10523,9 @@ a:focus {
 
 .topbar .topbar-divider {
     width: 0;
-    border-right: 1px solid #e3e6f0;
-    height: calc(4.375rem - 2rem);
-    margin: auto 1rem
+    border-right: 1px solid #aca091;
+    height: calc(4.375rem - .7rem);
+    margin: auto .5rem
 }
 
 .topbar .nav-item .nav-link {

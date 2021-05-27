@@ -53,13 +53,6 @@ jQuery(document).ready(function($) {
 
     }); */
 
-    /* console.log(Cookies.get('XSRF-TOKEN'));
-    console.log(Cookies.get('hersheys_session'));
-
-    Cookies.set('XSRF-TOKEN', '12345678', { expires: 1, path: '/' });
-
-    console.log(Cookies.get('XSRF-TOKEN')); */
-
 });
 
 $('#startTime').blur(function() {
@@ -172,8 +165,6 @@ $('#storeCatalogos').click(function() {
         _token: $('meta[name="csrf-token"]').attr('content')
     }
 
-    console.log(data);
-
     $.ajax({
         type: "POST",
         dataType: 'json',
@@ -266,8 +257,6 @@ $('#storeIncidencias').click(function() {
         _token: $('meta[name="csrf-token"]').attr('content')
     }
 
-    console.log(data);
-
     $.ajax({
         type: "POST",
         dataType: 'json',
@@ -281,8 +270,19 @@ $('#storeIncidencias').click(function() {
 /*
     Funcion para eliminar las cookies de el registro de inicio de sesion
 */
-/* $('#logoutBtn').click(function() {
+$('#logoutBtn').click(function() {
 
+    var data = {
+        _token: $('meta[name="csrf-token"]').attr('content')
+    }
 
-    Cookies.remove();
-}); */
+    $.ajax({
+        type: 'POST',
+        url: '../logout',
+        data: data,
+        success: function(data) {
+
+            location.href = "/public/login";
+        }
+    });
+});

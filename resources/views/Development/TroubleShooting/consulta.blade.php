@@ -52,17 +52,17 @@
                             @foreach($Incidencias AS $Inci)
 
                                 <tr>
-                                    <td>{{$Inci['icd_BU']}}</td>
-                                    <td>{{$Inci['icd_Area']}}</td>
-                                    <td>{{$Inci['icd_Line']}}</td>
-                                    <td>{{$Inci['icd_Equipment']}}</td>
-                                    <td>{{$Inci['icd_System']}}</td>
-                                    <td>{{$Inci['icd_Component']}}</td>
-                                    <td>{{$Inci['icd_ControlPanel']}}</td>
+                                    <td>{{$Inci['bssnu']}}</td>
+                                    <td>{{$Inci['area']}}</td>
+                                    <td>{{$Inci['line']}}</td>
+                                    <td>{{$Inci['equipment']}}</td>
+                                    <td>{{$Inci['system']}}</td>
+                                    <td>{{$Inci['component']}}</td>
+                                    <td>{{$Inci['control']}}</td>
                                     <td>{{$Inci['icd_ProblemDescription']}}</td>
-                                    <td>{{$Inci['icd_IssueType']}}</td>
+                                    <td>{{$Inci['issue']}}</td>
                                     <td>{{$Inci['icd_Priority']}}</td>
-                                    <td>{{$Inci['icd_ActionRequired']}}</td>
+                                    <td>{{$Inci['action']}}</td>
                                     <td>{{$Inci['icd_Responsible']}}</td>
                                     <td>{{$Inci['icd_reportedBy']}}</td>
                                     <td>{{$Inci['icd_ReportingDate']}}</td>

@@ -16,13 +16,10 @@ class consultaCatalogos extends Controller
      */
     public function index()
     {
-        $Elementos = catalogos::all();
+        $Elementos = $this->getElementos();
+        $loggin_User = Auth()->User()->name;
 
-        /* $Elementos = DB::table('catalogos')
-        ->join('jerarquia_catalogos', 'jrq_id', '=', 'ctg_tipo')
-        ->get(); */
-
-        return view('Development/Catalogos/consulta', compact('Elementos'));
+        return view('Development/Catalogos/consulta', compact('Elementos', 'loggin_User'));
     }
 
     /**
@@ -89,5 +86,19 @@ class consultaCatalogos extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     *
+    */
+
+    function getElementos(){
+
+        $Elementos = catalogos::select('catalogos.id AS cata_id', 'jc.jrq_nombre AS tipo', 'catalogos.ctg_name AS nombre', 'parent.ctg_name AS padre')
+                        ->leftJoin('catalogos AS parent', 'catalogos.ctg_padre', '=', 'parent.ctg_id')
+                        ->join('jerarquia_catalogos AS jc', 'catalogos.ctg_tipo', '=', 'jc.jrq_id')
+                        ->distinct()->get();
+
+        return $Elementos;
     }
 }

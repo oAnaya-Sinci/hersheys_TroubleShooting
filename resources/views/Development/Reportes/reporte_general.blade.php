@@ -148,6 +148,7 @@
 
                         <div class="showReport">
                             <button id="showReportButton" class="btn btn-primary">Mostrar Reporte</button>
+                            <!-- <button id="downloadExcel" class="btn btn-secondary">Descargar Excel</button> -->
                         </div>
                 </div>
             </div>

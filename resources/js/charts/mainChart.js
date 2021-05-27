@@ -3,10 +3,9 @@ jQuery(document).ready(function($) {
     // $('#dataTableReport').DataTable({ searching: false, pageLength: 50 });
 
     /* var data = {
-        data: [],
         _token: $('meta[name="csrf-token"]').attr('content')
     }
-
+    console.log(data);
     reloadDataTable = $('#dataTableReport').DataTable({
         'ajax': {
             "type": "POST",
@@ -190,23 +189,8 @@ function get_dataTable() {
             $('#dataTableReport.incidencias tbody').html(tbody);
         }
     }).done(function() {
-        $('#dataTableReport').DataTable({ searching: false, pageLength: 50 });
+        // $('#dataTableReport').DataTable({ searching: false, pageLength: 50 });
     });
-
-    /* $('#dataTable.incidencias').DataTable({
-        "ajax": {
-            "url": "../Reporte/getDataTable",
-            "type": "POST",
-            "data": data,
-            "dataSrc": "my_data"
-        },
-        'columns': [
-            { "data": "name" },
-            { "data": "type" },
-            { "data": "time" },
-            { "data": "durat" }
-        ]
-    }); */
 }
 
 function getTypeChart(type) {
@@ -519,6 +503,11 @@ function getTypeChart(type) {
                 dataset: {
                     source: dataToShow
                 },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
                 xAxis: { type: 'category' },
                 yAxis: { gridIndex: 0 },
                 grid: { top: '55%' },
@@ -549,3 +538,41 @@ function getTypeChart(type) {
 
     return option;
 }
+
+/**
+ *
+ */
+
+function exportTableToExcel(tableID, filename = 'dac_troubleshooting') {
+    console.log("Omar");
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';
+    var tableSelect = document.getElementById('dataTableReport');
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+
+    // Specify file name
+    filename = filename ? filename + '.xlsx' : 'excel_data.xlsx';
+
+    // Create download link element
+    downloadLink = document.createElement("a");
+
+    document.body.appendChild(downloadLink);
+
+    if (navigator.msSaveOrOpenBlob) {
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob(blob, filename);
+    } else {
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+
+        // Setting the file name
+        downloadLink.download = filename;
+
+        //triggering the function
+        downloadLink.click();
+    }
+}
+
+$('#downloadExcel').click(exportTableToExcel);

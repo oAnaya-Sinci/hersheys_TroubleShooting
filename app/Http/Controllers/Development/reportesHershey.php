@@ -13,57 +13,10 @@ class reportesHershey extends Controller
     public function reporte_general(){
 
         $BU = Catalogos::where('ctg_tipo', '=', 'jrq-bussn')->get();
-        return view('Development/Reportes/reporte_general', compact('BU'));
+        $loggin_User = Auth()->User()->name;
+
+        return view('Development/Reportes/reporte_general', compact('BU', 'loggin_User'));
     }
-
-    /* public function reporte_general_2(){
-
-        $Incidencias = Incidencias::all();
-        $BU = Catalogos::where('ctg_tipo', '=', 'jrq-bussn')->get();
-        $Areas = Catalogos::where('ctg_tipo', '=', 'jrq-area')->get();
-        $Line = Catalogos::where('ctg_tipo', '=', 'jrq-line')->get();
-        $Equipt = Catalogos::where('ctg_tipo', '=', 'jrq-equipment')->get();
-        $System = Catalogos::where('ctg_tipo', '=', 'jrq-system')->get();
-        $Component = Catalogos::where('ctg_tipo', '=', 'jrq-component')->get();
-        $CtrlPanel = Catalogos::where('ctg_tipo', '=', 'jrq-ctrlPanl')->get();
-
-        return view('Development/Reportes/reporte_general_aux', compact('BU', 'Incidencias', 'Areas', 'Line', 'Equipt', 'System', 'Component', 'CtrlPanel'));
-    } */
-
-    /* public function get_data_reporte(Request $data){
-
-        $arrayData = $data['data'];
-        $startDate = $arrayData[0]['val'];
-        $endDate = $arrayData[1]['val'];
-
-        unset( $arrayData[0], $arrayData[1] );
-
-        $lastCol = count($arrayData);
-
-        $Columns = array('icd_bu', 'icd_area', 'icd_line', 'icd_equipment', 'icd_system', 'icd_component', 'icd_controlpanel');
-
-        $query = 'SELECT ctg.ctg_id, ctg.ctg_name AS Nombre, iss.ctg_name AS Issue, COUNT( ctg.ctg_id ) AS TOTAL_INCIDENCIAS FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.' . $Columns[$lastCol];
-        $query .= ' LEFT JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType WHERE DATE_FORMAT(icd.created_at, "%d-%m-%Y") BETWEEN "' . $startDate .'" AND "' . $endDate . '"';
-
-        $x=0;
-        foreach($arrayData AS $d){
-
-            if($d['val'] != NULL)
-                $query .= " AND icd." . $Columns[$x] . " = '" . $d['val'] . "'";
-
-            else
-                break;
-
-            $x++;
-        }
-
-        $query .= " GROUP BY ctg.ctg_id, ctg.ctg_name, iss.ctg_name ORDER BY ctg.ctg_name, iss.ctg_name";
-
-        $reportData = DB::select($query);
-        $returned = array($Columns[$x], $reportData);
-
-        return json_encode($returned);
-    } */
 
     public function get_data_reporte(Request $data){
 
@@ -84,8 +37,11 @@ class reportesHershey extends Controller
 
     public function get_elements($arrayData){
 
-        $startDate = $arrayData[0]['val'];
-        $endDate = $arrayData[1]['val'];
+        $startDate = explode("-", $arrayData[0]['val']);
+        $startDate = $startDate[2] . "-" . $startDate[1] . "-" . $startDate[0];
+
+        $endDate = explode("-", $arrayData[1]['val']);
+        $endDate = $endDate[2] . "-" . $endDate[1] . "-" . $endDate[0];
 
         unset( $arrayData[0], $arrayData[1] );
 
@@ -94,7 +50,7 @@ class reportesHershey extends Controller
         $Columns = array('icd_bu', 'icd_area', 'icd_line', 'icd_equipment', 'icd_system', 'icd_component', 'icd_controlpanel');
 
         $query = 'SELECT DISTINCT ctg.ctg_id, ctg.ctg_name AS Nombre FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.' . $Columns[$lastCol];
-        $query .= ' LEFT JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType WHERE DATE_FORMAT(icd.created_at, "%d-%m-%Y") BETWEEN "' . $startDate .'" AND "' . $endDate . '"';
+        $query .= ' LEFT JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType WHERE UNIX_TIMESTAMP(icd.created_at) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
 
         $x=0;
         foreach($arrayData AS $d){
@@ -128,8 +84,11 @@ class reportesHershey extends Controller
 
     public function get_dataReport($arrayData, $sizeOf, $Column){
 
-        $startDate = $arrayData[0]['val'];
-        $endDate = $arrayData[1]['val'];
+        $startDate = explode("-", $arrayData[0]['val']);
+        $startDate = $startDate[2] . "-" . $startDate[1] . "-" . $startDate[0];
+
+        $endDate = explode("-", $arrayData[1]['val']);
+        $endDate = $endDate[2] . "-" . $endDate[1] . "-" . $endDate[0];
 
         $query = "SELECT ctg_id, ctg_name FROM catalogos ctg WHERE ctg.ctg_tipo = 'jrq-issue' ORDER BY ctg_name";
         $issues = DB::select($query);
@@ -138,7 +97,7 @@ class reportesHershey extends Controller
         foreach($issues AS $is){
 
             $query = 'SELECT ctg.ctg_id, ctg.ctg_name AS Nombre, iss.ctg_name AS Issue, COUNT( ctg.ctg_id ) AS tot FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.' . $Column;
-            $query .= ' LEFT JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType WHERE DATE_FORMAT(icd.created_at, "%d-%m-%Y") BETWEEN "' . $startDate .'" AND "' . $endDate . '"';
+            $query .= ' LEFT JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType WHERE UNIX_TIMESTAMP(icd.created_at) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
 
             $query .= " AND icd.icd_IssueType = '" . $is->ctg_id .  "'";
 
@@ -174,8 +133,11 @@ class reportesHershey extends Controller
 
         $data = $arrayData['data'];
 
-        $startDate = $data[0]['val'];
-        $endDate = $data[1]['val'];
+        $startDate = explode("-", $data[0]['val']);
+        $startDate = $startDate[2] . "-" . $startDate[1] . "-" . $startDate[0];
+
+        $endDate = explode("-", $data[1]['val']);
+        $endDate = $endDate[2] . "-" . $endDate[1] . "-" . $endDate[0];
 
         unset( $data[0], $data[1] );
 
@@ -184,7 +146,7 @@ class reportesHershey extends Controller
         $Columns = array('icd_bu', 'icd_area', 'icd_line', 'icd_equipment', 'icd_system', 'icd_component', 'icd_controlpanel');
 
         $query = 'SELECT DISTINCT icd.* FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.' . $Columns[$lastCol];
-        $query .= ' INNER JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType WHERE DATE_FORMAT(icd.created_at, "%d-%m-%Y") BETWEEN "' . $startDate .'" AND "' . $endDate . '"';
+        $query .= ' INNER JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType WHERE UNIX_TIMESTAMP(icd.created_at) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
 
         $x=0;
         foreach($data AS $d){
@@ -197,7 +159,7 @@ class reportesHershey extends Controller
 
             $x++;
         }
- 
+
         $query .= " ORDER BY ctg.ctg_name, iss.ctg_name";
 
         $reportData = DB::select($query);

@@ -30,10 +30,10 @@
                         @foreach($Elementos AS $Ele)
 
                             <tr>
-                                <td>{{$Ele['id']}}</td>
-                                <td>{{$Ele['jrq_nombre']}}</td>
-                                <td>{{$Ele['ctg_name']}}</td>
-                                <td>{{$Ele['ctg_padre']}}</td>
+                                <td>{{$Ele['cata_id']}}</td>
+                                <td>{{$Ele['tipo']}}</td>
+                                <td>{{$Ele['nombre']}}</td>
+                                <td>{{$Ele['padre']}}</td>
                             </tr>
 
                         @endforeach

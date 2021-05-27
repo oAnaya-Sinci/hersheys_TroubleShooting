@@ -1,8 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\testing;
-use App\Http\Controllers\testingIncidencias;
+
+use App\Http\Controllers\HomeController AS home;
+use App\Http\Controllers\Development\catalogos AS catalogos;
+use App\Http\Controllers\Development\consultaCatalogos AS consultaCatalogos;
+use App\Http\Controllers\Development\incidencias AS incidencias;
+use App\Http\Controllers\Development\consultaIncidencias AS consultaIncidencias;
+use App\Http\Controllers\Development\reportesHershey AS reportesHershey;
+
+use App\Http\Controllers\Auth\logoutController AS logout;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,16 +22,16 @@ use App\Http\Controllers\testingIncidencias;
 |
 */
 
-Auth::routes();
+// Auth::routes();
 
-/* Auth::routes([
+Auth::routes([
     'login'    => true,
     'logout'   => true,
     'register' => true,
-    'reset'    => true,   // for resetting passwords
+    'reset'    => false,   // for resetting passwords
     'confirm'  => false,  // for additional password confirmations
-    'verify'   => false,  // for email verification
-]); */
+    'verify'   => true,  // for email verification
+]);
 
 Route::group(['middleware'=>['auth']],function(){
 
@@ -32,41 +39,43 @@ Route::group(['middleware'=>['auth']],function(){
         return view('auth/login');
     });
 
-    Route::get('/home/index', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home/index', [home::class, 'index'])->name('home');
 
     Route::get('mainPage/index', function () {
         return view('Development/main/index');
     });
 
     // Rutas para acciones con catalogos
-    Route::get('Catalogos/registros', [App\Http\Controllers\Development\catalogos::class, 'index']);
-    Route::get('Catalogos/modificar', [App\Http\Controllers\Development\catalogos::class, 'modificar']);
-    Route::get('Catalogos/modificar/getData', [App\Http\Controllers\Development\catalogos::class, 'get_elements_modificar']);
-    Route::get('Catalogos/consultas', [App\Http\Controllers\Development\consultaCatalogos::class, 'index']);
+    Route::get('Catalogos/registros', [catalogos::class, 'index']);
+    Route::get('Catalogos/modificar', [catalogos::class, 'modificar']);
+    Route::get('Catalogos/modificar/getData', [catalogos::class, 'get_elements_modificar']);
+    Route::get('Catalogos/consultas', [consultaCatalogos::class, 'index']);
 
     // Rutas para acciones con incidencias
-    Route::get('TroubleShooting/registros', [App\Http\Controllers\Development\incidencias::class, 'index']);
-    Route::get('TroubleShooting/consultas', [App\Http\Controllers\Development\consultaIncidencias::class, 'index']);
+    Route::get('TroubleShooting/registros', [incidencias::class, 'index']);
+    Route::get('TroubleShooting/consultas', [consultaIncidencias::class, 'index']);
 
     /* Obtener informacion segun el elemento seleccionado */
-    Route::post('Catalogos/getDataElement', [App\Http\Controllers\Development\catalogos::class, 'getElements']);
+    Route::post('Catalogos/getDataElement', [catalogos::class, 'getElements']);
 
     /* Guardar informacion sobre los catalogos */
-    Route::post('Catalogos/storeCatalogos', [\App\Http\Controllers\Development\catalogos::class, 'store']);
+    Route::post('Catalogos/storeCatalogos', [catalogos::class, 'store']);
 
     /* Guardar informacion a actualizar sobre los catalogos */
-    Route::post('TroubleShooting/upadateCatalogos', [\App\Http\Controllers\Development\catalogos::class, 'update']);
+    Route::post('TroubleShooting/upadateCatalogos', [catalogos::class, 'update']);
 
     /* Obtener informacion de los catalogos para registra incidencias */
-    Route::post('TroubleShooting/getDataSelects', [\App\Http\Controllers\Development\incidencias::class, 'getElements']);
+    Route::post('TroubleShooting/getDataSelects', [incidencias::class, 'getElements']);
 
     /* Guardar informacion sobre los catalogos */
-    Route::post('TroubleShooting/storeIncidencias', [\App\Http\Controllers\Development\incidencias::class, 'store']);
+    Route::post('TroubleShooting/storeIncidencias', [incidencias::class, 'store']);
 
     /** * Rutas Reportes Proyecto */
-    Route::get('Reporte/reporte_general', [App\Http\Controllers\Development\reportesHershey::class, 'reporte_general']);
-    // Route::get('Reporte/reporte_fallas', [App\Http\Controllers\Development\reportesHershey::class, 'reporte_general_2']);
+    Route::get('Reporte/reporte_general', [reportesHershey::class, 'reporte_general']);
 
-    Route::post('Reporte/getDataReport/', [App\Http\Controllers\Development\reportesHershey::class, 'get_data_reporte']);
-    Route::post('Reporte/getDataTable/', [App\Http\Controllers\Development\reportesHershey::class, 'get_DataTable']);
+    Route::post('Reporte/getDataReport/', [reportesHershey::class, 'get_data_reporte']);
+    Route::post('Reporte/getDataTable/', [reportesHershey::class, 'get_DataTable']);
+
+    /** Logout */
+    Route::post('logout', [logout::class, 'logout']);
 });

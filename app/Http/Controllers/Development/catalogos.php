@@ -17,9 +17,10 @@ class catalogos extends Controller
      */
     public function index()
     {
-
+        $loggin_User = Auth()->User()->name;
         $Elementos = jerarquia_catalogos::all();
-        return view('Development/Catalogos/registro', compact('Elementos'));
+
+        return view('Development/Catalogos/registro', compact('Elementos', 'loggin_User'));
     }
 
     /**
@@ -41,7 +42,7 @@ class catalogos extends Controller
     public function store(Request $request)
     {
         $Catalogo = new StoreCatalogo();
-        $Catalogo->ctg_id = $request['data'][0]['value'] . "-" . $request['data'][1]['value'];
+        $Catalogo->ctg_id = $request['data'][0]['value'] . "-" . str_replace(' ', '-', $request['data'][1]['value']);
         $Catalogo->ctg_tipo = $request['data'][0]['value'];
         $Catalogo->ctg_name = $request['data'][1]['value'];
         $Catalogo->ctg_padre = $request['data'][2]['value'];
@@ -79,18 +80,27 @@ class catalogos extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        $columnsInci = ['icd_BU', 'icd_Area', 'icd_Line', 'icd_Equipment', 'icd_System', 'icd_Component', 'icd_ControlPanel', 'icd_IssueType', 'icd_ActionRequired'];
+
+        foreach($columnsInci AS $ci){
+
+            DB::table('incidencias')
+            ->where($ci, '=', $request['data'][1]['value'])
+            ->update( [ $ci => $request['data'][0]['value'] . "-" . str_replace(' ', '-', $request['data'][2]['value']) ] );
+        }
+
         DB::table('catalogos')
         ->where('ctg_padre', $request['data'][1]['value'])
         ->update([
-            'ctg_padre' => $request['data'][0]['value'] . "-" . $request['data'][2]['value']
+            'ctg_padre' => $request['data'][0]['value'] . "-" . str_replace(' ', '-', $request['data'][2]['value'])
         ]);
 
         DB::table('catalogos')
         ->where('ctg_id', $request['data'][1]['value'])
         ->update([
-            'ctg_id' => $request['data'][0]['value'] . "-" . $request['data'][2]['value'],
+            'ctg_id' => $request['data'][0]['value'] . "-" . str_replace(' ', '-', $request['data'][2]['value']),
             'ctg_name' => $request['data'][2]['value']
         ]);
 
@@ -132,7 +142,9 @@ class catalogos extends Controller
      public function modificar(){
 
         $Elementos = jerarquia_catalogos::all();
-        return view('Development/Catalogos/modificar', compact('Elementos'));
+        $loggin_User = Auth()->User()->name;
+
+        return view('Development/Catalogos/modificar', compact('Elementos', 'loggin_User'));
      }
 
      public function get_elements_modificar(){

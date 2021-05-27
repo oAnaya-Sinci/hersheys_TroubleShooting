@@ -15,8 +15,10 @@ class consultaIncidencias extends Controller
      */
     public function index()
     {
-        $Incidencias = Incidencias::all();
-        return view('Development/TroubleShooting/consulta', compact('Incidencias'));
+        $Incidencias = $this->getIncidencias();
+        $loggin_User = Auth()->User()->name;
+
+        return view('Development/TroubleShooting/consulta', compact('Incidencias', 'loggin_User'));
     }
 
     /**
@@ -84,4 +86,28 @@ class consultaIncidencias extends Controller
     {
         //
     }
+
+    /**
+     *
+     */
+
+     public function getIncidencias(){
+
+        $Incidencias = Incidencias::
+                        select('incidencias.*', 'bu.ctg_name AS bssnu', 'area.ctg_name AS area', 'line.ctg_name AS line', 'equip.ctg_name AS equipment', 'system.ctg_name AS system', 'component.ctg_name AS component', 'cntrlp.ctg_name AS control', 'issue.ctg_name AS issue', 'actionr.ctg_name AS action')
+
+                        ->join('catalogos AS bu', 'incidencias.icd_bu', 'bu.ctg_id')
+                        ->join('catalogos AS area', 'incidencias.icd_area', 'area.ctg_id')
+                        ->join('catalogos AS line', 'incidencias.icd_line', 'line.ctg_id')
+                        ->join('catalogos AS equip', 'incidencias.icd_equipment', 'equip.ctg_id')
+                        ->join('catalogos AS system', 'incidencias.icd_system', 'system.ctg_id')
+                        ->join('catalogos AS component', 'incidencias.icd_component', 'component.ctg_id')
+                        ->join('catalogos AS cntrlp', 'incidencias.icd_controlpanel', 'cntrlp.ctg_id')
+                        ->join('catalogos AS issue', 'incidencias.icd_issuetype', 'issue.ctg_id')
+                        ->join('catalogos AS actionr', 'incidencias.icd_actionrequired', 'actionr.ctg_id')
+
+                        ->get();
+
+        return $Incidencias;
+     }
 }
