@@ -78,7 +78,7 @@
 @section('jsScripts')
 
 <!-- Page level plugins -->
-<script src="{{ config('app.url', '') }}/resources/js/update.js"></script>
+<script src="{{ config('app.url', '') }}/js/update.js"></script>
 
 <script>
 

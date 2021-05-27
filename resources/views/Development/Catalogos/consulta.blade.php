@@ -55,18 +55,18 @@
 @section('cssLinks')
 
     <!-- Custom styles for this page -->
-    <link href="{{ config('app.url', '') }}/resources/css/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="{{ config('app.url', '') }}/css/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 @endsection
 
 @section('jsScripts')
 
     <!-- Page level plugins -->
-    <script src="{{ config('app.url', '') }}/resources/js/datatables/jquery.dataTables.min.js"></script>
-    <script src="{{ config('app.url', '') }}/resources/js/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="{{ config('app.url', '') }}/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="{{ config('app.url', '') }}/js/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{{ config('app.url', '') }}/resources/js/demo/datatables-demo.js"></script>
+    <script src="{{ config('app.url', '') }}/js/demo/datatables-demo.js"></script>
 
     <script>
 
