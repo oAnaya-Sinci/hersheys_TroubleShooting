@@ -282,7 +282,7 @@ $('#logoutBtn').click(function() {
         data: data,
         success: function(data) {
 
-            location.href = "/public/login";
+            location.href = "/login";
         }
     });
 });

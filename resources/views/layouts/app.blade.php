@@ -18,7 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('../resources/css/app-hershey.css') }}" rel="stylesheet">
+    <link href="{{ asset('../css/app-hershey.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
