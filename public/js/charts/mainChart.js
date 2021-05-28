@@ -95,6 +95,8 @@ $('#showReportButton').click(function() {
 
     getDataIncidencias();
     get_dataTable();
+
+    $('#downloadExcel').prop("disabled", false);
 });
 
 let dataReport;
@@ -543,12 +545,17 @@ function getTypeChart(type) {
  *
  */
 
-function exportTableToExcel(tableID, filename = 'dac_troubleshooting') {
-    console.log("Omar");
+function exportTableToExcel(tableID, filename = 'excel_data') {
+
     var downloadLink;
     var dataType = 'application/vnd.ms-excel';
-    var tableSelect = document.getElementById('dataTableReport');
+    var tableSelect = document.getElementById(tableID);
     var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+
+    var tbody = $('#' + tableID + " tbody tr").length;
+
+    if (tbody == 0)
+        return false;
 
     // Specify file name
     filename = filename ? filename + '.xlsx' : 'excel_data.xlsx';
@@ -573,6 +580,16 @@ function exportTableToExcel(tableID, filename = 'dac_troubleshooting') {
         //triggering the function
         downloadLink.click();
     }
+
+    return true;
 }
 
-$('#downloadExcel').click(exportTableToExcel);
+$('#downloadExcel').click(function() {
+
+    let date = new Date();
+    let today = date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear();
+
+    exportTableToExcel('dataTableReport', 'dac_troubleshooting_' + today);
+
+    $('#downloadExcel').prop("disabled", true);
+});

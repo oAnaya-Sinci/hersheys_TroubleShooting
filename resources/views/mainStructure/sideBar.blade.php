@@ -26,7 +26,7 @@
     </a>
     <div id="collapseCatalogos" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Acciones:</h6>
+
             <a class="collapse-item" href="../Catalogos/registros">Registrar</a>
             <a class="collapse-item" href="../Catalogos/modificar">Modificar</a>
             <a class="collapse-item" href="../Catalogos/consultas">Consultar</a>
@@ -42,7 +42,7 @@
     </a>
     <div id="collapseTrouble" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Acciones:</h6>
+            
             <a class="collapse-item" href="../TroubleShooting/registros">Registrar</a>
             <a class="collapse-item" href="../TroubleShooting/consultas">Consultar</a>
         </div>
@@ -57,7 +57,7 @@
     </a>
     <div id="collapseReporte" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Acciones:</h6>
+
             <a class="collapse-item" href="../Reporte/reporte_general">Reporte de fallas</a>
             <!-- <a class="collapse-item" href="../Reporte/reporte_fallas">Reporteee</a> -->
         </div>

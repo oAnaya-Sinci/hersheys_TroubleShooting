@@ -79,9 +79,6 @@
                                 <option value='combo'>Grafica Combinada</option>
                                 <option value='line'>Grafica de linea</option>
                                 <option value='pie'>Grafica de pastel</option>
-                                <!-- <option value='pie2'>Grafica de pastel 2</option>
-                                <option value='pie3'>Grafica de pastel 3</option> -->
-                                <!-- <option value="line2">Grafica de linea 2</option> -->
                             </select>
                         </div>
 
@@ -148,7 +145,7 @@
 
                         <div class="showReport">
                             <button id="showReportButton" class="btn btn-primary">Mostrar Reporte</button>
-                            <!-- <button id="downloadExcel" class="btn btn-secondary">Descargar Excel</button> -->
+                            <button id="downloadExcel" class="btn btn-secondary" >Descargar Tabla->XLSX</button>
                         </div>
                 </div>
             </div>

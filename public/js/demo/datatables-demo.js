@@ -1,4 +1,4 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function() {
-    reloadDataTable = $('#dataTable').DataTable({ searching: false, pageLength: 50 });
+    reloadDataTable = $('#dataTable').DataTable({ searching: true, pageLength: 50 });
 });

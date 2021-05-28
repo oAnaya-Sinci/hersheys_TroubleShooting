@@ -35,9 +35,7 @@ Auth::routes([
 
 Route::group(['middleware'=>['auth']],function(){
 
-    Route::get('/', function () {
-        return view('auth/login');
-    });
+    Route::get('/', [home::class, 'index'])->name('home');
 
     Route::get('/home/index', [home::class, 'index'])->name('home');
 
