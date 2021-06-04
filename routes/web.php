@@ -38,11 +38,7 @@ Route::group(['middleware'=>['auth']],function(){
 
     Route::get('/', [home::class, 'index'])->name('home');
 
-    Route::get('/home/index', [home::class, 'index'])->name('home');
-
-    Route::get('mainPage/index', function () {
-        return view('Development/main/index');
-    });
+    // Route::get('/index', [home::class, 'index'])->name('home');
 
     // Rutas para acciones con catalogos
     Route::get('Catalogos/registros', [catalogos::class, 'index']);

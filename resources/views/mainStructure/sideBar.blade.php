@@ -69,8 +69,8 @@
         </div>
     </li>
 
-    <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
+    <!-- Nav Item - usuarios menu -->
+    <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsuarios" aria-expanded="true" aria-controls="collapseUsuarios">
             <i class="fas fa-fw fas fa-user"></i>
             <span>Usuarios</span>
@@ -81,7 +81,7 @@
                 <a class="collapse-item" href="{{ config('app.url', '') }}Usuarios/consultar">Consultar</a>
             </div>
         </div>
-    </li>
+    </li> -->
 @endif
 
 <!-- Divider -->

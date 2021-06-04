@@ -322,3 +322,5 @@ function showError(Message) {
 
     $('#ErrorModal').modal('show');
 }
+
+/* Seccion Editar usuarios */
