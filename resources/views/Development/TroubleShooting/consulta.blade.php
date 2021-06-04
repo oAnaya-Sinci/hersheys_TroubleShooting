@@ -21,11 +21,11 @@
                         <thead>
                             <tr>
                                 <th>BU</th>
-                                <th>Area</th>
-                                <th>Line</th>
-                                <th>Equipment</th>
-                                <th>System</th>
+                                <th>Area / Line</th>
+                                <th>Proceso</th>
+                                <th>Equipment / System</th>
                                 <th>Componet</th>
+                                <th>SubSystem</th>
                                 <th>Control Panel</th>
                                 <th>Problem Description</th>
                                 <th>Issue Type</th>
@@ -53,10 +53,10 @@
 
                                 <tr>
                                     <td>{{$Inci['bssnu']}}</td>
-                                    <td>{{$Inci['area']}}</td>
-                                    <td>{{$Inci['line']}}</td>
-                                    <td>{{$Inci['equipment']}}</td>
-                                    <td>{{$Inci['system']}}</td>
+                                    <td>{{$Inci['area_linea']}}</td>
+                                    <td>{{$Inci['proceso']}}</td>
+                                    <td>{{$Inci['equipment_system']}}</td>
+                                    <td>{{$Inci['subsystem']}}</td>
                                     <td>{{$Inci['component']}}</td>
                                     <td>{{$Inci['control']}}</td>
                                     <td>{{$Inci['icd_ProblemDescription']}}</td>

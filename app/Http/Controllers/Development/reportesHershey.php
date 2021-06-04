@@ -13,15 +13,16 @@ class reportesHershey extends Controller
     public function reporte_general(){
 
         $BU = Catalogos::where('ctg_tipo', '=', 'jrq-bussn')->get();
+        $areaLinea = Catalogos::where('ctg_tipo', '=', 'jrq-area-line')->get();
+        $subequip = Catalogos::where('ctg_tipo', '=', 'jrq-subequipt')->get();
+        $controlPanel = Catalogos::where('ctg_tipo', '=', 'jrq-ctrlPanl')->get();
         $loggin_User = Auth()->User()->name;
         $adminUser = Auth()->User()->admin_user;
 
-        return view('Development/Reportes/reporte_general', compact('BU', 'loggin_User', 'adminUser'));
+        return view('Development/Reportes/reporte_general', compact('BU', 'areaLinea', 'controlPanel', 'subequip', 'loggin_User', 'adminUser'));
     }
 
     public function get_data_reporte(Request $data){
-
-        a;
 
         $rqst = $data['data'];
 
@@ -50,7 +51,7 @@ class reportesHershey extends Controller
 
         $lastCol = count($arrayData);
 
-        $Columns = array('icd_bu', 'icd_area', 'icd_line', 'icd_equipment', 'icd_system', 'icd_component', 'icd_controlpanel');
+        $Columns = array('icd_bu', 'icd_area_linea', 'icd_proceso', 'icd_equipment_system', 'icd_component', 'icd_subequipment', 'icd_controlpanel');
 
         $query = 'SELECT DISTINCT ctg.ctg_id, ctg.ctg_name AS Nombre FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.' . $Columns[$lastCol];
         $query .= ' LEFT JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType WHERE UNIX_TIMESTAMP(icd.created_at) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
@@ -146,7 +147,7 @@ class reportesHershey extends Controller
 
         $lastCol = count($data);
 
-        $Columns = array('icd_bu', 'icd_area', 'icd_line', 'icd_equipment', 'icd_system', 'icd_component', 'icd_controlpanel');
+        $Columns = array('icd_bu', 'icd_area_linea', 'icd_proceso', 'icd_equipment_system', 'icd_component', 'icd_subequipment', 'icd_controlpanel');
 
         $query = 'SELECT DISTINCT icd.* FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.' . $Columns[$lastCol];
         $query .= ' INNER JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType WHERE UNIX_TIMESTAMP(icd.created_at) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';

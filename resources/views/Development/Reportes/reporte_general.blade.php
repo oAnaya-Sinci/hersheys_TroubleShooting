@@ -31,31 +31,31 @@
                                 <table class="table table-bordered incidencias" id="dataTableReport" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>BU</th>
-                                            <th>Area</th>
-                                            <th>Line</th>
-                                            <th>Equipment</th>
-                                            <th>System</th>
-                                            <th>Componet</th>
-                                            <th>Control Panel</th>
-                                            <th>Problem Description</th>
-                                            <th>Issue Type</th>
-                                            <th>Priority</th>
-                                            <th>Action Require</th>
-                                            <th>Responsible</th>
-                                            <th>Report By</th>
-                                            <th>Reporting Date</th>
-                                            <th>Closing Date</th>
-                                            <th>Shift</th>
-                                            <th>Response Time</th>
-                                            <th>Start Time</th>
-                                            <th>End Time</th>
-                                            <th>Total Time</th>
-                                            <th>Diagrama Procedimiento Manual</th>
-                                            <th>Respaldo</th>
-                                            <th>Refaccion</th>
-                                            <th>Tiempo Diagnosticar</th>
-                                            <th>Comments</th>
+                                        <th>BU</th>
+                                        <th>Area / Line</th>
+                                        <th>Proceso</th>
+                                        <th>Equipment / System</th>
+                                        <th>Componet</th>
+                                        <th>SubSystem</th>
+                                        <th>Control Panel</th>
+                                        <th>Problem Description</th>
+                                        <th>Issue Type</th>
+                                        <th>Priority</th>
+                                        <th>Action Require</th>
+                                        <th>Responsible</th>
+                                        <th>Report By</th>
+                                        <th>Reporting Date</th>
+                                        <th>Closing Date</th>
+                                        <th>Shift</th>
+                                        <th>Response Time</th>
+                                        <th>Start Time</th>
+                                        <th>End Time</th>
+                                        <th>Total Time</th>
+                                        <th>Diagrama Procedimiento Manual</th>
+                                        <th>Respaldo</th>
+                                        <th>Refaccion</th>
+                                        <th>Tiempo Diagnosticar</th>
+                                        <th>Comments</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -110,27 +110,25 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Area</label>
+                            <label>Area / Linea</label>
                             <select id="jrq-area" name="jrq-area" class="form-control bc-choco slctReporte">
                                 <option value=''>Seleccionar Elemento</option>
+                                @foreach($areaLinea AS $al)
+
+                                    <option value="{{ $al['ctg_id'] }}"> {{ $al['ctg_name'] }} </option>
+
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Line</label>
+                            <label>Proceso</label>
                             <select id="jrq-line" name="jrq-line" class="form-control bc-choco slctReporte">
                                 <option value=''>Seleccionar Elemento</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Equipment</label>
+                            <label>Equipment / System</label>
                             <select id="jrq-equipmnet" name="jrq-equipment" class="form-control bc-choco slctReporte">
-                                <option value=''>Seleccionar Elemento</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>System</label>
-                            <select id="jrq-system" name="jrq-system" class="form-control bc-choco slctReporte">
                                 <option value=''>Seleccionar Elemento</option>
                             </select>
                         </div>
@@ -142,12 +140,29 @@
                             </select>
                         </div>
 
+                        <!-- <div class="form-group">
+                            <label>Sub System</label>
+                            <select id="jrq-system" name="jrq-system" class="form-control bc-choco slctReporte">
+                                <option value=''>Seleccionar Elemento</option>
+                                @foreach($subequip AS $se)
+
+                                    <option value="{{ $se['ctg_id'] }}"> {{ $se['ctg_name'] }} </option>
+
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="form-group">
                             <label>Control Panel</label>
                             <select id="jrq-ctrlPanl" name="jrq-ctrlPanl" class="form-control bc-choco slctReporte">
                                 <option value=''>Seleccionar Elemento</option>
+                                @foreach($controlPanel AS $cp)
+
+                                    <option value="{{ $cp['ctg_id'] }}"> {{ $cp['ctg_name'] }} </option>
+
+                                @endforeach
                             </select>
-                        </div>
+                        </div> -->
 
                         <div class="showReport">
                             <button id="showReportButton" class="btn btn-primary">Mostrar Reporte</button>

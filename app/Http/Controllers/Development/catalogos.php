@@ -42,12 +42,17 @@ class catalogos extends Controller
      */
     public function store(Request $request)
     {
-        $Catalogo = new StoreCatalogo();
-        $Catalogo->ctg_id = $request['data'][0]['value'] . "-" . str_replace(' ', '-', $request['data'][1]['value']);
-        $Catalogo->ctg_tipo = $request['data'][0]['value'];
-        $Catalogo->ctg_name = $request['data'][1]['value'];
-        $Catalogo->ctg_padre = $request['data'][2]['value'];
-        $Catalogo->save();
+        $dataName = explode(',', $request['data'][1]['value']);
+
+        foreach($dataName AS $name){
+
+            $Catalogo = new StoreCatalogo();
+            $Catalogo->ctg_id = $request['data'][0]['value'] . "-" . str_replace('', '-', $name);
+            $Catalogo->ctg_tipo = $request['data'][0]['value'];
+            $Catalogo->ctg_name = $name;
+            $Catalogo->ctg_padre = $request['data'][2]['value'];
+            $Catalogo->save();
+        }
 
         return true;
     }
@@ -89,19 +94,19 @@ class catalogos extends Controller
 
             DB::table('incidencias')
             ->where($ci, '=', $request['data'][1]['value'])
-            ->update( [ $ci => $request['data'][0]['value'] . "-" . str_replace(' ', '-', $request['data'][2]['value']) ] );
+            ->update( [ $ci => $request['data'][0]['value'] . "-" . str_replace(' ', '', $request['data'][2]['value']) ] );
         }
 
         DB::table('catalogos')
         ->where('ctg_padre', $request['data'][1]['value'])
         ->update([
-            'ctg_padre' => $request['data'][0]['value'] . "-" . str_replace(' ', '-', $request['data'][2]['value'])
+            'ctg_padre' => $request['data'][0]['value'] . "-" . str_replace(' ', '', $request['data'][2]['value'])
         ]);
 
         DB::table('catalogos')
         ->where('ctg_id', $request['data'][1]['value'])
         ->update([
-            'ctg_id' => $request['data'][0]['value'] . "-" . str_replace(' ', '-', $request['data'][2]['value']),
+            'ctg_id' => $request['data'][0]['value'] . "-" . str_replace(' ', '', $request['data'][2]['value']),
             'ctg_name' => $request['data'][2]['value']
         ]);
 
@@ -144,8 +149,9 @@ class catalogos extends Controller
 
         $Elementos = jerarquia_catalogos::all();
         $loggin_User = Auth()->User()->name;
+        $adminUser = Auth()->User()->admin_user;
 
-        return view('Development/Catalogos/modificar', compact('Elementos', 'loggin_User'));
+        return view('Development/Catalogos/modificar', compact('Elementos', 'loggin_User', 'adminUser'));
      }
 
      public function get_elements_modificar(){

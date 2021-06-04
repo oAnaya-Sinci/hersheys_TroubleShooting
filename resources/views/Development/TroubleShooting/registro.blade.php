@@ -31,14 +31,19 @@
                         </select>
                     </div>
                     <div class="col-lg-4">
-                        <label>Area</label>
-                        <select id="jrq-area" name="jrq-area" class="form-control bc-choco">
+                        <label>Area / Linea </label>
+                        <select id="jrq-area-line" name="jrq-area-line" class="form-control bc-choco">
                             <option value=''>Seleccionar Elemento</option>
+                            @foreach($areaLinea AS $al)
+
+                                <option value="{{ $al['ctg_id'] }}"> {{ $al['ctg_name'] }} </option>
+
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-lg-4">
-                        <label>Line</label>
-                        <select id="jrq-line" name="jrq-line" class="form-control bc-choco">
+                        <label>Proceso</label>
+                        <select id="jrq-proceso" name="jrq-proceso" class="form-control bc-choco">
                             <option value=''>Seleccionar Elemento</option>
                         </select>
                     </div>
@@ -47,14 +52,8 @@
 
                 <div class="row">
                     <div class="col-lg-4">
-                        <label>Equipment</label>
-                        <select id="jrq-equipmnet" name="jrq-equipment" class="form-control bc-choco">
-                            <option value=''>Seleccionar Elemento</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-4">
-                        <label>System</label>
-                        <select id="jrq-system" name="jrq-system" class="form-control bc-choco">
+                        <label>Equipment / System</label>
+                        <select id="jrq-equipmnet-system" name="jrq-equipment-system" class="form-control bc-choco">
                             <option value=''>Seleccionar Elemento</option>
                         </select>
                     </div>
@@ -62,6 +61,17 @@
                         <label>Componet</label>
                         <select id="jrq-component" name="jrq-component" class="form-control bc-choco">
                             <option value=''>Seleccionar Elemento</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Sub Equipo</label>
+                        <select id="jrq-subequipt" name="jrq-subequipt" class="form-control bc-choco">
+                            <option value=''>Seleccionar Elemento</option>
+                            @foreach($subequip AS $se)
+
+                                <option value="{{ $se['ctg_id'] }}"> {{ $se['ctg_name'] }} </option>
+
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -72,6 +82,11 @@
                         <label>Control Panel</label>
                         <select id="jrq-ctrlPanl" name="jrq-ctrlPanl" class="form-control bc-choco">
                             <option value=''>Seleccionar Elemento</option>
+                            @foreach($controlPanel AS $cp)
+
+                                <option value="{{ $cp['ctg_id'] }}"> {{ $cp['ctg_name'] }} </option>
+
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-lg-4">
@@ -106,7 +121,7 @@
                     </div>
                     <div class="col-lg-4">
                         <label>Responsible</label>
-                        <input type="text" name="responsible" class="form-control bc-choco" placeholder="responsible" />
+                        <input type="text" name="responsible" class="form-control bc-choco" placeholder="responsible" value="{{$loggin_User}}"/>
                     </div>
 
                     <div class="col-lg-4">
@@ -178,11 +193,11 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <label>Tiempo en Diagnosticar</label>
-                        <input type="text" name="Diagrama" class="form-control bc-choco datetimepicker-hour" placeholder="Tiempo en Diagnosticar" />
+                        <input type="text" name="Diagrama" class="form-control bc-choco" placeholder="Tiempo en Diagnosticar" />
                     </div>
                     <div class="col-lg-4">
                         <label>Reported By</label>
-                        <input type="text" name="Respaldo" class="form-control bc-choco" placeholder="Reported By" />
+                        <input type="text" name="Respaldo" class="form-control bc-choco" placeholder="Reported By" value="{{$loggin_User}}"/>
                     </div>
                 </div>
 

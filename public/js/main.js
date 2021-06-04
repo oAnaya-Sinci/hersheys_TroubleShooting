@@ -189,38 +189,38 @@ $('#storeCatalogos').click(function() {
  * Funciones para el registro de las incidencias
  */
 
-$('#jrq-bussn').change(function() {
+// $('#jrq-bussn').change(function() {
 
-    var Element = "jrq-area";
-    getDataSelcts(Element, $('#jrq-bussn').val());
+//     var Element = "jrq-area";
+//     getDataSelcts(Element, $('#jrq-bussn').val());
+// });
+
+$('#jrq-area-line').change(function() {
+
+    var Element = "jrq-proceso";
+    getDataSelcts(Element, $('#jrq-area-line').val());
 });
 
-$('#jrq-area').change(function() {
+$('#jrq-proceso').change(function() {
 
-    var Element = "jrq-line";
-    getDataSelcts(Element, $('#jrq-area').val());
+    var Element = "jrq-equipmnet-system";
+    getDataSelcts(Element, $('#jrq-proceso').val());
 });
 
-$('#jrq-line').change(function() {
-
-    var Element = "jrq-equipmnet";
-    getDataSelcts(Element, $('#jrq-line').val());
-});
-
-$('#jrq-equipmnet').change(function() {
-
-    var Element = "jrq-system";
-    getDataSelcts(Element, $('#jrq-equipmnet').val());
-});
-
-$('#jrq-system').change(function() {
+$('#jrq-equipmnet-system').change(function() {
 
     var Element = "jrq-component";
-    getDataSelcts(Element, $('#jrq-system').val());
-
-    Element = "jrq-ctrlPanl";
-    getDataSelcts(Element, $('#jrq-system').val());
+    getDataSelcts(Element, $('#jrq-equipmnet-system').val());
 });
+
+// $('#jrq-system').change(function() {
+
+//     var Element = "jrq-component";
+//     getDataSelcts(Element, $('#jrq-system').val());
+
+//     Element = "jrq-ctrlPanl";
+//     getDataSelcts(Element, $('#jrq-system').val());
+// });
 
 function getDataSelcts(element, select) {
 
