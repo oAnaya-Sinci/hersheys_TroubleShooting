@@ -17,9 +17,9 @@ class Catalogos extends Migration
             $table->id();
             $table->string('ctg_id');
             $table->string('ctg_tipo');
-            $table->string('ctg_name');
+            $table->string('ctg_name')->unique();
             $table->string('ctg_padre')->nullable();
-            // $table->string('ctg_descripcion');
+            $table->string('ctg_descripcion')->nullable();
             $table->timestamps();
         });
     }

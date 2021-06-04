@@ -17,8 +17,9 @@ class consultaIncidencias extends Controller
     {
         $Incidencias = $this->getIncidencias();
         $loggin_User = Auth()->User()->name;
+        $adminUser = Auth()->User()->admin_user;
 
-        return view('Development/TroubleShooting/consulta', compact('Incidencias', 'loggin_User'));
+        return view('Development/TroubleShooting/consulta', compact('Incidencias', 'loggin_User', 'adminUser'));
     }
 
     /**

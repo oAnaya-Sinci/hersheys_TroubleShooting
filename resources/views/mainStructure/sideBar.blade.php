@@ -3,7 +3,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 <!-- Sidebar - Brand -->
-<a class="sidebar-brand d-flex align-items-center justify-content-center" href="../home/index">
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ config('app.url', '') }}home/index">
     <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-laugh-wink"></i>
     </div>
@@ -18,21 +18,24 @@
     Interface
 </div>
 
-<!-- Nav Item - Pages Collapse Menu -->
-<li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCatalogos" aria-expanded="true" aria-controls="collapseCatalogos">
-        <i class="fas fa-fw far fa-edit"></i>
-        <span>Catalogos</span>
-    </a>
-    <div id="collapseCatalogos" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
+@if($adminUser)
 
-            <a class="collapse-item" href="../Catalogos/registros">Registrar</a>
-            <a class="collapse-item" href="../Catalogos/modificar">Modificar</a>
-            <a class="collapse-item" href="../Catalogos/consultas">Consultar</a>
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCatalogos" aria-expanded="true" aria-controls="collapseCatalogos">
+            <i class="fas fa-fw far fa-edit"></i>
+            <span>Catalogos</span>
+        </a>
+        <div id="collapseCatalogos" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+
+                <a class="collapse-item" href="{{ config('app.url', '') }}Catalogos/registros">Registrar</a>
+                <a class="collapse-item" href="{{ config('app.url', '') }}Catalogos/modificar">Modificar</a>
+                <a class="collapse-item" href="{{ config('app.url', '') }}Catalogos/consultas">Consultar</a>
+            </div>
         </div>
-    </div>
-</li>
+    </li>
+@endif
 
 <!-- Nav Item - Utilities Collapse Menu -->
 <li class="nav-item">
@@ -42,27 +45,30 @@
     </a>
     <div id="collapseTrouble" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            
-            <a class="collapse-item" href="../TroubleShooting/registros">Registrar</a>
-            <a class="collapse-item" href="../TroubleShooting/consultas">Consultar</a>
+
+            <a class="collapse-item" href="{{ config('app.url', '') }}TroubleShooting/registros">Registrar</a>
+            <a class="collapse-item" href="{{ config('app.url', '') }}TroubleShooting/consultas">Consultar</a>
         </div>
     </div>
 </li>
 
-<!-- Nav Item - Utilities Collapse Menu -->
-<li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReporte" aria-expanded="true" aria-controls="collapseReporte">
-        <i class="fas fa-fw fas fa-chart-line"></i>
-        <span>Reportes</span>
-    </a>
-    <div id="collapseReporte" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
+@if($adminUser)
 
-            <a class="collapse-item" href="../Reporte/reporte_general">Reporte de fallas</a>
-            <!-- <a class="collapse-item" href="../Reporte/reporte_fallas">Reporteee</a> -->
+    <!-- Nav Item - Utilities Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReporte" aria-expanded="true" aria-controls="collapseReporte">
+            <i class="fas fa-fw fas fa-chart-line"></i>
+            <span>Reportes</span>
+        </a>
+        <div id="collapseReporte" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+
+                <a class="collapse-item" href="{{ config('app.url', '') }}Reporte/reporte_general">Reporte de fallas</a>
+                <!-- <a class="collapse-item" href="/Reporte/reporte_fallas">Reporteee</a> -->
+            </div>
         </div>
-    </div>
-</li>
+    </li>
+@endif
 
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">

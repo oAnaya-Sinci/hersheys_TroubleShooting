@@ -14,11 +14,14 @@ class reportesHershey extends Controller
 
         $BU = Catalogos::where('ctg_tipo', '=', 'jrq-bussn')->get();
         $loggin_User = Auth()->User()->name;
+        $adminUser = Auth()->User()->admin_user;
 
-        return view('Development/Reportes/reporte_general', compact('BU', 'loggin_User'));
+        return view('Development/Reportes/reporte_general', compact('BU', 'loggin_User', 'adminUser'));
     }
 
     public function get_data_reporte(Request $data){
+
+        a;
 
         $rqst = $data['data'];
 

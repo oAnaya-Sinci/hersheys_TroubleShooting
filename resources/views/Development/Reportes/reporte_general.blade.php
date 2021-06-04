@@ -1,3 +1,9 @@
+@if(!$adminUser)
+
+    <script type="text/javascript"> window.location.href = "{{ config('app.url', '') }}" </script>
+
+@endif
+
 @extends('mainStructure.mainStructure')
 
 @section('content')

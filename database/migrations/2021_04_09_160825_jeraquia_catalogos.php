@@ -17,7 +17,7 @@ class JeraquiaCatalogos extends Migration
             $table->id();
             $table->string('jrq_id');
             $table->string('jrq_nombre');
-            $table->string('jrq_padre');
+            $table->string('jrq_padre')->nullable();
             $table->timestamps();
         });
     }

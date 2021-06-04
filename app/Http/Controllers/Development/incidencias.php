@@ -21,8 +21,9 @@ class incidencias extends Controller
         $Issues = Catalogos::where('ctg_tipo', '=', 'jrq-issue')->get();
         $ActionReq = Catalogos::where('ctg_tipo', '=', 'jrq-action')->get();
         $loggin_User = Auth()->User()->name;
+        $adminUser = Auth()->User()->admin_user;
 
-        return view('Development/TroubleShooting/registro', compact('BU', 'Issues', 'ActionReq', 'loggin_User'));
+        return view('Development/TroubleShooting/registro', compact('BU', 'Issues', 'ActionReq', 'loggin_User', 'adminUser'));
     }
 
     /**
@@ -47,11 +48,11 @@ class incidencias extends Controller
 
         $incidencia = new storeIncidencias;
         $incidencia->icd_BU =  $data[0]['value'];
-        $incidencia->icd_Area =  $data[1]['value'];
-        $incidencia->icd_Line =  $data[2]['value'];
-        $incidencia->icd_Equipment =  $data[3]['value'];
-        $incidencia->icd_System =  $data[4]['value'];
-        $incidencia->icd_Component =  $data[5]['value'];
+        $incidencia->icd_Area_linea =  $data[1]['value'];
+        $incidencia->icd_Proceso =  $data[2]['value'];
+        $incidencia->icd_Equipment_System =  $data[3]['value'];
+        $incidencia->icd_Component =  $data[4]['value'];
+        $incidencia->icd_SubEquipment =  $data[5]['value'];
         $incidencia->icd_ControlPanel =  $data[6]['value'];
         $incidencia->icd_IssueType =  $data[7]['value'];
         $incidencia->icd_ActionRequired =  $data[8]['value'];

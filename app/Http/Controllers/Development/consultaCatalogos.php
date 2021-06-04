@@ -18,8 +18,9 @@ class consultaCatalogos extends Controller
     {
         $Elementos = $this->getElementos();
         $loggin_User = Auth()->User()->name;
+        $adminUser = Auth()->User()->admin_user;
 
-        return view('Development/Catalogos/consulta', compact('Elementos', 'loggin_User'));
+        return view('Development/Catalogos/consulta', compact('Elementos', 'loggin_User','adminUser'));
     }
 
     /**

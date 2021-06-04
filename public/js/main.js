@@ -84,9 +84,10 @@ function calculeTotalTime(st, et) {
         $('#startTime').val('');
         $('#endTime').val('');
 
-        $('#MessageModal .modal-body').empty();
-        $('#MessageModal .modal-body').append('El campo "Start Time" no puede ser mayor al campo "EndTime"');
-        $('#MessageModal').modal('show');
+        $('#ErrorModal .modal-body').empty();
+        $('#ErrorModal .modal-body').append('El campo "Start Time" no puede ser mayor al campo "EndTime"');
+
+        $('#ErrorModal').modal('show');
 
         return false;
     }
@@ -101,9 +102,9 @@ function calculeTotalTime(st, et) {
         $('#startTime').val('');
         $('#endTime').val('');
 
-        $('#MessageModal .modal-body').empty();
-        $('#MessageModal .modal-body').append('El campo "Start Time" no puede ser mayor al campo "EndTime"');
-        $('#MessageModal').modal('show');
+        $('#ErrorModal .modal-body').empty();
+        $('#ErrorModal .modal-body').append('El campo "Start Time" no puede ser mayor al campo "EndTime"');
+        $('#ErrorModal').modal('show');
 
         return false;
 
@@ -132,7 +133,7 @@ $('#element_type').change(function() {
 
     $.ajax({
         type: 'POST',
-        url: '../Catalogos/getDataElement',
+        url: '/Catalogos/getDataElement',
         data: data,
         success: function(data) {
 
@@ -148,6 +149,9 @@ $('#element_type').change(function() {
 
                 $("#element_parent").append("<option value='" + value.ctg_id + "'>" + value.ctg_name + "</option>");
             });
+        },
+        error: function(Message) {
+            showError(Message);
         }
     });
 });
@@ -168,8 +172,11 @@ $('#storeCatalogos').click(function() {
     $.ajax({
         type: "POST",
         dataType: 'json',
-        url: "../Catalogos/storeCatalogos",
+        url: "/Catalogos/storeCatalogos",
         data: data,
+        error: function(Message) {
+            showError(Message);
+        }
     }).done(function(respuesta) {
         $('#successModal').modal('show');
         $('#element_type').val('');
@@ -227,7 +234,7 @@ function getDataSelcts(element, select) {
 
     $.ajax({
         type: 'POST',
-        url: '../TroubleShooting/getDataSelects',
+        url: '/TroubleShooting/getDataSelects',
         data: data,
         success: function(data) {
 
@@ -240,6 +247,9 @@ function getDataSelcts(element, select) {
 
                 $("#" + element).append("<option value='" + value.ctg_id + "'>" + value.ctg_name + "</option>");
             });
+        },
+        error: function(Message) {
+            showError(Message);
         }
     });
 }
@@ -260,8 +270,11 @@ $('#storeIncidencias').click(function() {
     $.ajax({
         type: "POST",
         dataType: 'json',
-        url: "../TroubleShooting/storeIncidencias",
+        url: "/TroubleShooting/storeIncidencias",
         data: data,
+        error: function(Message) {
+            showError(Message);
+        }
     }).done(function(respuesta) {
         $('#successModal').modal('show');
     });
@@ -278,11 +291,34 @@ $('#logoutBtn').click(function() {
 
     $.ajax({
         type: 'POST',
-        url: '../logout',
+        url: '/logout',
         data: data,
         success: function(data) {
 
-            location.href = "/login";
+            location.href = "/";
+        },
+        error: function(Message) {
+            showError(Message);
         }
     });
 });
+
+function showError(Message) {
+
+    if (Message.status == 419) {
+        location.reload();
+        return false;
+    }
+
+    console.log(Message.responseJSON);
+
+    let htmlError = "<h5> Error " + Message.status + ": " + Message.statusText + "</h5>";
+    htmlError += "<p>" + Message.responseJSON['message'] + "</p>";
+
+    $('#ErrorModal .modal-header').addClass('modal-Error');
+
+    $('#ErrorModal .modal-body').empty();
+    $('#ErrorModal .modal-body').append(htmlError);
+
+    $('#ErrorModal').modal('show');
+}

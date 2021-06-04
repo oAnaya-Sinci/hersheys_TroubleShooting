@@ -19,8 +19,9 @@ class catalogos extends Controller
     {
         $loggin_User = Auth()->User()->name;
         $Elementos = jerarquia_catalogos::all();
+        $adminUser = Auth()->User()->admin_user;
 
-        return view('Development/Catalogos/registro', compact('Elementos', 'loggin_User'));
+        return view('Development/Catalogos/registro', compact('Elementos', 'loggin_User', 'adminUser'));
     }
 
     /**
@@ -82,7 +83,7 @@ class catalogos extends Controller
      */
     public function update(Request $request)
     {
-        $columnsInci = ['icd_BU', 'icd_Area', 'icd_Line', 'icd_Equipment', 'icd_System', 'icd_Component', 'icd_ControlPanel', 'icd_IssueType', 'icd_ActionRequired'];
+        $columnsInci = ['icd_BU', 'icd_Area_linea', 'icd_Proceso', 'icd_Equipment_System', 'icd_Component', 'icd_SubEquipment', 'icd_ControlPanel', 'icd_IssueType', 'icd_ActionRequired'];
 
         foreach($columnsInci AS $ci){
 
