@@ -8,6 +8,7 @@ use App\Http\Controllers\Development\consultaCatalogos AS consultaCatalogos;
 use App\Http\Controllers\Development\incidencias AS incidencias;
 use App\Http\Controllers\Development\consultaIncidencias AS consultaIncidencias;
 use App\Http\Controllers\Development\reportesHershey AS reportesHershey;
+use App\Http\Controllers\Development\usuariosController AS usuarios;
 
 use App\Http\Controllers\Auth\logoutController AS logout;
 
@@ -73,6 +74,9 @@ Route::group(['middleware'=>['auth']],function(){
 
     Route::post('Reporte/getDataReport/', [reportesHershey::class, 'get_data_reporte']);
     Route::post('Reporte/getDataTable/', [reportesHershey::class, 'get_DataTable']);
+
+    /* Consultar Usuarios */
+    Route::get('Usuarios/consultar', [usuarios::class, 'index']);
 
     /** Logout */
     Route::post('logout', [logout::class, 'logout']);
