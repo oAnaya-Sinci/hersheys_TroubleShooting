@@ -43,16 +43,6 @@ jQuery(document).ready(function($) {
         });
     }
 
-    // var elementsSlct = ["jrq-bussn", "jrq-area", "jrq-line", "jrq-equipmnet", "jrq-system", "jrq-component", "jrq-ctrlPanl", "jrq-issue", "jrq-action"];
-
-    /* var elementsSlct = ["jrq-bussn"];
-
-    $.each(elementsSlct, function(index, value) {
-
-        getDataSelcts(value, null);
-
-    }); */
-
 });
 
 $('#startTime').blur(function() {
@@ -185,15 +175,6 @@ $('#storeCatalogos').click(function() {
     });
 });
 
-/**
- * Funciones para el registro de las incidencias
- */
-
-// $('#jrq-bussn').change(function() {
-
-//     var Element = "jrq-area";
-//     getDataSelcts(Element, $('#jrq-bussn').val());
-// });
 
 $('#jrq-area-line').change(function() {
 
@@ -212,15 +193,6 @@ $('#jrq-equipmnet-system').change(function() {
     var Element = "jrq-component";
     getDataSelcts(Element, $('#jrq-equipmnet-system').val());
 });
-
-// $('#jrq-system').change(function() {
-
-//     var Element = "jrq-component";
-//     getDataSelcts(Element, $('#jrq-system').val());
-
-//     Element = "jrq-ctrlPanl";
-//     getDataSelcts(Element, $('#jrq-system').val());
-// });
 
 function getDataSelcts(element, select) {
 

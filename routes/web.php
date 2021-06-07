@@ -72,7 +72,7 @@ Route::group(['middleware'=>['auth']],function(){
     Route::post('Reporte/getDataTable/', [reportesHershey::class, 'get_DataTable']);
 
     /* Consultar Usuarios */
-    Route::get('Usuarios/consultar', [usuarios::class, 'index']);
+    Route::get('usuarios/consultar', [usuarios::class, 'index']);
 
     /** Logout */
     Route::post('logout', [logout::class, 'logout']);

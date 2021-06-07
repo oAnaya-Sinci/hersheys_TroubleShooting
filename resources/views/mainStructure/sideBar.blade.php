@@ -70,7 +70,7 @@
     </li>
 
     <!-- Nav Item - usuarios menu -->
-    <!-- <li class="nav-item">
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsuarios" aria-expanded="true" aria-controls="collapseUsuarios">
             <i class="fas fa-fw fas fa-user"></i>
             <span>Usuarios</span>
@@ -78,10 +78,10 @@
         <div id="collapseUsuarios" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
 
-                <a class="collapse-item" href="{{ config('app.url', '') }}Usuarios/consultar">Consultar</a>
+                <a class="collapse-item" href="{{ config('app.url', '') }}usuarios/consultar">Consultar</a>
             </div>
         </div>
-    </li> -->
+    </li>
 @endif
 
 <!-- Divider -->
