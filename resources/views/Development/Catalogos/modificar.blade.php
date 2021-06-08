@@ -26,8 +26,8 @@
 
                 <div class="row">
                     <div class="col-lg-6">
-                        <label>Elemento</label>
-                        <select id="element_parent" name="elemento_padre" class="form-control bc-choco">
+                        <label class="mb-0">Elemento</label>
+                        <select id="element_parent" name="elemento_padre" class="form-control bc-choco mb-1">
                             <option value="">Seleccionar Elemento</option>
                             @foreach($Elementos AS $Ele)
 
@@ -37,8 +37,8 @@
                         </select>
                     </div>
                     <div class="col-lg-6">
-                        <label>Nombre</label>
-                        <select id="element_update" name="elemento" class="form-control bc-choco">
+                        <label class="mb-0">Nombre</label>
+                        <select id="element_update" name="elemento" class="form-control bc-choco mb-1">
                             <option value="">Seleccionar Elemento</option>
                         </select>
                     </div>
@@ -46,17 +46,18 @@
                 <div class="my-2"></div>
                 <div class="row">
                     <div class="col-lg-6">
-                        <label>Nuevo Nombre</label>
-                        <input type="text" id="nombre_elemento" name="nombre_elemento" class="form-control bc-choco" placeholder="nuevo nombre elemento">
+                        <label class="mb-0">Nuevo Nombre</label>
+                        <input type="text" id="nombre_elemento" name="nombre_elemento" class="form-control bc-choco mb-1" placeholder="nuevo nombre elemento">
                     </div>
                 </div>
                 <div class="my-2"></div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <textarea class="form-control bc-choco" rows="5" id="description"> Describir elemento</textarea>
+                        <textarea class="form-control bc-choco mb-1" rows="5" id="description"> Describir elemento</textarea>
                     </div>
                 </div>
                 <div class="my-2"></div>
+                <hr class="sidebar-divider d-none d-md-block">
                 <div class="row">
                     <div class="col-lg-12" style="text-align: right;">
                         <a id="updateCatalogos" href="#" class="btn btn-success btn-icon-split">

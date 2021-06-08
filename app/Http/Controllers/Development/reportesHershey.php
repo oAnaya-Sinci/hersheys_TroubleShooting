@@ -39,17 +39,17 @@ class reportesHershey extends Controller
         return json_encode( $arrayReport );
     }
 
-    public function get_elements($arrayData){
+    public function get_elements($rqst){
 
-        $startDate = explode("-", $arrayData[0]['val']);
+        $startDate = explode("-", $rqst[0]['val']);
         $startDate = $startDate[2] . "-" . $startDate[1] . "-" . $startDate[0];
 
-        $endDate = explode("-", $arrayData[1]['val']);
+        $endDate = explode("-", $rqst[1]['val']);
         $endDate = $endDate[2] . "-" . $endDate[1] . "-" . $endDate[0];
 
-        unset( $arrayData[0], $arrayData[1] );
+        unset( $rqst[0], $rqst[1] );
 
-        $lastCol = count($arrayData);
+        $lastCol = count($rqst);
 
         $Columns = array('icd_bu', 'icd_area_linea', 'icd_proceso', 'icd_equipment_system', 'icd_component', 'icd_subequipment', 'icd_controlpanel');
 
@@ -57,7 +57,7 @@ class reportesHershey extends Controller
         $query .= ' LEFT JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType WHERE UNIX_TIMESTAMP(icd.created_at) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
 
         $x=0;
-        foreach($arrayData AS $d){
+        foreach($rqst AS $d){
 
             if($d['val'] != NULL)
                 $query .= " AND icd." . $Columns[$x] . " = '" . $d['val'] . "'";
@@ -86,12 +86,12 @@ class reportesHershey extends Controller
         return array($arrayIdElem, $arrayElement, $Columns[$lastCol]);
     }
 
-    public function get_dataReport($arrayData, $sizeOf, $Column){
+    public function get_dataReport($rqst, $sizeOf, $Column){
 
-        $startDate = explode("-", $arrayData[0]['val']);
+        $startDate = explode("-", $rqst[0]['val']);
         $startDate = $startDate[2] . "-" . $startDate[1] . "-" . $startDate[0];
 
-        $endDate = explode("-", $arrayData[1]['val']);
+        $endDate = explode("-", $rqst[1]['val']);
         $endDate = $endDate[2] . "-" . $endDate[1] . "-" . $endDate[0];
 
         $query = "SELECT ctg_id, ctg_name FROM catalogos ctg WHERE ctg.ctg_tipo = 'jrq-issue' ORDER BY ctg_name";
@@ -109,12 +109,12 @@ class reportesHershey extends Controller
 
             $reportData = DB::select($query);
 
-            $arrayData = [];
-            array_push($arrayData, $is->ctg_name);
+            $rqst = [];
+            array_push($rqst, $is->ctg_name);
 
             foreach($reportData AS $rp){
 
-                array_push($arrayData, $rp->tot);
+                array_push($rqst, $rp->tot);
             }
 
             if(sizeof($reportData) < $sizeOf){
@@ -123,11 +123,11 @@ class reportesHershey extends Controller
 
                 for($i=0; $i<$x; $i++){
 
-                    array_push($arrayData, 0);
+                    array_push($rqst, 0);
                 }
             }
 
-            array_push($arrayDataIssues, $arrayData);
+            array_push($arrayDataIssues, $rqst);
         }
 
         return $arrayDataIssues;

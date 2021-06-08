@@ -36,11 +36,11 @@
                                     <td>{{$user['id']}}</td>
                                     <td>{{$user['name']}}</td>
                                     <td>{{$user['email']}}</td>
-                                    <td>{{$user['admin_user']}}</td>
+                                    <td value="{{$user['admin_user']}}">{{$user['admin_user_text']}}</td>
                                     <td>{{$user['created_at']}}</td>
                                     <td style="text-align: center;">
                                     <button id="editUser" class="btn btn-success"><i class="fas fa-fw far fa-edit"></i></button>
-                                    <button id="delteUser" class="btn btn-danger"><i class="fas fa-fw far fa-trash"></i></button>
+                                    <button id="deleteUser" class="btn btn-danger"><i class="fas fa-fw far fa-trash"></i></button>
                                     </td>
                                 </tr>
 

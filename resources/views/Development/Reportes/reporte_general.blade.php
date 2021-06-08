@@ -111,7 +111,7 @@
                         </div>
                         <div class="form-group">
                             <label>Area / Linea</label>
-                            <select id="jrq-area" name="jrq-area" class="form-control bc-choco slctReporte">
+                            <select id="jrq-area-line" name="jrq-area" class="form-control bc-choco slctReporte">
                                 <option value=''>Seleccionar Elemento</option>
                                 @foreach($areaLinea AS $al)
 
@@ -122,13 +122,13 @@
                         </div>
                         <div class="form-group">
                             <label>Proceso</label>
-                            <select id="jrq-line" name="jrq-line" class="form-control bc-choco slctReporte">
+                            <select id="jrq-proceso" name="jrq-proceso" class="form-control bc-choco slctReporte">
                                 <option value=''>Seleccionar Elemento</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Equipment / System</label>
-                            <select id="jrq-equipmnet" name="jrq-equipment" class="form-control bc-choco slctReporte">
+                            <select id="jrq-equipmnet-system" name="jrq-equipment" class="form-control bc-choco slctReporte">
                                 <option value=''>Seleccionar Elemento</option>
                             </select>
                         </div>
@@ -139,30 +139,6 @@
                                 <option value=''>Seleccionar Elemento</option>
                             </select>
                         </div>
-
-                        <!-- <div class="form-group">
-                            <label>Sub System</label>
-                            <select id="jrq-system" name="jrq-system" class="form-control bc-choco slctReporte">
-                                <option value=''>Seleccionar Elemento</option>
-                                @foreach($subequip AS $se)
-
-                                    <option value="{{ $se['ctg_id'] }}"> {{ $se['ctg_name'] }} </option>
-
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Control Panel</label>
-                            <select id="jrq-ctrlPanl" name="jrq-ctrlPanl" class="form-control bc-choco slctReporte">
-                                <option value=''>Seleccionar Elemento</option>
-                                @foreach($controlPanel AS $cp)
-
-                                    <option value="{{ $cp['ctg_id'] }}"> {{ $cp['ctg_name'] }} </option>
-
-                                @endforeach
-                            </select>
-                        </div> -->
 
                         <div class="showReport">
                             <button id="showReportButton" class="btn btn-primary">Mostrar Reporte</button>

@@ -73,6 +73,11 @@ Route::group(['middleware'=>['auth']],function(){
 
     /* Consultar Usuarios */
     Route::get('usuarios/consultar', [usuarios::class, 'index']);
+    Route::post('usuarios/updateInfo', [usuarios::class, 'updateDataUser']);
+    Route::post('usuarios/deleteUser', [usuarios::class, 'deleteDataUser']);
+
+    // Testing datatable ajax reload
+    Route::post('usuarios/consultarTable', [usuarios::class, 'dataTable']);
 
     /** Logout */
     Route::post('logout', [logout::class, 'logout']);

@@ -20,8 +20,8 @@
 
                 <div class="row">
                     <div class="col-lg-4">
-                        <label>BU - Business Unit</label>
-                        <select id="jrq-bussn" name="jrq-bussn" class="form-control bc-choco">
+                        <label class="mb-0">BU - Business Unit</label>
+                        <select id="jrq-bussn" name="jrq-bussn" class="form-control bc-choco mb-1">
                             <option value=''>Seleccionar Elemento</option>
                             @foreach($BU AS $b)
 
@@ -31,8 +31,8 @@
                         </select>
                     </div>
                     <div class="col-lg-4">
-                        <label>Area / Linea </label>
-                        <select id="jrq-area-line" name="jrq-area-line" class="form-control bc-choco">
+                        <label class="mb-0">Area / Linea </label>
+                        <select id="jrq-area-line" name="jrq-area-line" class="form-control bc-choco mb-1">
                             <option value=''>Seleccionar Elemento</option>
                             @foreach($areaLinea AS $al)
 
@@ -42,8 +42,8 @@
                         </select>
                     </div>
                     <div class="col-lg-4">
-                        <label>Proceso</label>
-                        <select id="jrq-proceso" name="jrq-proceso" class="form-control bc-choco">
+                        <label class="mb-0">Proceso</label>
+                        <select id="jrq-proceso" name="jrq-proceso" class="form-control bc-choco mb-1">
                             <option value=''>Seleccionar Elemento</option>
                         </select>
                     </div>
@@ -52,20 +52,20 @@
 
                 <div class="row">
                     <div class="col-lg-4">
-                        <label>Equipment / System</label>
-                        <select id="jrq-equipmnet-system" name="jrq-equipment-system" class="form-control bc-choco">
+                        <label class="mb-0">Equipment / System</label>
+                        <select id="jrq-equipmnet-system" name="jrq-equipment-system" class="form-control bc-choco mb-1">
                             <option value=''>Seleccionar Elemento</option>
                         </select>
                     </div>
                     <div class="col-lg-4">
-                        <label>Componet</label>
-                        <select id="jrq-component" name="jrq-component" class="form-control bc-choco">
+                        <label class="mb-0">Componet</label>
+                        <select id="jrq-component" name="jrq-component" class="form-control bc-choco mb-1">
                             <option value=''>Seleccionar Elemento</option>
                         </select>
                     </div>
                     <div class="col-lg-4">
-                        <label>Sub Equipo</label>
-                        <select id="jrq-subequipt" name="jrq-subequipt" class="form-control bc-choco">
+                        <label class="mb-0">Sub Equipo</label>
+                        <select id="jrq-subequipt" name="jrq-subequipt" class="form-control bc-choco mb-1">
                             <option value=''>Seleccionar Elemento</option>
                             @foreach($subequip AS $se)
 
@@ -79,8 +79,8 @@
 
                 <div class="row">
                     <div class="col-lg-4">
-                        <label>Control Panel</label>
-                        <select id="jrq-ctrlPanl" name="jrq-ctrlPanl" class="form-control bc-choco">
+                        <label class="mb-0">Control Panel</label>
+                        <select id="jrq-ctrlPanl" name="jrq-ctrlPanl" class="form-control bc-choco mb-1">
                             <option value=''>Seleccionar Elemento</option>
                             @foreach($controlPanel AS $cp)
 
@@ -90,8 +90,8 @@
                         </select>
                     </div>
                     <div class="col-lg-4">
-                        <label>Issue Type</label>
-                        <select id="jrq-issue" name="jrq-issue" class="form-control bc-choco">
+                        <label class="mb-0">Issue Type</label>
+                        <select id="jrq-issue" name="jrq-issue" class="form-control bc-choco mb-1">
                             <option value=''>Seleccionar Issue</option>
                             @foreach($Issues AS $is)
 
@@ -101,8 +101,8 @@
                         </select>
                     </div>
                     <div class="col-lg-4">
-                        <label>Action Required</label>
-                        <select id="jrq-action" name="jrq-action" class="form-control bc-choco">
+                        <label class="mb-0">Action Required</label>
+                        <select id="jrq-action" name="jrq-action" class="form-control bc-choco mb-1">
                         <option value=''>Seleccionar Elemento</option>
                         @foreach($ActionReq AS $ac)
 
@@ -116,18 +116,18 @@
 
                 <div class="row">
                     <div class="col-lg-4">
-                        <label>Priority</label>
-                        <input type="text" name="priority" class="form-control bc-choco" placeholder="priority" />
+                        <label class="mb-0">Priority</label>
+                        <input type="text" name="priority" class="form-control bc-choco mb-1" placeholder="priority" />
                     </div>
                     <div class="col-lg-4">
-                        <label>Responsible</label>
-                        <input type="text" name="responsible" class="form-control bc-choco" placeholder="responsible" value="{{$loggin_User}}"/>
+                        <label class="mb-0">Responsible</label>
+                        <input type="text" name="responsible" class="form-control bc-choco mb-1" placeholder="responsible" value="{{$loggin_User}}"/>
                     </div>
 
                     <div class="col-lg-4">
-                        <label>Shift</label>
-                        <!-- <input type="text" class="form-control bc-choco" placeholder="shift" /> -->
-                        <select name="Shift" class="form-control bc-choco">
+                        <label class="mb-0">Shift</label>
+                        <!-- <input type="text" class="form-control bc-choco mb-1" placeholder="shift" /> -->
+                        <select name="Shift" class="form-control bc-choco mb-1">
                             <option value=''>Seleccionar Turno</option>
                             <option value='1'>Matutino</option>
                             <option value='2'>Vespertino</option>
@@ -139,82 +139,83 @@
 
                 <div class="row">
                     <div class="col-lg-4">
-                        <label>Reporting Date</label>
-                        <input type="text" name="ReportingDate" class="form-control bc-choco datetimepicker" placeholder="responsible" />
+                        <label class="mb-0">Reporting Date</label>
+                        <input type="text" name="ReportingDate" class="form-control bc-choco mb-1 datetimepicker" placeholder="responsible" />
                         <!-- <div class="input-group-append">
-                            <input type="text" class="form-control bc-choco datetimepicker"></input>
+                            <input type="text" class="form-control bc-choco mb-1 datetimepicker"></input>
                             <i class="fas fa-calendar"></i>
                         </div> -->
                     </div>
 
                     <div class="col-lg-4">
-                        <label>Closing Date</label>
-                        <input type="text" name="ClosisngDate" class="form-control bc-choco datetimepicker" placeholder="shift" />
+                        <label class="mb-0">Closing Date</label>
+                        <input type="text" name="ClosisngDate" class="form-control bc-choco mb-1 datetimepicker" placeholder="shift" />
                     </div>
                     <div class="col-lg-4">
-                        <label>Response Time</label>
-                        <input type="text" name="ResponseTime" class="form-control bc-choco" placeholder="response time" />
+                        <label class="mb-0">Response Time</label>
+                        <input type="text" name="ResponseTime" class="form-control bc-choco mb-1" placeholder="response time" />
                     </div>
                 </div>
                 <div class="my-2"></div>
 
                 <div class="row">
                     <div class="col-lg-4">
-                        <label>Start Time</label>
-                        <input type="text" id="startTime" name="StartTime" class="form-control bc-choco datetimepicker-hour" placeholder="00:00" />
+                        <label class="mb-0">Start Time</label>
+                        <input type="text" id="startTime" name="StartTime" class="form-control bc-choco mb-1 datetimepicker-hour" placeholder="00:00" />
                     </div>
                     <div class="col-lg-4">
-                        <label>End Time</label>
-                        <input type="text" id="endTime" name="EndTime" class="form-control bc-choco datetimepicker-hour" placeholder="00:00" />
+                        <label class="mb-0">End Time</label>
+                        <input type="text" id="endTime" name="EndTime" class="form-control bc-choco mb-1 datetimepicker-hour" placeholder="00:00" />
                     </div>
                     <div class="col-lg-4">
-                        <label>Total Time</label>
-                        <input type="text" id="totalTime" name="TotalTime" class="form-control bc-choco" placeholder="total time" />
+                        <label class="mb-0">Total Time</label>
+                        <input type="text" id="totalTime" name="TotalTime" class="form-control bc-choco mb-1" placeholder="total time" />
                     </div>
                 </div>
                 <div class="my-2"></div>
 
                 <div class="row">
                     <div class="col-lg-4">
-                        <label>Diagrama Procedimiento Manual</label>
-                        <input type="text" name="Diagrama" class="form-control bc-choco" placeholder="Diagrama" />
+                        <label class="mb-0">Diagrama Procedimiento Manual</label>
+                        <input type="text" name="Diagrama" class="form-control bc-choco mb-1" placeholder="Diagrama" />
                     </div>
                     <div class="col-lg-4">
-                        <label>Respaldo</label>
-                        <input type="text" name="Respaldo" class="form-control bc-choco" placeholder="Respaldo" />
+                        <label class="mb-0">Respaldo</label>
+                        <input type="text" name="Respaldo" class="form-control bc-choco mb-1" placeholder="Respaldo" />
                     </div>
                     <div class="col-lg-4">
-                        <label>Refaccion</label>
-                        <input type="text" name="Refaccion" class="form-control bc-choco" placeholder="refaccion" />
+                        <label class="mb-0">Refaccion</label>
+                        <input type="text" name="Refaccion" class="form-control bc-choco mb-1" placeholder="refaccion" />
                     </div>
                 </div>
                 <div class="my-2"></div>
 
                 <div class="row">
                     <div class="col-lg-4">
-                        <label>Tiempo en Diagnosticar</label>
-                        <input type="text" name="Diagrama" class="form-control bc-choco" placeholder="Tiempo en Diagnosticar" />
+                        <label class="mb-0">Tiempo en Diagnosticar</label>
+                        <input type="text" name="Diagrama" class="form-control bc-choco mb-1" placeholder="Tiempo en Diagnosticar" />
                     </div>
                     <div class="col-lg-4">
-                        <label>Reported By</label>
-                        <input type="text" name="Respaldo" class="form-control bc-choco" placeholder="Reported By" value="{{$loggin_User}}"/>
+                        <label class="mb-0">Reported By</label>
+                        <input type="text" name="Respaldo" class="form-control bc-choco mb-1" placeholder="Reported By" value="{{$loggin_User}}"/>
                     </div>
                 </div>
+                <div class="my-2"></div>
 
                 <div class="row">
                     <div class="col-lg-6">
-                        <label>Problem Description</label>
-                        <textarea name="ProblemDescription" class="form-control bc-choco" rows="5"></textarea>
+                        <label class="mb-0">Problem Description</label>
+                        <textarea name="ProblemDescription" class="form-control bc-choco mb-1" rows="5"></textarea>
                     </div>
 
                     <div class="col-lg-6">
-                        <label>Comments</label>
-                        <textarea name="Comments" class="form-control bc-choco" rows="5"></textarea>
+                        <label class="mb-0">Comments</label>
+                        <textarea name="Comments" class="form-control bc-choco mb-1" rows="5"></textarea>
                     </div>
                 </div>
 
                 <div class="my-2"></div>
-                <div class="my-2"></div>
+                <hr class="sidebar-divider d-none d-md-block">
 
                 <div class="row">
                     <div class="col-lg-12" style="text-align: right;">

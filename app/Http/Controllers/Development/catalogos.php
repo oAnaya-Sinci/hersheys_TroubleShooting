@@ -47,7 +47,7 @@ class catalogos extends Controller
         foreach($dataName AS $name){
 
             $Catalogo = new StoreCatalogo();
-            $Catalogo->ctg_id = $request['data'][0]['value'] . "-" . str_replace('', '-', $name);
+            $Catalogo->ctg_id = $request['data'][0]['value'] . "-" . str_replace(' ', '', $name);
             $Catalogo->ctg_tipo = $request['data'][0]['value'];
             $Catalogo->ctg_name = $name;
             $Catalogo->ctg_padre = $request['data'][2]['value'];
@@ -135,11 +135,13 @@ class catalogos extends Controller
         $elemento = DB::table('jerarquia_catalogos')->where('jrq_id', '=', $type)->value('jrq_padre');
 
         $catalogos = DB::table('catalogos')
-        ->where('ctg_tipo', '=', $elemento)
+        // ->select(DB::raw(""))
+        ->join('catalogos AS padre', 'catalogos.ctg_padre', 'padre.ctg_id')
+        ->where('catalogos.ctg_tipo', '=', $elemento)
         ->get();
 
         return json_encode( $catalogos );
- }
+    }
 
     /**
      * Funciones para modificar los elmentos registrados en los catalogos

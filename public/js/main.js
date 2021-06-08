@@ -43,6 +43,25 @@ jQuery(document).ready(function($) {
         });
     }
 
+    // var data = {
+    //     _token: $('meta[name="csrf-token"]').attr('content')
+    // }
+
+    // $('.table-bordered.usuarios').DataTable({
+    //     ajax: {
+    //         url: '/usuarios/consultarTable',
+    //         type: 'POST',
+    //         data: data
+    //     },
+    //     columns: [ //or different depending on the structure of the object
+    //         { "data": "user.id" },
+    //         { "data": "user.name" },
+    //         { "data": "user.email" },
+    //         { "data": "user.admin_user" },
+    //         { "data": "user.created_at" }
+    //     ]
+    // });
+
 });
 
 $('#startTime').blur(function() {
@@ -257,6 +276,11 @@ $('#storeIncidencias').click(function() {
 */
 $('#logoutBtn').click(function() {
 
+    logoutFunction();
+});
+
+function logoutFunction() {
+
     var data = {
         _token: $('meta[name="csrf-token"]').attr('content')
     }
@@ -273,7 +297,7 @@ $('#logoutBtn').click(function() {
             showError(Message);
         }
     });
-});
+}
 
 function showError(Message) {
 
@@ -296,3 +320,78 @@ function showError(Message) {
 }
 
 /* Seccion Editar usuarios */
+
+$('.table.table-bordered.usuarios tbody tr td #editUser').each(function() {
+
+    $(this).click(function() {
+
+        $('#userId').val($(this).parents('tr').children(0)[0].innerText);
+        $('#nombreEdit').val($(this).parents('tr').children(0)[1].innerText);
+        $('#emailEdit').val($(this).parents('tr').children(0)[2].innerText);
+        $('#adminUserEdit').val($(this).parents('tr').children(0)[3].innerText);
+
+        $('#ModificarUsuariosModal').modal('show');
+    })
+});
+
+$('.table.table-bordered.usuarios tbody tr td #deleteUser').each(function() {
+
+    $(this).click(function() {
+
+        $('#userId').val($(this).parents('tr').children(0)[0].innerText);
+        $('#deleteUserModal').modal('show');
+    })
+});
+
+$('#updateInfoUser').click(function() {
+
+    var data = {
+        _token: $('meta[name="csrf-token"]').attr('content'),
+        data: {
+            idUser: $('#userId').val(),
+            nombreUser: $('#nombreEdit').val(),
+            // emailUser: $('#emailEdit').val(),
+            adminUser: $('#adminUserEdit').val(),
+            newPassword: $('#newPassword').val()
+        }
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '/usuarios/updateInfo',
+        data: data,
+        success: function(response) {
+
+            if (response)
+                logoutFunction();
+
+            else
+                location.reload();
+        },
+        error: function(Message) {
+            showError(Message);
+        }
+    });
+});
+
+$('#delteDataUser').click(function() {
+
+    var data = {
+        _token: $('meta[name="csrf-token"]').attr('content'),
+        data: {
+            idUser: $('#userId').val(),
+        }
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '/usuarios/deleteUser',
+        data: data,
+        success: function() {
+            location.reload();
+        },
+        error: function(Message) {
+            showError(Message);
+        }
+    });
+});

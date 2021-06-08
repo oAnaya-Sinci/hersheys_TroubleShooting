@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class logoutController extends Controller
 {
-    public function logout(request $request){
+    public function logout(/* request $request */){
 
         auth()->logout();
         return true;

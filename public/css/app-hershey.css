@@ -44,7 +44,7 @@
         color: #fff;
     }
     
-    #ErrorModal .modal-content .modal-Error {
+    .errorModal .modal-content .modal-Error {
         background-color: red !important;
         color: #fff !important;
     }
