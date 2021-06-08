@@ -3,7 +3,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 <!-- Sidebar - Brand -->
-<a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ config('app.url', '') }}home/index">
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ config('app.url', '') }}">
     <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-laugh-wink"></i>
     </div>

@@ -20,7 +20,7 @@ class Incidencias extends Migration
             $table->string('icd_Proceso');
             $table->string('icd_Equipment_System');
             $table->string('icd_Component');
-            $table->string('icd_SubEquipment')->nullable();
+            $table->string('icd_Subsystem')->nullable();
             $table->string('icd_ControlPanel')->nullable();
             $table->string('icd_IssueType');
             $table->string('icd_ActionRequired');

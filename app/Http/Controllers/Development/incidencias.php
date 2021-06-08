@@ -19,14 +19,14 @@ class incidencias extends Controller
     {
         $BU = Catalogos::where('ctg_tipo', '=', 'jrq-bussn')->get();
         $areaLinea = Catalogos::where('ctg_tipo', '=', 'jrq-area-line')->get();
-        $subequip = Catalogos::where('ctg_tipo', '=', 'jrq-subequipt')->get();
+        $subsystem = Catalogos::where('ctg_tipo', '=', 'jrq-subsystem')->get();
         $controlPanel = Catalogos::where('ctg_tipo', '=', 'jrq-ctrlPanl')->get();
         $Issues = Catalogos::where('ctg_tipo', '=', 'jrq-issue')->get();
         $ActionReq = Catalogos::where('ctg_tipo', '=', 'jrq-action')->get();
         $loggin_User = Auth()->User()->name;
         $adminUser = Auth()->User()->admin_user;
 
-        return view('Development/TroubleShooting/registro', compact('BU', 'areaLinea', 'controlPanel', 'subequip', 'Issues', 'ActionReq', 'loggin_User', 'adminUser'));
+        return view('Development/TroubleShooting/registro', compact('BU', 'areaLinea', 'controlPanel', 'subsystem', 'Issues', 'ActionReq', 'loggin_User', 'adminUser'));
     }
 
     /**
@@ -55,7 +55,7 @@ class incidencias extends Controller
         $incidencia->icd_Proceso =  $data[2]['value'];
         $incidencia->icd_Equipment_System =  $data[3]['value'];
         $incidencia->icd_Component =  $data[4]['value'];
-        $incidencia->icd_SubEquipment =  $data[5]['value'];
+        $incidencia->icd_Subsystem =  $data[5]['value'];
         $incidencia->icd_ControlPanel =  $data[6]['value'];
         $incidencia->icd_IssueType =  $data[7]['value'];
         $incidencia->icd_ActionRequired =  $data[8]['value'];

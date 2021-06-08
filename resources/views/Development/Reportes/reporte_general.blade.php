@@ -140,6 +140,13 @@
                             </select>
                         </div>
 
+                        <div class="form-group">
+                            <label>Sub Sistema</label>
+                            <select id="jrq-subsystem" name="jrq-subsystem" class="form-control bc-choco slctReporte">
+                                <option value=''>Seleccionar Elemento</option>
+                            </select>
+                        </div>
+
                         <div class="showReport">
                             <button id="showReportButton" class="btn btn-primary">Mostrar Reporte</button>
                             <button id="downloadExcel" class="btn btn-secondary" >Descargar Tabla->XLSX</button>

@@ -20,6 +20,7 @@ class Catalogos extends Migration
             $table->string('ctg_name');
             $table->string('ctg_padre')->nullable();
             $table->string('ctg_descripcion')->nullable();
+            $table->integer('ctg_eliminado');
             $table->timestamps();
         });
     }

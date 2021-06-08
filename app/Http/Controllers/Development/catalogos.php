@@ -51,6 +51,7 @@ class catalogos extends Controller
             $Catalogo->ctg_tipo = $request['data'][0]['value'];
             $Catalogo->ctg_name = $name;
             $Catalogo->ctg_padre = $request['data'][2]['value'];
+            $Catalogo->ctg_eliminado = 0;
             $Catalogo->save();
         }
 
@@ -88,7 +89,7 @@ class catalogos extends Controller
      */
     public function update(Request $request)
     {
-        $columnsInci = ['icd_BU', 'icd_Area_linea', 'icd_Proceso', 'icd_Equipment_System', 'icd_Component', 'icd_SubEquipment', 'icd_ControlPanel', 'icd_IssueType', 'icd_ActionRequired'];
+        $columnsInci = ['icd_BU', 'icd_Area_linea', 'icd_Proceso', 'icd_Equipment_System', 'icd_Component', 'icd_Subsystem', 'icd_ControlPanel', 'icd_IssueType', 'icd_ActionRequired'];
 
         foreach($columnsInci AS $ci){
 
@@ -135,8 +136,8 @@ class catalogos extends Controller
         $elemento = DB::table('jerarquia_catalogos')->where('jrq_id', '=', $type)->value('jrq_padre');
 
         $catalogos = DB::table('catalogos')
-        // ->select(DB::raw(""))
-        ->join('catalogos AS padre', 'catalogos.ctg_padre', 'padre.ctg_id')
+        ->select(DB::raw("catalogos.ctg_id, IF( padre.ctg_name <> '', CONCAT(padre.ctg_name, ' / ', catalogos.ctg_name), catalogos.ctg_name ) AS ctg_name"))
+        ->leftjoin('catalogos AS padre', 'catalogos.ctg_padre', 'padre.ctg_id')
         ->where('catalogos.ctg_tipo', '=', $elemento)
         ->get();
 

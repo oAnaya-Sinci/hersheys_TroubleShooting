@@ -101,7 +101,7 @@ class consultaIncidencias extends Controller
                         ->leftjoin('catalogos AS area_linea', 'incidencias.icd_area_linea', 'area_linea.ctg_id')
                         ->leftjoin('catalogos AS proceso', 'incidencias.icd_proceso', 'proceso.ctg_id')
                         ->leftjoin('catalogos AS equip_system', 'incidencias.icd_equipment_system', 'equip_system.ctg_id')
-                        ->leftjoin('catalogos AS subsystem', 'incidencias.icd_SubEquipment', 'subsystem.ctg_id')
+                        ->leftjoin('catalogos AS subsystem', 'incidencias.icd_Subsystem', 'subsystem.ctg_id')
                         ->leftjoin('catalogos AS component', 'incidencias.icd_component', 'component.ctg_id')
                         ->leftjoin('catalogos AS cntrlp', 'incidencias.icd_controlpanel', 'cntrlp.ctg_id')
                         ->leftjoin('catalogos AS issue', 'incidencias.icd_issuetype', 'issue.ctg_id')

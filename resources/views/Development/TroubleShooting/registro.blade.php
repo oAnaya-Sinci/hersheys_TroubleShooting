@@ -64,12 +64,12 @@
                         </select>
                     </div>
                     <div class="col-lg-4">
-                        <label class="mb-0">Sub Equipo</label>
-                        <select id="jrq-subequipt" name="jrq-subequipt" class="form-control bc-choco mb-1">
+                        <label class="mb-0">Sub Sistema</label>
+                        <select id="jrq-subsystem" name="jrq-subsystem" class="form-control bc-choco mb-1">
                             <option value=''>Seleccionar Elemento</option>
-                            @foreach($subequip AS $se)
+                            @foreach($subsystem AS $ss)
 
-                                <option value="{{ $se['ctg_id'] }}"> {{ $se['ctg_name'] }} </option>
+                                <option value="{{ $ss['ctg_id'] }}"> {{ $ss['ctg_name'] }} </option>
 
                             @endforeach
                         </select>
