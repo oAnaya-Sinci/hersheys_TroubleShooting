@@ -20,6 +20,7 @@
                     <table class="table table-bordered incidencias" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>BU</th>
                                 <th>Area / Line</th>
                                 <th>Proceso</th>
@@ -52,6 +53,7 @@
                             @foreach($Incidencias AS $Inci)
 
                                 <tr>
+                                    <td>{{$Inci['id']}}</td>
                                     <td>{{$Inci['bssnu']}}</td>
                                     <td>{{$Inci['area_linea']}}</td>
                                     <td>{{$Inci['proceso']}}</td>
