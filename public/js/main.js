@@ -374,7 +374,7 @@ $('#updateInfoUser').click(function() {
     });
 });
 
-$('#delteDataUser').click(function() {
+$('#deleteDataUser').click(function() {
 
     var data = {
         _token: $('meta[name="csrf-token"]').attr('content'),
@@ -386,6 +386,39 @@ $('#delteDataUser').click(function() {
     $.ajax({
         type: 'POST',
         url: '/usuarios/deleteUser',
+        data: data,
+        success: function() {
+            location.reload();
+        },
+        error: function(Message) {
+            showError(Message);
+        }
+    });
+});
+
+/* Validaciones eliminar catalogo */
+
+$('.table.table-bordered.catalogos tbody tr td #deleteCatalog').each(function() {
+
+    $(this).click(function() {
+
+        $('#catalogId').val($(this).parents('tr').children(0)[0].innerText);
+        $('#deleteCatalogModal').modal('show');
+    })
+});
+
+$('#delteDataCatalogo').click(function() {
+
+    var data = {
+        _token: $('meta[name="csrf-token"]').attr('content'),
+        data: {
+            idUser: $('#catalogId').val(),
+        }
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '/Catalogos/eliminar',
         data: data,
         success: function() {
             location.reload();

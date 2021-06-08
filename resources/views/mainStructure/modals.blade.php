@@ -123,7 +123,30 @@
                 <p>¿Desea continuar con la eliminacion de la información?</p>
             </div>
             <div class="modal-footer">
-                <button id="delteDataUser" class="btn btn-danger" type="button" data-dismiss="modal">Continuar</button>
+                <button id="deleteDataUser" class="btn btn-danger" type="button" data-dismiss="modal">Continuar</button>
+                <button class="btn btn-success" type="button" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Borrar usuarios Modal-->
+<div class="modal fade errorModal" id="deleteCatalogModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-Error">
+                <h5 class="modal-title" id="exampleModalLabel">¡Atencion!</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="catalogId">
+                <p> La información al ser borrada se perdara y no podra ser recuperada en el futuro</p>
+                <p>¿Desea continuar con la eliminacion de la información?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="delteDataCatalogo" class="btn btn-danger" type="button" data-dismiss="modal">Continuar</button>
                 <button class="btn btn-success" type="button" data-dismiss="modal">Cancelar</button>
             </div>
         </div>

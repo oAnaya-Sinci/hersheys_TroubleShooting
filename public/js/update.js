@@ -56,6 +56,11 @@ $('#updateCatalogos').click(function() {
         dataType: 'json',
         url: "../TroubleShooting/upadateCatalogos",
         data: data,
+        success: function() {
+
+            $("#element_update").empty();
+            $("#element_update").append("<option value=''>Seleccionar Elemento</option>");
+        },
         error: function(Message) {
             showError(Message);
         }
@@ -83,6 +88,7 @@ function showError(Message) {
 
     $('#ErrorModal .modal-body').empty();
     $('#ErrorModal .modal-body').append(htmlError);
+
 
     $('#ErrorModal').modal('show');
 }

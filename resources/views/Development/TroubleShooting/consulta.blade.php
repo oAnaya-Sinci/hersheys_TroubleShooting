@@ -24,8 +24,8 @@
                                 <th>Area / Line</th>
                                 <th>Proceso</th>
                                 <th>Equipment / System</th>
-                                <th>Componet</th>
                                 <th>SubSystem</th>
+                                <th>Componet</th>
                                 <th>Control Panel</th>
                                 <th>Problem Description</th>
                                 <th>Issue Type</th>

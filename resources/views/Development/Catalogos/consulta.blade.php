@@ -23,13 +23,14 @@
             <div class="card-body">
 
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered catalogos" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Elemento</th>
                                 <th>Nombre</th>
                                 <th>padre</th>
+                                <th>Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,6 +41,7 @@
                                 <td>{{$Ele['tipo']}}</td>
                                 <td>{{$Ele['nombre']}}</td>
                                 <td>{{$Ele['padre']}}</td>
+                                <td style="text-aling: center;"><button id="deleteCatalog" class="btn btn-danger"><i class="fas fa-fw far fa-trash"></i></button></td>
                             </tr>
 
                         @endforeach

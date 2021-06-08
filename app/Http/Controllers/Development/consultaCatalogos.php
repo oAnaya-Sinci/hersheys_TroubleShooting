@@ -98,9 +98,16 @@ class consultaCatalogos extends Controller
         $Elementos = catalogos::select('catalogos.id AS cata_id', 'jc.jrq_nombre AS tipo', 'catalogos.ctg_name AS nombre', 'parent.ctg_name AS padre')
                         ->leftJoin('catalogos AS parent', 'catalogos.ctg_padre', '=', 'parent.ctg_id')
                         ->join('jerarquia_catalogos AS jc', 'catalogos.ctg_tipo', '=', 'jc.jrq_id')
-                        // ->where('catalogos.ctg_eliminado', 0)
+                        ->where('catalogos.ctg_eliminado', 0)
                         ->distinct()->get();
 
         return $Elementos;
+    }
+
+    public function deleteCatalog(Request $data){
+
+        catalogos::where('id', $data['data'])->update(['ctg_eliminado' => '1']);
+
+        return true;
     }
 }

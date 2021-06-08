@@ -45,6 +45,7 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('Catalogos/modificar', [catalogos::class, 'modificar']);
     Route::get('Catalogos/modificar/getData', [catalogos::class, 'get_elements_modificar']);
     Route::get('Catalogos/consultas', [consultaCatalogos::class, 'index']);
+    Route::post('Catalogos/eliminar', [consultaCatalogos::class, 'deleteCatalog']);
 
     // Rutas para acciones con incidencias
     Route::get('TroubleShooting/registros', [incidencias::class, 'index']);
