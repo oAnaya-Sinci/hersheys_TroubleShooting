@@ -58,9 +58,9 @@
                                     <td>{{$Inci['area_linea']}}</td>
                                     <td>{{$Inci['proceso']}}</td>
                                     <td>{{$Inci['equipment_system']}}</td>
-                                    <td>{{$Inci['subsystem']}}</td>
+                                    <td>{{$Inci['icd_Subsystem']}}</td>
                                     <td>{{$Inci['component']}}</td>
-                                    <td>{{$Inci['control']}}</td>
+                                    <td>{{$Inci['icd_ControlPanel']}}</td>
                                     <td>{{$Inci['icd_ProblemDescription']}}</td>
                                     <td>{{$Inci['issue']}}</td>
                                     <td>{{$Inci['icd_Priority']}}</td>

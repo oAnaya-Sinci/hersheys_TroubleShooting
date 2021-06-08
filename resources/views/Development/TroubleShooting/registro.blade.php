@@ -205,7 +205,7 @@
 
                 <div class="row">
                     <div class="col-lg-12" style="text-align: right;">
-                        <a href="#" id="storeIncidencias" class="btn btn-success btn-icon-split" id="saveIncidents">
+                        <a href="#" id="storeIncidencias" class="btn btn-success btn-icon-split">
                             <span class="icon text-white-50">
                                 <i class="fas fa-check"></i>
                             </span>

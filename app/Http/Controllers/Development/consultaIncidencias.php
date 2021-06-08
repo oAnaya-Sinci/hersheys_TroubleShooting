@@ -95,15 +95,15 @@ class consultaIncidencias extends Controller
      public function getIncidencias(){
 
         $Incidencias = Incidencias::
-                        select('incidencias.*', 'bu.ctg_name AS bssnu', 'area_linea.ctg_name AS area_linea', 'proceso.ctg_name AS proceso', 'equip_system.ctg_name AS equipment_system', 'subsystem.ctg_name AS subsystem', 'component.ctg_name AS component', 'cntrlp.ctg_name AS control', 'issue.ctg_name AS issue', 'actionr.ctg_name AS action')
+                        select('incidencias.*', 'bu.ctg_name AS bssnu', 'area_linea.ctg_name AS area_linea', 'proceso.ctg_name AS proceso', 'equip_system.ctg_name AS equipment_system',  'component.ctg_name AS component', 'issue.ctg_name AS issue', 'actionr.ctg_name AS action')
 
                         ->leftjoin('catalogos AS bu', 'incidencias.icd_bu', 'bu.ctg_id')
                         ->leftjoin('catalogos AS area_linea', 'incidencias.icd_area_linea', 'area_linea.ctg_id')
                         ->leftjoin('catalogos AS proceso', 'incidencias.icd_proceso', 'proceso.ctg_id')
                         ->leftjoin('catalogos AS equip_system', 'incidencias.icd_equipment_system', 'equip_system.ctg_id')
-                        ->leftjoin('catalogos AS subsystem', 'incidencias.icd_Subsystem', 'subsystem.ctg_id')
+                        // ->leftjoin('catalogos AS subsystem', 'incidencias.icd_Subsystem', 'subsystem.ctg_id')
                         ->leftjoin('catalogos AS component', 'incidencias.icd_component', 'component.ctg_id')
-                        ->leftjoin('catalogos AS cntrlp', 'incidencias.icd_controlpanel', 'cntrlp.ctg_id')
+                        // ->leftjoin('catalogos AS cntrlp', 'incidencias.icd_controlpanel', 'cntrlp.ctg_id')
                         ->leftjoin('catalogos AS issue', 'incidencias.icd_issuetype', 'issue.ctg_id')
                         ->leftjoin('catalogos AS actionr', 'incidencias.icd_actionrequired', 'actionr.ctg_id')
 
