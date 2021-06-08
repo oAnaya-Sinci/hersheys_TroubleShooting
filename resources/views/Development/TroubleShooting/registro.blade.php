@@ -65,14 +65,7 @@
                     </div>
                     <div class="col-lg-4">
                         <label class="mb-0">Sub Sistema</label>
-                        <select id="jrq-subsystem" name="jrq-subsystem" class="form-control bc-choco mb-1">
-                            <option value=''>Seleccionar Elemento</option>
-                            @foreach($subsystem AS $ss)
-
-                                <option value="{{ $ss['ctg_id'] }}"> {{ $ss['ctg_name'] }} </option>
-
-                            @endforeach
-                        </select>
+                        <input type="text" id="jrq-subsystem" name="jrq-subsystem" class="form-control bc-choco mb-1" placeholder="Sub Sistema" />
                     </div>
                 </div>
                 <div class="my-2"></div>
@@ -80,14 +73,7 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <label class="mb-0">Control Panel</label>
-                        <select id="jrq-ctrlPanl" name="jrq-ctrlPanl" class="form-control bc-choco mb-1">
-                            <option value=''>Seleccionar Elemento</option>
-                            @foreach($controlPanel AS $cp)
-
-                                <option value="{{ $cp['ctg_id'] }}"> {{ $cp['ctg_name'] }} </option>
-
-                            @endforeach
-                        </select>
+                        <input type="text" id="jrq-ctrlPanl" name="jrq-ctrlPanl" class="form-control bc-choco mb-1" placeholder="Control Panel" />
                     </div>
                     <div class="col-lg-4">
                         <label class="mb-0">Issue Type</label>

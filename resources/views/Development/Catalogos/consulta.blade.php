@@ -41,7 +41,7 @@
                                 <td>{{$Ele['tipo']}}</td>
                                 <td>{{$Ele['nombre']}}</td>
                                 <td>{{$Ele['padre']}}</td>
-                                <td style="text-aling: center;"><button id="deleteCatalog" class="btn btn-danger"><i class="fas fa-fw far fa-trash"></i></button></td>
+                                <td style="text-align: center;"><button id="deleteCatalog" class="btn btn-danger"><i class="fas fa-fw far fa-trash"></i></button></td>
                             </tr>
 
                         @endforeach

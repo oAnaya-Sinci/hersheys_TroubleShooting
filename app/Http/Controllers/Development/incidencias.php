@@ -19,14 +19,14 @@ class incidencias extends Controller
     {
         $BU = Catalogos::where('ctg_tipo', '=', 'jrq-bussn')->get();
         $areaLinea = Catalogos::where('ctg_tipo', '=', 'jrq-area-line')->get();
-        $subsystem = Catalogos::where('ctg_tipo', '=', 'jrq-subsystem')->get();
-        $controlPanel = Catalogos::where('ctg_tipo', '=', 'jrq-ctrlPanl')->get();
+        // $subsystem = Catalogos::where('ctg_tipo', '=', 'jrq-subsystem')->get();
+        // $controlPanel = Catalogos::where('ctg_tipo', '=', 'jrq-ctrlPanl')->get();
         $Issues = Catalogos::where('ctg_tipo', '=', 'jrq-issue')->get();
         $ActionReq = Catalogos::where('ctg_tipo', '=', 'jrq-action')->get();
         $loggin_User = Auth()->User()->name;
         $adminUser = Auth()->User()->admin_user;
 
-        return view('Development/TroubleShooting/registro', compact('BU', 'areaLinea', 'controlPanel', 'subsystem', 'Issues', 'ActionReq', 'loggin_User', 'adminUser'));
+        return view('Development/TroubleShooting/registro', compact('BU', 'areaLinea', 'Issues', 'ActionReq', 'loggin_User', 'adminUser'));
     }
 
     /**
