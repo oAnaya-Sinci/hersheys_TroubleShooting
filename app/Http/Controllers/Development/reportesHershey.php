@@ -94,6 +94,8 @@ class reportesHershey extends Controller
         $endDate = explode("-", $rqst[1]['val']);
         $endDate = $endDate[2] . "-" . $endDate[1] . "-" . $endDate[0];
 
+        unset( $rqst[0], $rqst[1] );
+
         $query = "SELECT ctg_id, ctg_name FROM catalogos ctg WHERE ctg.ctg_tipo = 'jrq-issue' ORDER BY ctg_name";
         $issues = DB::select($query);
 
@@ -107,17 +109,20 @@ class reportesHershey extends Controller
 
             $query .= " AND icd.icd_IssueType = '" . $is->ctg_id .  "'";
 
-            $x=0;
-            foreach($rqst AS $d){
+            // if(sizeof( $rqst ) != 0){
 
-                if($d['val'] != NULL)
-                    $query .= " AND icd." . $Columns[$x] . " = '" . $d['val'] . "'";
+            //     $x=0;
+            //     foreach($rqst AS $r){
 
-                else
-                    break;
+            //         if($r['val'] != NULL)
+            //             $query .= " AND icd." . $Columns[$x] . " = '" . $r['val'] . "'";
 
-                $x++;
-            }
+            //         else
+            //             break;
+
+            //         $x++;
+            //     }
+            // }
 
             $query .= " GROUP BY ctg.ctg_id, ctg.ctg_name, iss.ctg_name ORDER BY ctg.ctg_name, iss.ctg_name";
 
