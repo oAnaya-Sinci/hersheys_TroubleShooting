@@ -109,19 +109,19 @@ class reportesHershey extends Controller
 
             $query .= " AND icd.icd_IssueType = '" . $is->ctg_id .  "'";
 
-            if(sizeof( $rqst ) != 0){
-die( var_dump( $rqst ) );
-                $x=0;
-                foreach($rqst AS $r){
+            $x=0;
+            foreach($rqst AS $r){
 
-                    if($r['val'] != NULL)
-                        $query .= " AND icd." . $Columns[$x] . " = '" . $r['val'] . "'";
+                if($r == ' Control')
+                    break;
 
-                    else
-                        break;
+                if($r['val'] != NULL)
+                    $query .= " AND icd." . $Columns[$x] . " = '" . $r['val'] . "'";
 
-                    $x++;
-                }
+                else
+                    break;
+
+                $x++;
             }
 
             $query .= " GROUP BY ctg.ctg_id, ctg.ctg_name, iss.ctg_name ORDER BY ctg.ctg_name, iss.ctg_name";
