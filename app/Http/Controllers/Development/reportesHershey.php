@@ -30,7 +30,7 @@ class reportesHershey extends Controller
         $elements = $this->get_elements($rqst);
 
         array_push($arrayReport, $elements[1]);
-        $data = $this->get_dataReport($rqst, sizeof($elements[0]), $elements[2], $data['data']);
+        $data = $this->get_dataReport($rqst, sizeof($elements[0]), $elements[2], $elements[0]);
 
         foreach($data AS $d){
             array_push($arrayReport, $d);
@@ -94,7 +94,7 @@ class reportesHershey extends Controller
         $endDate = explode("-", $rqst[1]['val']);
         $endDate = $endDate[2] . "-" . $endDate[1] . "-" . $endDate[0];
 
-        unset( $elements[0], $elements[1] );
+        // unset( $elements[0], $elements[1] );
 
         $query = "SELECT ctg_id, ctg_name FROM catalogos ctg WHERE ctg.ctg_tipo = 'jrq-issue' ORDER BY ctg_name";
         $issues = DB::select($query);
@@ -109,39 +109,40 @@ class reportesHershey extends Controller
 
             $query .= " AND icd.icd_IssueType = '" . $is->ctg_id .  "'";
 
-            $x=0;
-            foreach($elements AS $el){
-
-                if($el['val'] != NULL)
-                    $query .= " AND icd." . $Columns[$x] . " = '" . $el['val'] . "'";
-
-                else
-                    break;
-
-                $x++;
-            }
-
             $query .= " GROUP BY ctg.ctg_id, ctg.ctg_name, iss.ctg_name ORDER BY ctg.ctg_name, iss.ctg_name";
 
             $reportData = DB::select($query);
 
             $rqst = [];
-            array_push($rqst, $is->ctg_name);
+            array_push($rqst, trim($is->ctg_name));
 
             foreach($reportData AS $rp){
 
-                array_push($rqst, $rp->tot);
-            }
+                for($i=0; $i<sizeof($elements); $i++){
 
-            if(sizeof($reportData) < $sizeOf){
+                    if( $rp->ctg_id == $elements[$i] ){
+                        array_push($rqst, $rp->tot);
+                        $i = 1000;
+                    }
 
-                $x = $sizeOf - sizeof($reportData);
+                    else{
+                        $aux = sizeof($rqst) - 1;
 
-                for($i=0; $i<$x; $i++){
-
-                    array_push($rqst, 0);
+                        if(sizeof($rqst) == 1 || $rqst[$aux] == 0)
+                            array_push($rqst, 0);
+                    }
                 }
             }
+
+            // if(sizeof($reportData) < $sizeOf){
+
+            //     $x = $sizeOf - sizeof($reportData);
+
+            //     for($i=0; $i<$x; $i++){
+
+            //         array_push($rqst, 0);
+            //     }
+            // }
 
             array_push($arrayDataIssues, $rqst);
         }
@@ -192,7 +193,7 @@ class reportesHershey extends Controller
             $x++;
         }
 
-        $query .= " ORDER BY icd.id";
+        $query .= " ORDER BY area_linea";
 
         $reportData = DB::select($query);
 
