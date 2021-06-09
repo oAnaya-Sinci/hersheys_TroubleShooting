@@ -30,7 +30,7 @@ class reportesHershey extends Controller
         $elements = $this->get_elements($rqst);
 
         array_push($arrayReport, $elements[1]);
-        $data = $this->get_dataReport($rqst, sizeof($elements[0]), $elements[2]);
+        $data = $this->get_dataReport($rqst, sizeof($elements[0]), $elements[2], $data['data']);
 
         foreach($data AS $d){
             array_push($arrayReport, $d);
@@ -86,7 +86,7 @@ class reportesHershey extends Controller
         return array($arrayIdElem, $arrayElement, $Columns[$lastCol]);
     }
 
-    public function get_dataReport($rqst, $sizeOf, $Column){
+    public function get_dataReport($rqst, $sizeOf, $Column, $elements){
 
         $startDate = explode("-", $rqst[0]['val']);
         $startDate = $startDate[2] . "-" . $startDate[1] . "-" . $startDate[0];
@@ -94,7 +94,7 @@ class reportesHershey extends Controller
         $endDate = explode("-", $rqst[1]['val']);
         $endDate = $endDate[2] . "-" . $endDate[1] . "-" . $endDate[0];
 
-        unset( $rqst[0], $rqst[1] );
+        unset( $elements[0], $elements[1] );
 
         $query = "SELECT ctg_id, ctg_name FROM catalogos ctg WHERE ctg.ctg_tipo = 'jrq-issue' ORDER BY ctg_name";
         $issues = DB::select($query);
@@ -110,13 +110,10 @@ class reportesHershey extends Controller
             $query .= " AND icd.icd_IssueType = '" . $is->ctg_id .  "'";
 
             $x=0;
-            foreach($rqst AS $r){
+            foreach($elements AS $el){
 
-                if($r == ' Control')
-                    break;
-
-                if($r['val'] != NULL)
-                    $query .= " AND icd." . $Columns[$x] . " = '" . $r['val'] . "'";
+                if($el['val'] != NULL)
+                    $query .= " AND icd." . $Columns[$x] . " = '" . $el['val'] . "'";
 
                 else
                     break;
