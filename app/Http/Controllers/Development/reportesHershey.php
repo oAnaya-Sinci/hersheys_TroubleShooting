@@ -54,7 +54,7 @@ class reportesHershey extends Controller
         $Columns = array('icd_bu', 'icd_area_linea', 'icd_proceso', 'icd_equipment_system', 'icd_component');
 
         $query = 'SELECT DISTINCT ctg.ctg_id, ctg.ctg_name AS Nombre FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.' . $Columns[$lastCol];
-        $query .= ' LEFT JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType WHERE UNIX_TIMESTAMP(icd.created_at) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
+        $query .= ' LEFT JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType WHERE UNIX_TIMESTAMP(DATE_FORMAT(icd.created_at, "%Y-%m-%d")) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
 
         $x=0;
         foreach($rqst AS $d){
@@ -101,7 +101,7 @@ class reportesHershey extends Controller
         foreach($issues AS $is){
 
             $query = 'SELECT ctg.ctg_id, ctg.ctg_name AS Nombre, iss.ctg_name AS Issue, COUNT( ctg.ctg_id ) AS tot FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.' . $Column;
-            $query .= ' LEFT JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType WHERE UNIX_TIMESTAMP(icd.created_at) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
+            $query .= ' LEFT JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType WHERE UNIX_TIMESTAMP(DATE_FORMAT(icd.created_at, "%Y-%m-%d")) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
 
             $query .= " AND icd.icd_IssueType = '" . $is->ctg_id .  "'";
 
@@ -149,8 +149,20 @@ class reportesHershey extends Controller
 
         $Columns = array('icd_bu', 'icd_area_linea', 'icd_proceso', 'icd_equipment_system', 'icd_component');
 
-        $query = 'SELECT DISTINCT icd.* FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.' . $Columns[$lastCol];
-        $query .= ' INNER JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType WHERE UNIX_TIMESTAMP(icd.created_at) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
+        $query = 'SELECT DISTINCT icd.*, bu.ctg_name AS bssnu, area_linea.ctg_name AS area_linea, proceso.ctg_name AS proceso, equip_system.ctg_name AS equipment_system,  component.ctg_name AS component, issue.ctg_name AS issue, actionr.ctg_name AS action_r FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.' . $Columns[$lastCol];
+        $query .= ' INNER JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType ';
+
+        $query .= ' LEFT JOIN catalogos AS bu ON icd.icd_bu = bu.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS area_linea ON icd.icd_area_linea = area_linea.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS proceso ON icd.icd_proceso = proceso.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS equip_system ON icd.icd_equipment_system = equip_system.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS subsystem ON icd.icd_Subsystem = subsystem.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS component ON icd.icd_component = component.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS cntrlp ON icd.icd_controlpanel = cntrlp.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS issue ON icd.icd_issuetype = issue.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS actionr ON icd.icd_actionrequired = actionr.ctg_id';
+
+        $query .= ' WHERE UNIX_TIMESTAMP(DATE_FORMAT(icd.created_at, "%Y-%m-%d")) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
 
         $x=0;
         foreach($data AS $d){
@@ -164,7 +176,7 @@ class reportesHershey extends Controller
             $x++;
         }
 
-        $query .= " ORDER BY ctg.ctg_name, iss.ctg_name";
+        $query .= " ORDER BY ctg.id";
 
         $reportData = DB::select($query);
 

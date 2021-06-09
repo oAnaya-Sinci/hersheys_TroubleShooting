@@ -21,6 +21,9 @@ jQuery(document).ready(function($) {
             }
         });
     }
+
+    $('#fechaInicio').data("DateTimePicker").date(new Date());
+    $('#fechaFin').data("DateTimePicker").date(new Date());
 });
 
 var myChart = null;
@@ -118,17 +121,18 @@ function get_dataTable() {
 
             $.each(data, function(index, value) {
 
-                tbody += '<tr> <td>' + value['icd_BU'] + '</td>';
-                tbody += '<td>' + value['icd_Area'] + '</td>';
-                tbody += '<td>' + value['icd_Line'] + '</td>';
-                tbody += '<td>' + value['icd_Equipment'] + '</td>';
-                tbody += '<td>' + value['icd_System'] + '</td>';
-                tbody += '<td>' + value['icd_Component'] + '</td>';
+                tbody += '<tr> <td>' + value['id'] + '</td>';
+                tbody += '<td>' + value['bssnu'] + '</td>';
+                tbody += '<td>' + value['area_linea'] + '</td>';
+                tbody += '<td>' + value['proceso'] + '</td>';
+                tbody += '<td>' + value['equipment_system'] + '</td>';
+                tbody += '<td>' + value['icd_Subsystem'] + '</td>';
+                tbody += '<td>' + value['component'] + '</td>';
                 tbody += '<td>' + value['icd_ControlPanel'] + '</td>';
                 tbody += '<td>' + value['icd_ProblemDescription'] + '</td>';
-                tbody += '<td>' + value['icd_IssueType'] + '</td>';
+                tbody += '<td>' + value['issue'] + '</td>';
                 tbody += '<td>' + value['icd_Priority'] + '</td>';
-                tbody += '<td>' + value['icd_ActionRequired'] + '</td>';
+                tbody += '<td>' + value['action_r'] + '</td>';
                 tbody += '<td>' + value['icd_Responsible'] + '</td>';
                 tbody += '<td>' + value['icd_reportedBy'] + '</td>';
                 tbody += '<td>' + value['icd_ReportingDate'] + '</td>';
@@ -359,51 +363,101 @@ function getTypeChart(type) {
  *
  */
 
-function exportTableToExcel(tableID, filename = 'excel_data') {
+function exportData(tableID, filename = 'excel_data') {
+    /* Get the HTML data using Element by Id */
+    var table = document.getElementById(tableID);
 
-    var downloadLink;
-    var dataType = 'application/vnd.ms-excel';
-    var tableSelect = document.getElementById(tableID);
-    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    /* Declaring array variable */
+    var rows = [];
 
-    var tbody = $('#' + tableID + " tbody tr").length;
+    //iterate through rows of table
+    for (var i = 0, row; row = table.rows[i]; i++) {
+        //rows would be accessed using the "row" variable assigned in the for loop
+        //Get each cell value/column from the row
+        column1 = row.cells[0].innerText;
+        column2 = row.cells[1].innerText;
+        column3 = row.cells[2].innerText;
+        column4 = row.cells[3].innerText;
+        column5 = row.cells[4].innerText;
+        column6 = row.cells[5].innerText;
+        column7 = row.cells[6].innerText;
+        column8 = row.cells[7].innerText;
+        column9 = row.cells[8].innerText;
+        column10 = row.cells[9].innerText;
+        column11 = row.cells[10].innerText;
+        column12 = row.cells[11].innerText;
+        column13 = row.cells[12].innerText;
+        column14 = row.cells[13].innerText;
+        column15 = row.cells[14].innerText;
+        column16 = row.cells[15].innerText;
+        column17 = row.cells[16].innerText;
+        column18 = row.cells[17].innerText;
+        column19 = row.cells[18].innerText;
+        column20 = row.cells[19].innerText;
+        column21 = row.cells[20].innerText;
+        column22 = row.cells[1].innerText;
+        column23 = row.cells[22].innerText;
+        column24 = row.cells[23].innerText;
+        column25 = row.cells[24].innerText;
+        column26 = row.cells[25].innerText;
 
-    if (tbody == 0)
-        return false;
+        /* add a new records in the array */
+        rows.push(
+            [
+                column1,
+                column2,
+                column3,
+                column4,
+                column5,
+                column6,
+                column7,
+                column8,
+                column9,
+                column10,
+                column11,
+                column12,
+                column13,
+                column14,
+                column15,
+                column16,
+                column17,
+                column18,
+                column19,
+                column20,
+                column21,
+                column22,
+                column23,
+                column24,
+                column25,
+                column26
+            ]
+        );
 
-    // Specify file name
-    filename = filename ? filename + '.xlsx' : 'excel_data.xlsx';
-
-    // Create download link element
-    downloadLink = document.createElement("a");
-
-    document.body.appendChild(downloadLink);
-
-    if (navigator.msSaveOrOpenBlob) {
-        var blob = new Blob(['\ufeff', tableHTML], {
-            type: dataType
-        });
-        navigator.msSaveOrOpenBlob(blob, filename);
-    } else {
-        // Create a link to the file
-        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-
-        // Setting the file name
-        downloadLink.download = filename;
-
-        //triggering the function
-        downloadLink.click();
     }
+    csvContent = "data:text/csv;charset=utf-8";
+    /* add the column delimiter as comma(,) and each row splitted by new line character (\n) */
+    rows.forEach(function(rowArray) {
+        row = rowArray.join(",");
+        csvContent += row + "\r\n";
+    });
 
-    return true;
+    /* create a hidden <a> DOM node and set its download attribute */
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", filename + ".csv");
+    document.body.appendChild(link);
+    /* download the data file named "Stock_Price_Report.csv" */
+    link.click();
 }
 
 $('#downloadExcel').click(function() {
 
     let date = new Date();
-    let today = date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear();
+    let today = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
 
-    exportTableToExcel('dataTableReport', 'dac_troubleshooting_' + today);
+    // exportTableToExcel('dataTableReport', 'dac_troubleshooting_' + today);
+    exportData('dataTableReport', 'dac_troubleshooting_' + today);
 
     $('#downloadExcel').prop("disabled", true);
 });

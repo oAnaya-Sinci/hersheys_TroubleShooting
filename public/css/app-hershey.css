@@ -35,8 +35,8 @@
     }
     
     #showReporteGrafico {
-        width: 1180px;
-        height: 686px;
+        width: auto;
+        height: 642px;
     }
     
     .modal.fade .modal-content .modal-hersheys {

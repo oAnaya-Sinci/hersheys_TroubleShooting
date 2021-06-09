@@ -22,7 +22,11 @@
                 </div>
                 <div class="card-body">
 
-                    <div id="showReporteGrafico"></div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="showReporteGrafico"></div>
+                        </div>
+                    </div>
 
                     <!-- <h5>Data Reported</h5> -->
                     <div class="row">
@@ -31,12 +35,13 @@
                                 <table class="table table-bordered incidencias" id="dataTableReport" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                        <th>ID</th>
                                         <th>BU</th>
                                         <th>Area / Line</th>
                                         <th>Proceso</th>
                                         <th>Equipment / System</th>
-                                        <th>Componet</th>
                                         <th>SubSystem</th>
+                                        <th>Componet</th>
                                         <th>Control Panel</th>
                                         <th>Problem Description</th>
                                         <th>Issue Type</th>
@@ -142,7 +147,7 @@
 
                         <div class="showReport">
                             <button id="showReportButton" class="btn btn-primary">Mostrar Reporte</button>
-                            <button id="downloadExcel" class="btn btn-secondary" >Descargar Tabla->XLSX</button>
+                            <button id="downloadExcel" class="btn btn-secondary" >Descargar Tabla->CSV</button>
                         </div>
                 </div>
             </div>
