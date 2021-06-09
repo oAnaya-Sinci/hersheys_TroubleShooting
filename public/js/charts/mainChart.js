@@ -434,7 +434,7 @@ function exportData(tableID, filename = 'excel_data') {
         );
 
     }
-    csvContent = "data:text/csv;charset=utf-8";
+    csvContent = "charset=utf-8;data:text/csv;";
     /* add the column delimiter as comma(,) and each row splitted by new line character (\n) */
     rows.forEach(function(rowArray) {
         row = rowArray.join(",");

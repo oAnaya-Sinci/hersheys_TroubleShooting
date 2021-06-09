@@ -98,7 +98,7 @@ class reportesHershey extends Controller
         $issues = DB::select($query);
 
         $Columns = array('icd_bu', 'icd_area_linea', 'icd_proceso', 'icd_equipment_system', 'icd_component');
-        
+
         $arrayDataIssues = [];
         foreach($issues AS $is){
 
@@ -107,7 +107,7 @@ class reportesHershey extends Controller
 
             $query .= " AND icd.icd_IssueType = '" . $is->ctg_id .  "'";
 
-            $x=2;
+            $x=0;
             foreach($rqst AS $d){
 
                 if($d['val'] != NULL)
