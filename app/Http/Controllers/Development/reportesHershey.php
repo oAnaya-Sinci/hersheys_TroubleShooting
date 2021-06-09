@@ -176,7 +176,7 @@ class reportesHershey extends Controller
             $x++;
         }
 
-        $query .= " ORDER BY ctg.id";
+        $query .= " ORDER BY icd.id";
 
         $reportData = DB::select($query);
 
