@@ -57,10 +57,10 @@ class reportesHershey extends Controller
         $query .= ' LEFT JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType WHERE UNIX_TIMESTAMP(DATE_FORMAT(icd.created_at, "%Y-%m-%d")) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
 
         $x=0;
-        foreach($rqst AS $d){
+        foreach($rqst AS $r){
 
-            if($d['val'] != NULL)
-                $query .= " AND icd." . $Columns[$x] . " = '" . $d['val'] . "'";
+            if($r['val'] != NULL)
+                $query .= " AND icd." . $Columns[$x] . " = '" . $r['val'] . "'";
 
             else
                 break;
@@ -104,6 +104,18 @@ class reportesHershey extends Controller
             $query .= ' LEFT JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType WHERE UNIX_TIMESTAMP(DATE_FORMAT(icd.created_at, "%Y-%m-%d")) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
 
             $query .= " AND icd.icd_IssueType = '" . $is->ctg_id .  "'";
+
+            $x=2;
+            foreach($rqst AS $d){
+
+                if($d['val'] != NULL)
+                    $query .= " AND icd." . $Columns[$x] . " = '" . $d['val'] . "'";
+
+                else
+                    break;
+
+                $x++;
+            }
 
             $query .= " GROUP BY ctg.ctg_id, ctg.ctg_name, iss.ctg_name ORDER BY ctg.ctg_name, iss.ctg_name";
 
