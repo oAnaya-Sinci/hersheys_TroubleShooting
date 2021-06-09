@@ -97,6 +97,8 @@ class reportesHershey extends Controller
         $query = "SELECT ctg_id, ctg_name FROM catalogos ctg WHERE ctg.ctg_tipo = 'jrq-issue' ORDER BY ctg_name";
         $issues = DB::select($query);
 
+        $Columns = array('icd_bu', 'icd_area_linea', 'icd_proceso', 'icd_equipment_system', 'icd_component');
+        
         $arrayDataIssues = [];
         foreach($issues AS $is){
 
