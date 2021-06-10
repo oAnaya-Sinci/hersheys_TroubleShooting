@@ -106,7 +106,7 @@ class consultaIncidencias extends Controller
                         // ->leftjoin('catalogos AS cntrlp', 'incidencias.icd_controlpanel', 'cntrlp.ctg_id')
                         ->leftjoin('catalogos AS issue', 'incidencias.icd_issuetype', 'issue.ctg_id')
                         ->leftjoin('catalogos AS actionr', 'incidencias.icd_actionrequired', 'actionr.ctg_id')
-
+                        ->distinct()
                         ->get();
 
         return $Incidencias;

@@ -25,12 +25,13 @@ class reportesHershey extends Controller
     public function get_data_reporte(Request $data){
 
         $rqst = $data['data'];
+        $pos = sizeof($rqst)-1;
 
         $arrayReport = [];
         $elements = $this->get_elements($rqst);
 
         array_push($arrayReport, $elements[1]);
-        $data = $this->get_dataReport($rqst, sizeof($elements[0]), $elements[2], $elements[0]);
+        $data = $this->get_dataReport($rqst, sizeof($elements[0]), $elements[2], $elements[0], $rqst[$pos]['val']);
 
         foreach($data AS $d){
             array_push($arrayReport, $d);
@@ -68,7 +69,7 @@ class reportesHershey extends Controller
             $x++;
         }
 
-        $query .= " GROUP BY ctg.ctg_id, ctg.ctg_name, iss.ctg_name ORDER BY ctg.ctg_name, iss.ctg_name";
+        $query .= " GROUP BY ctg.ctg_id, ctg.ctg_name, iss.ctg_name ORDER BY iss.ctg_name, ctg.ctg_name";
 
         $reportData = DB::select($query);
 
@@ -86,7 +87,7 @@ class reportesHershey extends Controller
         return array($arrayIdElem, $arrayElement, $Columns[$lastCol]);
     }
 
-    public function get_dataReport($rqst, $sizeOf, $Column, $elements){
+    public function get_dataReport($rqst, $sizeOf, $Column, $elements, $nextEle){
 
         $startDate = explode("-", $rqst[0]['val']);
         $startDate = $startDate[2] . "-" . $startDate[1] . "-" . $startDate[0];
@@ -94,22 +95,36 @@ class reportesHershey extends Controller
         $endDate = explode("-", $rqst[1]['val']);
         $endDate = $endDate[2] . "-" . $endDate[1] . "-" . $endDate[0];
 
-        // unset( $elements[0], $elements[1] );
-
         $query = "SELECT ctg_id, ctg_name FROM catalogos ctg WHERE ctg.ctg_tipo = 'jrq-issue' ORDER BY ctg_name";
         $issues = DB::select($query);
 
-        $Columns = array('icd_bu', 'icd_area_linea', 'icd_proceso', 'icd_equipment_system', 'icd_component');
+        $query = "SELECT ctg_id FROM catalogos ctg WHERE ctg.ctg_padre = '$nextEle' ORDER BY ctg_name";
+        $nextElementos = DB::select($query);
+
+        $concatNE = '';
+        $x = 1;
+        foreach($nextElementos AS $ne){
+
+            if( sizeof($nextElementos) > $x )
+                $concatNE .= "'" . $ne->ctg_id . "',";
+
+            else
+                $concatNE .= "'" . $ne->ctg_id . "'";
+
+            $x++;
+        }
 
         $arrayDataIssues = [];
         foreach($issues AS $is){
 
-            $query = 'SELECT ctg.ctg_id, ctg.ctg_name AS Nombre, iss.ctg_name AS Issue, COUNT( ctg.ctg_id ) AS tot FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.' . $Column;
+            $query = 'SELECT DISTINCT ctg.ctg_id, ctg.ctg_name AS Nombre, iss.ctg_name AS Issue, COUNT( ctg.ctg_id ) AS tot FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.' . $Column;
             $query .= ' LEFT JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType WHERE UNIX_TIMESTAMP(DATE_FORMAT(icd.created_at, "%Y-%m-%d")) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
 
             $query .= " AND icd.icd_IssueType = '" . $is->ctg_id .  "'";
 
-            $query .= " GROUP BY ctg.ctg_id, ctg.ctg_name, iss.ctg_name ORDER BY ctg.ctg_name, iss.ctg_name";
+            $concatNE == '' ? '' : $query .= " AND icd.". $Column ." IN (" . $concatNE .  ")";
+
+            $query .= " GROUP BY ctg.ctg_id, ctg.ctg_name, iss.ctg_name ORDER BY iss.ctg_name, ctg.ctg_name";
 
             $reportData = DB::select($query);
 
@@ -134,15 +149,15 @@ class reportesHershey extends Controller
                 }
             }
 
-            // if(sizeof($reportData) < $sizeOf){
+            if(sizeof($reportData) < $sizeOf){
 
-            //     $x = $sizeOf - sizeof($reportData);
+                $x = $sizeOf - sizeof($reportData);
 
-            //     for($i=0; $i<$x; $i++){
+                for($i=0; $i<$x; $i++){
 
-            //         array_push($rqst, 0);
-            //     }
-            // }
+                    array_push($rqst, 0);
+                }
+            }
 
             array_push($arrayDataIssues, $rqst);
         }
@@ -153,6 +168,7 @@ class reportesHershey extends Controller
     public function get_DataTable(Request $arrayData){
 
         $data = $arrayData['data'];
+        $pos = (sizeof($data)-1);
 
         $startDate = explode("-", $data[0]['val']);
         $startDate = $startDate[2] . "-" . $startDate[1] . "-" . $startDate[0];
@@ -162,7 +178,15 @@ class reportesHershey extends Controller
 
         unset( $data[0], $data[1] );
 
-        $lastCol = count($data);
+        $lastCol = sizeof($data);
+
+        if($lastCol != 0){
+
+            $nextEle = $data[$pos]['val'];
+
+            $query = "SELECT ctg_id FROM catalogos ctg WHERE ctg.ctg_padre = '$nextEle' ORDER BY ctg_name";
+            $nextElementos = DB::select($query);
+        }
 
         $Columns = array('icd_bu', 'icd_area_linea', 'icd_proceso', 'icd_equipment_system', 'icd_component');
 
@@ -181,16 +205,22 @@ class reportesHershey extends Controller
 
         $query .= ' WHERE UNIX_TIMESTAMP(DATE_FORMAT(icd.created_at, "%Y-%m-%d")) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
 
-        $x=0;
-        foreach($data AS $d){
+        if($lastCol != 0){
 
-            if($d['val'] != NULL)
-                $query .= " AND icd." . $Columns[$x] . " = '" . $d['val'] . "'";
+            $concatNE = '';
+            $x = 1;
+            foreach($nextElementos AS $ne){
 
-            else
-                break;
+                if( sizeof($nextElementos) > $x )
+                    $concatNE .= "'" . $ne->ctg_id . "',";
 
-            $x++;
+                else
+                    $concatNE .= "'" . $ne->ctg_id . "'";
+
+                $x++;
+            }
+
+            $concatNE == '' ? '' : $query .= " AND icd.". $Columns[$lastCol] ." IN (" . $concatNE .  ")";
         }
 
         $query .= " ORDER BY area_linea";

@@ -49,7 +49,7 @@ class catalogos extends Controller
             $Catalogo = new StoreCatalogo();
             $Catalogo->ctg_id = $request['data'][0]['value'] . "-" . str_replace(' ', '', $name);
             $Catalogo->ctg_tipo = $request['data'][0]['value'];
-            $Catalogo->ctg_name = $name;
+            $Catalogo->ctg_name = trim($name);
             $Catalogo->ctg_padre = $request['data'][2]['value'];
             $Catalogo->ctg_eliminado = 0;
             $Catalogo->save();

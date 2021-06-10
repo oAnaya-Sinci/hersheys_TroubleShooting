@@ -13,7 +13,7 @@
 
     <div class="row">
 
-        <div class="col-lg-9">
+        <div class="col-lg-9" style="max-width: 78% !important;">
 
             <!-- Default Card Example -->
             <div class="card mb-4">
@@ -75,7 +75,7 @@
 
         </diV>
 
-        <div class="col-lg-3">
+        <div class="col-lg-3" style="max-width: 22% !important;">
 
             <!-- Default Card Example -->
             <div class="card mb-4">
@@ -147,7 +147,7 @@
 
                         <div class="showReport">
                             <button id="showReportButton" class="btn btn-primary">Mostrar Reporte</button>
-                            <button id="downloadExcel" class="btn btn-secondary" >Descargar Tabla->CSV</button>
+                            <button id="downloadExcel" class="btn btn-secondary" >CSV</button>
                         </div>
                 </div>
             </div>

@@ -194,7 +194,7 @@ function getTypeChart(type) {
 
             option = {
                 title: {
-                    text: 'Reporte de fallas',
+                    text: 'Reporte de Fallos',
                     // subtext: 'Pie Chart',
                     left: 'center'
                 },
@@ -229,6 +229,8 @@ function getTypeChart(type) {
         case 'line':
 
             var seriesArr = [];
+            labelIncidencia = [];
+
             var legendArr = dataToShow[0];
             legendArr.shift();
 
@@ -238,34 +240,34 @@ function getTypeChart(type) {
                 if (x > 0) {
 
                     var nameEle = value[0];
+                    labelIncidencia.push(nameEle);
                     value.shift()
 
                     seriesArr.push({
                         name: nameEle,
                         type: 'line',
-                        stack: 'Total',
                         data: value
                     });
                 }
 
                 x++
             });
-
+            console.log(labelIncidencia);
             option = {
                 title: {
-                    text: 'Reporte de fallas'
+                    text: 'Reporte de Fallos'
                 },
                 tooltip: {
                     trigger: 'axis'
                 },
                 legend: {
-                    data: legendArr
+                    data: labelIncidencia
                 },
                 grid: {
                     left: '3%',
                     right: '4%',
                     bottom: '3%',
-                    containLabel: true
+                    containLabel: false
                 },
                 toolbox: {
                     feature: {
@@ -274,7 +276,7 @@ function getTypeChart(type) {
                 },
                 xAxis: {
                     type: 'category',
-                    boundaryGap: false,
+                    boundaryGap: true,
                     data: legendArr
                 },
                 yAxis: {
