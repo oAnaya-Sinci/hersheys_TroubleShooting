@@ -14,8 +14,6 @@ class reportesHershey extends Controller
 
         $BU = Catalogos::where('ctg_tipo', '=', 'jrq-bussn')->get();
         $areaLinea = Catalogos::where('ctg_tipo', '=', 'jrq-area-line')->get();
-        // $subequip = Catalogos::where('ctg_tipo', '=', 'jrq-subequipt')->get();
-        // $controlPanel = Catalogos::where('ctg_tipo', '=', 'jrq-ctrlPanl')->get();
         $loggin_User = Auth()->User()->name;
         $adminUser = Auth()->User()->admin_user;
 
@@ -69,7 +67,7 @@ class reportesHershey extends Controller
             $x++;
         }
 
-        $query .= " GROUP BY ctg.ctg_id, ctg.ctg_name, iss.ctg_name ORDER BY iss.ctg_name, ctg.ctg_name";
+        $query .= " GROUP BY ctg.ctg_id, ctg.ctg_name, iss.ctg_name ORDER BY ctg.ctg_name, iss.ctg_name";
 
         $reportData = DB::select($query);
 
@@ -124,7 +122,7 @@ class reportesHershey extends Controller
 
             $concatNE == '' ? '' : $query .= " AND icd.". $Column ." IN (" . $concatNE .  ")";
 
-            $query .= " GROUP BY ctg.ctg_id, ctg.ctg_name, iss.ctg_name ORDER BY iss.ctg_name, ctg.ctg_name";
+            $query .= " GROUP BY ctg.ctg_id, ctg.ctg_name, iss.ctg_name ORDER BY ctg.ctg_name, iss.ctg_name";
 
             $reportData = DB::select($query);
 
