@@ -112,7 +112,6 @@
 
                     <div class="col-lg-4">
                         <label class="mb-0">Shift</label>
-                        <!-- <input type="text" class="form-control bc-choco mb-1" placeholder="shift" /> -->
                         <select name="Shift" class="form-control bc-choco mb-1">
                             <option value=''>Seleccionar Turno</option>
                             <option value='1'>Matutino</option>
@@ -126,16 +125,12 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <label class="mb-0">Reporting Date</label>
-                        <input type="text" name="ReportingDate" class="form-control bc-choco mb-1 datetimepicker" placeholder="responsible" />
-                        <!-- <div class="input-group-append">
-                            <input type="text" class="form-control bc-choco mb-1 datetimepicker"></input>
-                            <i class="fas fa-calendar"></i>
-                        </div> -->
+                        <input type="text" name="ReportingDate" class="form-control bc-choco mb-1 datetimepicker" placeholder="Reporting Date" />
                     </div>
 
                     <div class="col-lg-4">
                         <label class="mb-0">Closing Date</label>
-                        <input type="text" name="ClosisngDate" class="form-control bc-choco mb-1 datetimepicker" placeholder="shift" />
+                        <input type="text" name="ClosisngDate" class="form-control bc-choco mb-1 datetimepicker" placeholder="Closing Date" />
                     </div>
                     <div class="col-lg-4">
                         <label class="mb-0">Response Time</label>

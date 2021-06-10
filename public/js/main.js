@@ -194,6 +194,11 @@ $('#storeCatalogos').click(function() {
     });
 });
 
+$('#jrq-bussn').change(function() {
+
+    var Element = "jrq-area-line";
+    getDataSelcts(Element, $('#jrq-bussn').val());
+});
 
 $('#jrq-area-line').change(function() {
 
