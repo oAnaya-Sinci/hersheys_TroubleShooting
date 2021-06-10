@@ -121,7 +121,8 @@ function get_dataTable() {
 
             $.each(data, function(index, value) {
 
-                tbody += '<tr> <td>' + value['id'] + '</td>';
+                tbody += '<tr>'
+                    // tbody += '<td>' + value['id'] + '</td>';
                 tbody += '<td>' + value['bssnu'] + '</td>';
                 tbody += '<td>' + value['area_linea'] + '</td>';
                 tbody += '<td>' + value['proceso'] + '</td>';
@@ -146,7 +147,8 @@ function get_dataTable() {
                 tbody += '<td>' + value['icd_Respaldo'] + '</td>';
                 tbody += '<td>' + value['icd_Refaccion'] + '</td>';
                 tbody += '<td>' + value['icd_tiempoDiagnosticar'] + '</td>';
-                tbody += '<td>' + value['icd_Comments'] + '</td> </tr>';
+                tbody += '<td>' + value['icd_Comments'] + '</td>';
+                tbody += '</tr>';
             });
 
             $('#dataTableReport.incidencias tbody').html(tbody);
@@ -365,92 +367,48 @@ function getTypeChart(type) {
  *
  */
 
-function exportData(tableID, filename = 'excel_data') {
-    /* Get the HTML data using Element by Id */
-    var table = document.getElementById(tableID);
+function downloadCSV(csv, filename) {
+    var csvFile;
+    var downloadLink;
 
-    /* Declaring array variable */
-    var rows = [];
+    // CSV file
+    csvFile = new Blob([csv], { type: "text/csv" });
 
-    //iterate through rows of table
-    for (var i = 0, row; row = table.rows[i]; i++) {
-        //rows would be accessed using the "row" variable assigned in the for loop
-        //Get each cell value/column from the row
-        column1 = row.cells[0].innerText;
-        column2 = row.cells[1].innerText;
-        column3 = row.cells[2].innerText;
-        column4 = row.cells[3].innerText;
-        column5 = row.cells[4].innerText;
-        column6 = row.cells[5].innerText;
-        column7 = row.cells[6].innerText;
-        column8 = row.cells[7].innerText;
-        column9 = row.cells[8].innerText;
-        column10 = row.cells[9].innerText;
-        column11 = row.cells[10].innerText;
-        column12 = row.cells[11].innerText;
-        column13 = row.cells[12].innerText;
-        column14 = row.cells[13].innerText;
-        column15 = row.cells[14].innerText;
-        column16 = row.cells[15].innerText;
-        column17 = row.cells[16].innerText;
-        column18 = row.cells[17].innerText;
-        column19 = row.cells[18].innerText;
-        column20 = row.cells[19].innerText;
-        column21 = row.cells[20].innerText;
-        column22 = row.cells[1].innerText;
-        column23 = row.cells[22].innerText;
-        column24 = row.cells[23].innerText;
-        column25 = row.cells[24].innerText;
-        column26 = row.cells[25].innerText;
+    // Download link
+    downloadLink = document.createElement("a");
 
-        /* add a new records in the array */
-        rows.push(
-            [
-                column1,
-                column2,
-                column3,
-                column4,
-                column5,
-                column6,
-                column7,
-                column8,
-                column9,
-                column10,
-                column11,
-                column12,
-                column13,
-                column14,
-                column15,
-                column16,
-                column17,
-                column18,
-                column19,
-                column20,
-                column21,
-                column22,
-                column23,
-                column24,
-                column25,
-                column26
-            ]
-        );
+    // File name
+    downloadLink.download = filename;
 
+    // Create a link to the file
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+
+    // Hide download link
+    downloadLink.style.display = "none";
+
+    // Add the link to DOM
+    document.body.appendChild(downloadLink);
+
+    // Click download link
+    downloadLink.click();
+}
+
+function exportTableToCSV(filename) {
+    var csv = [];
+    var rows = document.querySelectorAll("table tr");
+
+    for (var i = 0; i < rows.length; i++) {
+        var row = [],
+            cols = rows[i].querySelectorAll("td, th");
+
+        for (var j = 0; j < cols.length; j++)
+            row.push(cols[j].innerText);
+
+        csv.push(row.join(","));
     }
-    csvContent = "charset=utf-8;data:text/csv;";
-    /* add the column delimiter as comma(,) and each row splitted by new line character (\n) */
-    rows.forEach(function(rowArray) {
-        row = rowArray.join(",");
-        csvContent += row + "\r\n";
-    });
 
-    /* create a hidden <a> DOM node and set its download attribute */
-    var encodedUri = encodeURI(csvContent);
-    var link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", filename + ".csv");
-    document.body.appendChild(link);
-    /* download the data file named "Stock_Price_Report.csv" */
-    link.click();
+    // Download CSV file
+    downloadCSV(csv.join("\n"), filename);
 }
 
 $('#downloadExcel').click(function() {
@@ -459,11 +417,11 @@ $('#downloadExcel').click(function() {
     let today = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
 
     // exportTableToExcel('dataTableReport', 'dac_troubleshooting_' + today);
-    exportData('dataTableReport', 'dac_troubleshooting_' + today);
+    // exportData('dataTableReport', 'dac_troubleshooting_' + today);
+    exportTableToCSV('dac_troubleshooting_' + today);
 
     $('#downloadExcel').prop("disabled", true);
 });
-
 
 function showError(Message) {
 

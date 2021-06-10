@@ -35,7 +35,7 @@
                                 <table class="table table-bordered incidencias" id="dataTableReport" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                        <th>ID</th>
+                                        <!-- <th>Row</th> -->
                                         <th>BU</th>
                                         <th>Area / Line</th>
                                         <th>Proceso</th>
