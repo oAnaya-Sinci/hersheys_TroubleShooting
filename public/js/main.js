@@ -198,18 +198,36 @@ $('#jrq-bussn').change(function() {
 
     var Element = "jrq-area-line";
     getDataSelcts(Element, $('#jrq-bussn').val());
+
+    $("#jrq-proceso").empty();
+    $("#jrq-proceso").append("<option value=''>Seleccionar Elemento</option>");
+
+    $("#jrq-equipmnet-system").empty();
+    $("#jrq-equipmnet-system").append("<option value=''>Seleccionar Elemento</option>");
+
+    $("#jrq-component").empty();
+    $("#jrq-component").append("<option value=''>Seleccionar Elemento</option>");
 });
 
 $('#jrq-area-line').change(function() {
 
     var Element = "jrq-proceso";
     getDataSelcts(Element, $('#jrq-area-line').val());
+
+    $("#jrq-equipmnet-system").empty();
+    $("#jrq-equipmnet-system").append("<option value=''>Seleccionar Elemento</option>");
+
+    $("#jrq-component").empty();
+    $("#jrq-component").append("<option value=''>Seleccionar Elemento</option>");
 });
 
 $('#jrq-proceso').change(function() {
 
     var Element = "jrq-equipmnet-system";
     getDataSelcts(Element, $('#jrq-proceso').val());
+
+    $("#jrq-component").empty();
+    $("#jrq-component").append("<option value=''>Seleccionar Elemento</option>");
 });
 
 $('#jrq-equipmnet-system').change(function() {
