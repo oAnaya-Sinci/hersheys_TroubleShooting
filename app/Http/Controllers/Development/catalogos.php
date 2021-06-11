@@ -49,7 +49,7 @@ class catalogos extends Controller
             $tot_cata = storeCatalogo::where('ctg_name', 'depositador')->count();
 
             $Catalogo = new StoreCatalogo();
-            $Catalogo->ctg_id = $request['data'][0]['value'] . "-" . str_replace(' ', '', $name) . $tot_cata = 0 ? "" : "-" . (string)$tot_cata;
+            $Catalogo->ctg_id = $request['data'][0]['value'] . "-" . str_replace(' ', '', $name) . $tot_cata == 0 ? "" : "-" . (string)$tot_cata;
             $Catalogo->ctg_tipo = $request['data'][0]['value'];
             $Catalogo->ctg_name = trim($name);
             $Catalogo->ctg_padre = $request['data'][2]['value'];

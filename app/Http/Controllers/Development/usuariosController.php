@@ -40,7 +40,6 @@ class usuariosController extends Controller
             ->update([
                 'name' => $data['nombreUser'],
                 'admin_user' => $data['adminUser'] == 'True' ? 1 : 0,
-
             ]);
         }
 
