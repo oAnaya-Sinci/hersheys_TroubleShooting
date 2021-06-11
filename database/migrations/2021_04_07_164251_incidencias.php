@@ -40,7 +40,7 @@ class Incidencias extends Migration
             $table->string('icd_tiempoDiagnosticar');
             $table->string('icd_ProblemDescription');
             $table->string('icd_Comments');
-            $table->integer('user_id');
+            $table->integer('user_id'); 
             $table->timestamps();
         });
     }
