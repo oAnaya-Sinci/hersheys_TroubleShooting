@@ -17,12 +17,12 @@ class incidencias extends Controller
      */
     public function index()
     {
-        $BU = Catalogos::where('ctg_tipo', '=', 'jrq-bussn')->get();
-        $areaLinea = Catalogos::where('ctg_tipo', '=', 'jrq-area-line')->get();
+        $BU = Catalogos::where('ctg_tipo', '=', 'jrq-bussn')->where('catalogos.ctg_eliminado', 0)->get();
+        $areaLinea = Catalogos::where('ctg_tipo', '=', 'jrq-area-line')->where('catalogos.ctg_eliminado', 0)->get();
         // $subsystem = Catalogos::where('ctg_tipo', '=', 'jrq-subsystem')->get();
         // $controlPanel = Catalogos::where('ctg_tipo', '=', 'jrq-ctrlPanl')->get();
-        $Issues = Catalogos::where('ctg_tipo', '=', 'jrq-issue')->get();
-        $ActionReq = Catalogos::where('ctg_tipo', '=', 'jrq-action')->get();
+        $Issues = Catalogos::where('ctg_tipo', '=', 'jrq-issue')->where('catalogos.ctg_eliminado', 0)->get();
+        $ActionReq = Catalogos::where('ctg_tipo', '=', 'jrq-action')->where('catalogos.ctg_eliminado', 0)->get();
         $loggin_User = Auth()->User()->name;
         $adminUser = Auth()->User()->admin_user;
 
@@ -138,6 +138,7 @@ class incidencias extends Controller
         $catalogos = DB::table('catalogos')
         ->where('ctg_tipo', '=', $ctgTipo)
         ->where('ctg_padre', '=', $ctgPadre == 'null' ? null : $ctgPadre)
+        ->where('catalogos.ctg_eliminado', 0)
         ->get();
 
         return json_encode( $catalogos );
