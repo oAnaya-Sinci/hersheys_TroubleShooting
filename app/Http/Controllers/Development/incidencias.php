@@ -75,7 +75,7 @@ class incidencias extends Controller
         $incidencia->icd_reportedBy = $data[22]['value'];
         $incidencia->icd_ProblemDescription = $data[23]['value'];
         $incidencia->icd_Comments = $data[24]['value'];
-        // $incidencia->user_id = Auth()->User()->id;
+        $incidencia->user_id = Auth()->User()->id;
         $incidencia->save();
 
         return true;
