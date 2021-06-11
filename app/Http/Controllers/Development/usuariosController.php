@@ -34,7 +34,7 @@ class usuariosController extends Controller
 
         $data = $userData['data'];
 
-        if($data['nombreUser'] == NULL){
+        if($data['newPassword'] == NULL){
 
             User::where('id', '=', $data['idUser'])
             ->update([
