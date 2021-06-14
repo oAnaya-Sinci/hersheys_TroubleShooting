@@ -130,7 +130,7 @@ function get_dataTable() {
                 tbody += '<td>' + value['icd_Subsystem'] + '</td>';
                 tbody += '<td>' + value['component'] + '</td>';
                 tbody += '<td>' + value['icd_ControlPanel'] + '</td>';
-                tbody += '<td>' + value['icd_ProblemDescription'] + '</td>';
+                // tbody += '<td>' + value['icd_ProblemDescription'] + '</td>';
                 tbody += '<td>' + value['issue'] + '</td>';
                 tbody += '<td>' + value['icd_Priority'] + '</td>';
                 tbody += '<td>' + value['action_r'] + '</td>';
@@ -147,7 +147,7 @@ function get_dataTable() {
                 tbody += '<td>' + value['icd_Respaldo'] + '</td>';
                 tbody += '<td>' + value['icd_Refaccion'] + '</td>';
                 tbody += '<td>' + value['icd_tiempoDiagnosticar'] + '</td>';
-                tbody += '<td>' + value['icd_Comments'] + '</td>';
+                // tbody += '<td>' + value['icd_Comments'] + '</td>';
                 tbody += '</tr>';
             });
 

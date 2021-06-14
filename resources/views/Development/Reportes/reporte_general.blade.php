@@ -43,7 +43,7 @@
                                         <th>SubSystem</th>
                                         <th>Componet</th>
                                         <th>Control Panel</th>
-                                        <th>Problem Description</th>
+                                        <!-- <th>Problem Description</th> -->
                                         <th>Issue Type</th>
                                         <th>Priority</th>
                                         <th>Action Require</th>
@@ -60,7 +60,7 @@
                                         <th>Respaldo</th>
                                         <th>Refaccion</th>
                                         <th>Tiempo Diagnosticar</th>
-                                        <th>Comments</th>
+                                        <!-- <th>Comments</th> -->
                                         <!-- <th>Usario Registro</th> -->
                                         </tr>
                                     </thead>
