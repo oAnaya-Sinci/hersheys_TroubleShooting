@@ -96,9 +96,10 @@ class catalogos extends Controller
     {
         $columnsInci = ['icd_BU', 'icd_Area_linea', 'icd_Proceso', 'icd_Equipment_System', 'icd_Component', 'icd_Subsystem', 'icd_ControlPanel', 'icd_IssueType', 'icd_ActionRequired'];
 
+        $name = $request['data'][2]['value'];
+        
         $tot_cata = storeCatalogo::where('ctg_name', $name)->count();
 
-        $name = $request['data'][2]['value'];
         $name = str_replace(' ', '', $name);
         $name = $this->changueEspecialCaracters($name);
 
