@@ -148,8 +148,9 @@ class catalogos extends Controller
         $elemento = DB::table('jerarquia_catalogos')->where('jrq_id', '=', $type)->value('jrq_padre');
 
         $catalogos = DB::table('catalogos')
-        ->select(DB::raw("catalogos.ctg_id, IF( padre.ctg_name <> '', CONCAT(padre.ctg_name, ' / ', catalogos.ctg_name), catalogos.ctg_name ) AS ctg_name"))
-        ->leftjoin('catalogos AS padre', 'catalogos.ctg_padre', 'padre.ctg_id')
+        ->select(DB::raw("catalogos.ctg_id, IF( grand_parent.ctg_name <> '', CONCAT(grand_parent.ctg_name, ' / ', parent.ctg_name, ' / ', catalogos.ctg_name), CONCAT(parent.ctg_name, ' / ', catalogos.ctg_name) ) AS ctg_name"))
+        ->leftjoin('catalogos AS parent', 'catalogos.ctg_padre', 'parent.ctg_id')
+        ->leftJoin('catalogos AS grand_parent', 'parent.ctg_padre', '=', 'grand_parent.ctg_id')
         ->where('catalogos.ctg_tipo', '=', $elemento)
         ->where('catalogos.ctg_eliminado', 0)
         ->orderby('ctg_name')
@@ -173,13 +174,40 @@ class catalogos extends Controller
 
      public function get_elements_modificar(){
 
-        $catalogos = DB::table('catalogos')
-        ->select(DB::raw("catalogos.ctg_id, IF( padre.ctg_name <> '', CONCAT(padre.ctg_name, ' / ', catalogos.ctg_name), catalogos.ctg_name ) AS ctg_name"))
-        ->leftjoin('catalogos AS padre', 'catalogos.ctg_padre', 'padre.ctg_id')
-        ->where('catalogos.ctg_tipo', '=', $_GET['element'])
-        ->where('catalogos.ctg_eliminado', 0)
-        ->orderby('ctg_name')
-        ->get();
+        if($_GET['element'] == 'jrq-component'){
+
+            $catalogos = DB::table('catalogos')
+            ->select(DB::raw("catalogos.ctg_id, IF( grand_grand_parent.ctg_name <> '', CONCAT(grand_grand_parent.ctg_name, ' / ', grand_parent.ctg_name, ' / ', parent.ctg_name, ' / ', catalogos.ctg_name), CONCAT(grand_parent.ctg_name, ' / ', parent.ctg_name, ' / ', catalogos.ctg_name) ) AS ctg_name"))
+            ->leftjoin('catalogos AS parent', 'catalogos.ctg_padre', 'parent.ctg_id')
+            ->leftJoin('catalogos AS grand_parent', 'parent.ctg_padre', '=', 'grand_parent.ctg_id')
+            ->leftJoin('catalogos AS grand_grand_parent', 'grand_parent.ctg_padre', '=', 'grand_grand_parent.ctg_id')
+            ->where('catalogos.ctg_tipo', '=', $_GET['element'])
+            ->where('catalogos.ctg_eliminado', 0)
+            ->orderby('ctg_name')
+            ->get();
+        }
+
+        else if($_GET['element'] == 'jrq-bussn' || $_GET['element'] == 'jrq-issue'|| $_GET['element'] == 'jrq-action'){
+
+            $catalogos = DB::table('catalogos')
+            ->select(DB::raw("catalogos.ctg_id, catalogos.ctg_name"))
+            ->where('catalogos.ctg_tipo', '=', $_GET['element'])
+            ->where('catalogos.ctg_eliminado', 0)
+            ->orderby('ctg_name')
+            ->get();
+        }
+
+        else{
+
+            $catalogos = DB::table('catalogos')
+            ->select(DB::raw("catalogos.ctg_id, IF( grand_parent.ctg_name <> '', CONCAT(grand_parent.ctg_name, ' / ', parent.ctg_name, ' / ', catalogos.ctg_name), CONCAT(parent.ctg_name, ' / ', catalogos.ctg_name) ) AS ctg_name"))
+            ->leftjoin('catalogos AS parent', 'catalogos.ctg_padre', 'parent.ctg_id')
+            ->leftJoin('catalogos AS grand_parent', 'parent.ctg_padre', '=', 'grand_parent.ctg_id')
+            ->where('catalogos.ctg_tipo', '=', $_GET['element'])
+            ->where('catalogos.ctg_eliminado', 0)
+            ->orderby('ctg_name')
+            ->get();
+        }
 
         return json_encode( $catalogos );
      }
