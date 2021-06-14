@@ -48,8 +48,11 @@ class catalogos extends Controller
 
             $tot_cata = storeCatalogo::where('ctg_name', $name)->count();
 
+            $name = str_replace(' ', '', $name);
+            $name = $this->changueEspecialCaracters($name);
+
             $Catalogo = new StoreCatalogo();
-            $Catalogo->ctg_id = $request['data'][0]['value'] . "-" . str_replace(' ', '', $this->changueEspecialCaracters($name)) . $tot_cata == 0 ? "" : "-" . (string)$tot_cata;
+            $Catalogo->ctg_id = $request['data'][0]['value'] . "-" . ($tot_cata == 0 ? $name : $name . "-" . (string)$tot_cata);
             $Catalogo->ctg_tipo = $request['data'][0]['value'];
             $Catalogo->ctg_name = trim($name);
             $Catalogo->ctg_padre = $request['data'][2]['value'];
@@ -95,23 +98,27 @@ class catalogos extends Controller
 
         $tot_cata = storeCatalogo::where('ctg_name', $name)->count();
 
+        $name = $request['data'][2]['value'];
+        $name = str_replace(' ', '', $name);
+        $name = $this->changueEspecialCaracters($name);
+
         foreach($columnsInci AS $ci){
 
             DB::table('incidencias')
             ->where($ci, '=', $request['data'][1]['value'])
-            ->update( [ $ci => $request['data'][0]['value'] . "-" . str_replace(' ', '', $this->changueEspecialCaracters($request['data'][2]['value'])) . $tot_cata == 0 ? "" : "-" . (string)$tot_cata ] );
+            ->update( [ $ci => $request['data'][0]['value'] . "-" . ($tot_cata == 0 ? $name : $name . "-" . (string)$tot_cata) ] );
         }
 
         DB::table('catalogos')
         ->where('ctg_padre', $request['data'][1]['value'])
         ->update([
-            'ctg_padre' => $request['data'][0]['value'] . "-" . str_replace(' ', '', $this->changueEspecialCaracters($request['data'][2]['value'])) . $tot_cata == 0 ? "" : "-" . (string)$tot_cata
+            'ctg_padre' => $request['data'][0]['value'] . "-" . ($tot_cata == 0 ? $name : $name . "-" . (string)$tot_cata)
         ]);
 
         DB::table('catalogos')
         ->where('ctg_id', $request['data'][1]['value'])
         ->update([
-            'ctg_id' => $request['data'][0]['value'] . "-" . str_replace(' ', '', $this->changueEspecialCaracters($request['data'][2]['value'])) . $tot_cata == 0 ? "" : "-" . (string)$tot_cata,
+            'ctg_id' => $request['data'][0]['value'] . "-" . ($tot_cata == 0 ? $name : $name . "-" . (string)$tot_cata),
             'ctg_name' => $request['data'][2]['value']
         ]);
 
