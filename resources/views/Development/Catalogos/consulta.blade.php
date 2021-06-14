@@ -29,7 +29,7 @@
                                 <th>ID</th>
                                 <th>Elemento</th>
                                 <th>Nombre</th>
-                                <th>padre</th>
+                                <th>padre / Abuelo</th>
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
