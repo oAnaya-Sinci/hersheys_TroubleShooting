@@ -97,7 +97,7 @@ class catalogos extends Controller
         $columnsInci = ['icd_BU', 'icd_Area_linea', 'icd_Proceso', 'icd_Equipment_System', 'icd_Component', 'icd_Subsystem', 'icd_ControlPanel', 'icd_IssueType', 'icd_ActionRequired'];
 
         $name = $request['data'][2]['value'];
-        
+
         $tot_cata = storeCatalogo::where('ctg_name', $name)->count();
 
         $name = str_replace(' ', '', $name);
@@ -173,6 +173,8 @@ class catalogos extends Controller
      public function get_elements_modificar(){
 
         $catalogos = DB::table('catalogos')
+        ->select(DB::raw("catalogos.ctg_id, IF( padre.ctg_name <> '', CONCAT(padre.ctg_name, ' / ', catalogos.ctg_name), catalogos.ctg_name ) AS ctg_name"))
+        ->leftjoin('catalogos AS padre', 'catalogos.ctg_padre', 'padre.ctg_id')
         ->where('ctg_tipo', '=', $_GET['element'])
         ->where('catalogos.ctg_eliminado', 0)
         ->get();
