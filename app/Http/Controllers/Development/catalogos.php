@@ -146,15 +146,29 @@ class catalogos extends Controller
         $type = $data['data'];
 
         $elemento = DB::table('jerarquia_catalogos')->where('jrq_id', '=', $type)->value('jrq_padre');
+        
+        if($elemento != 'jrq-bussn'){
 
-        $catalogos = DB::table('catalogos')
-        ->select(DB::raw("catalogos.ctg_id, IF( grand_parent.ctg_name <> '', CONCAT(grand_parent.ctg_name, ' / ', parent.ctg_name, ' / ', catalogos.ctg_name), CONCAT(parent.ctg_name, ' / ', catalogos.ctg_name) ) AS ctg_name"))
-        ->leftjoin('catalogos AS parent', 'catalogos.ctg_padre', 'parent.ctg_id')
-        ->leftJoin('catalogos AS grand_parent', 'parent.ctg_padre', '=', 'grand_parent.ctg_id')
-        ->where('catalogos.ctg_tipo', '=', $elemento)
-        ->where('catalogos.ctg_eliminado', 0)
-        ->orderby('ctg_name')
-        ->get();
+            $catalogos = DB::table('catalogos')
+            ->select(DB::raw("catalogos.ctg_id, IF( grand_parent.ctg_name <> '', CONCAT(grand_parent.ctg_name, ' / ', parent.ctg_name, ' / ', catalogos.ctg_name), CONCAT(parent.ctg_name, ' / ', catalogos.ctg_name) ) AS ctg_name"))
+            ->leftjoin('catalogos AS parent', 'catalogos.ctg_padre', 'parent.ctg_id')
+            ->leftJoin('catalogos AS grand_parent', 'parent.ctg_padre', '=', 'grand_parent.ctg_id')
+            ->where('catalogos.ctg_tipo', '=', $elemento)
+            ->where('catalogos.ctg_eliminado', 0)
+            ->orderby('ctg_name')
+            ->get();
+        }
+
+        else{
+
+            $catalogos = DB::table('catalogos')
+            ->select(DB::raw("catalogos.ctg_id, IF( parent.ctg_name <> '', CONCAT(parent.ctg_name, ' / ', catalogos.ctg_name), catalogos.ctg_name ) AS ctg_name"))
+            ->leftjoin('catalogos AS parent', 'catalogos.ctg_padre', 'parent.ctg_id')
+            ->where('catalogos.ctg_tipo', '=', $elemento)
+            ->where('catalogos.ctg_eliminado', 0)
+            ->orderby('ctg_name')
+            ->get();
+        }
 
         return json_encode( $catalogos );
     }
