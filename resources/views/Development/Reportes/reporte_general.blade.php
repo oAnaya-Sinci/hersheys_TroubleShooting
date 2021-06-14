@@ -61,6 +61,7 @@
                                         <th>Refaccion</th>
                                         <th>Tiempo Diagnosticar</th>
                                         <th>Comments</th>
+                                        <!-- <th>Usario Registro</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>

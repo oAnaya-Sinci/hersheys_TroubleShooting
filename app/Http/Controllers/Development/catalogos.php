@@ -46,7 +46,7 @@ class catalogos extends Controller
 
         foreach($dataName AS $name){
 
-            $tot_cata = storeCatalogo::where('ctg_name', 'depositador')->count();
+            $tot_cata = storeCatalogo::where('ctg_name', $name)->count();
 
             $Catalogo = new StoreCatalogo();
             $Catalogo->ctg_id = $request['data'][0]['value'] . "-" . str_replace(' ', '', $this->changueEspecialCaracters($name)) . $tot_cata == 0 ? "" : "-" . (string)$tot_cata;
@@ -93,23 +93,25 @@ class catalogos extends Controller
     {
         $columnsInci = ['icd_BU', 'icd_Area_linea', 'icd_Proceso', 'icd_Equipment_System', 'icd_Component', 'icd_Subsystem', 'icd_ControlPanel', 'icd_IssueType', 'icd_ActionRequired'];
 
+        $tot_cata = storeCatalogo::where('ctg_name', $name)->count();
+
         foreach($columnsInci AS $ci){
 
             DB::table('incidencias')
             ->where($ci, '=', $request['data'][1]['value'])
-            ->update( [ $ci => $request['data'][0]['value'] . "-" . str_replace(' ', '', $this->changueEspecialCaracters($request['data'][2]['value'])) ] );
+            ->update( [ $ci => $request['data'][0]['value'] . "-" . str_replace(' ', '', $this->changueEspecialCaracters($request['data'][2]['value'])) . $tot_cata == 0 ? "" : "-" . (string)$tot_cata ] );
         }
 
         DB::table('catalogos')
         ->where('ctg_padre', $request['data'][1]['value'])
         ->update([
-            'ctg_padre' => $request['data'][0]['value'] . "-" . str_replace(' ', '', $this->changueEspecialCaracters($request['data'][2]['value']))
+            'ctg_padre' => $request['data'][0]['value'] . "-" . str_replace(' ', '', $this->changueEspecialCaracters($request['data'][2]['value'])) . $tot_cata == 0 ? "" : "-" . (string)$tot_cata
         ]);
 
         DB::table('catalogos')
         ->where('ctg_id', $request['data'][1]['value'])
         ->update([
-            'ctg_id' => $request['data'][0]['value'] . "-" . str_replace(' ', '', $this->changueEspecialCaracters($request['data'][2]['value'])),
+            'ctg_id' => $request['data'][0]['value'] . "-" . str_replace(' ', '', $this->changueEspecialCaracters($request['data'][2]['value'])) . $tot_cata == 0 ? "" : "-" . (string)$tot_cata,
             'ctg_name' => $request['data'][2]['value']
         ]);
 
