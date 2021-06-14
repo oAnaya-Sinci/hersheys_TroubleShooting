@@ -246,7 +246,7 @@ class reportesHershey extends Controller
     public function changueEspecialCaracters($valueStr){
 
         $especialC = array("á", "é", "í", "ó", "ú", "ñ", "Á", "É", "Í", "Ó", "Ú", 'Ñ');
-        $newEspecialC = array("a", "e", "i", "o", "u", "n", "A", "E", "I", "O", "U", "ta");
+        $newEspecialC = array("a", "e", "i", "o", "u", "n", "A", "E", "I", "O", "U", "N");
 
         $replaceStr = str_replace($especialC, $newEspecialC, $valueStr);
 
