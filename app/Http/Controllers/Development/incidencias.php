@@ -19,8 +19,6 @@ class incidencias extends Controller
     {
         $BU = Catalogos::where('ctg_tipo', '=', 'jrq-bussn')->where('catalogos.ctg_eliminado', 0)->get();
         $areaLinea = Catalogos::where('ctg_tipo', '=', 'jrq-area-line')->where('catalogos.ctg_eliminado', 0)->get();
-        // $subsystem = Catalogos::where('ctg_tipo', '=', 'jrq-subsystem')->get();
-        // $controlPanel = Catalogos::where('ctg_tipo', '=', 'jrq-ctrlPanl')->get();
         $Issues = Catalogos::where('ctg_tipo', '=', 'jrq-issue')->where('catalogos.ctg_eliminado', 0)->get();
         $ActionReq = Catalogos::where('ctg_tipo', '=', 'jrq-action')->where('catalogos.ctg_eliminado', 0)->get();
         $loggin_User = Auth()->User()->name;

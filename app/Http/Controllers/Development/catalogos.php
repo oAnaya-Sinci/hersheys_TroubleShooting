@@ -49,7 +49,7 @@ class catalogos extends Controller
             $tot_cata = storeCatalogo::where('ctg_name', 'depositador')->count();
 
             $Catalogo = new StoreCatalogo();
-            $Catalogo->ctg_id = $request['data'][0]['value'] . "-" . str_replace(' ', '', $name) . $tot_cata == 0 ? "" : "-" . (string)$tot_cata;
+            $Catalogo->ctg_id = $request['data'][0]['value'] . "-" . str_replace(' ', '', $this->changueEspecialCaracters($name)) . $tot_cata == 0 ? "" : "-" . (string)$tot_cata;
             $Catalogo->ctg_tipo = $request['data'][0]['value'];
             $Catalogo->ctg_name = trim($name);
             $Catalogo->ctg_padre = $request['data'][2]['value'];
@@ -97,19 +97,19 @@ class catalogos extends Controller
 
             DB::table('incidencias')
             ->where($ci, '=', $request['data'][1]['value'])
-            ->update( [ $ci => $request['data'][0]['value'] . "-" . str_replace(' ', '', $request['data'][2]['value']) ] );
+            ->update( [ $ci => $request['data'][0]['value'] . "-" . str_replace(' ', '', $this->changueEspecialCaracters($request['data'][2]['value'])) ] );
         }
 
         DB::table('catalogos')
         ->where('ctg_padre', $request['data'][1]['value'])
         ->update([
-            'ctg_padre' => $request['data'][0]['value'] . "-" . str_replace(' ', '', $request['data'][2]['value'])
+            'ctg_padre' => $request['data'][0]['value'] . "-" . str_replace(' ', '', $this->changueEspecialCaracters($request['data'][2]['value']))
         ]);
 
         DB::table('catalogos')
         ->where('ctg_id', $request['data'][1]['value'])
         ->update([
-            'ctg_id' => $request['data'][0]['value'] . "-" . str_replace(' ', '', $request['data'][2]['value']),
+            'ctg_id' => $request['data'][0]['value'] . "-" . str_replace(' ', '', $this->changueEspecialCaracters($request['data'][2]['value'])),
             'ctg_name' => $request['data'][2]['value']
         ]);
 
@@ -168,5 +168,19 @@ class catalogos extends Controller
         ->get();
 
         return json_encode( $catalogos );
+     }
+
+     /**
+     * Funciones para quitar cararctees a cadena
+     */
+
+    public function changueEspecialCaracters($valueStr){
+
+        $especialC = array("á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú");
+        $newEspecialC = array("a", "e", "i", "o", "u", "A", "E", "I", "O", "U");
+
+        $replaceStr = str_replace($especialC, $newEspecialC, $valueStr);
+
+        return $replaceStr;
      }
 }

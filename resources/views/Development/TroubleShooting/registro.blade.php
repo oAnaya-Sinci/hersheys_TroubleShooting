@@ -111,7 +111,7 @@
                     </div>
 
                     <div class="col-lg-4">
-                        <label class="mb-0">Shift</label>
+                        <label class="mb-0">Turno</label>
                         <select name="Shift" class="form-control bc-choco mb-1">
                             <option value=''>Seleccionar Turno</option>
                             <option value='1'>Matutino</option>
@@ -133,8 +133,8 @@
                         <input type="text" name="ClosisngDate" class="form-control bc-choco mb-1 datetimepicker" placeholder="Closing Date" />
                     </div>
                     <div class="col-lg-4">
-                        <label class="mb-0">Response Time</label>
-                        <input type="text" name="ResponseTime" class="form-control bc-choco mb-1" placeholder="response time" />
+                        <label class="mb-0">Response Time en Minutos</label>
+                        <input type="text" id="ResponseTime" name="ResponseTime" class="form-control bc-choco mb-1" placeholder="response time" maxlength="4"/>
                     </div>
                 </div>
                 <div class="my-2"></div>
@@ -173,12 +173,12 @@
 
                 <div class="row">
                     <div class="col-lg-4">
-                        <label class="mb-0">Tiempo en Diagnosticar</label>
-                        <input type="text" name="Diagrama" class="form-control bc-choco mb-1" placeholder="Tiempo en Diagnosticar" />
+                        <label class="mb-0">Tiempo en Diagnosticar en Minutos</label>
+                        <input type="text" id="TiempoDiagnos" name="TiempoDiagnos" class="form-control bc-choco mb-1" placeholder="Tiempo en Diagnosticar" maxlength="4"/>
                     </div>
                     <div class="col-lg-4">
                         <label class="mb-0">Reported By</label>
-                        <input type="text" name="Respaldo" class="form-control bc-choco mb-1" placeholder="Reported By" value="{{$loggin_User}}"/>
+                        <input type="text" name="ReportedBy" class="form-control bc-choco mb-1" placeholder="Reported By" value="{{$loggin_User}}"/>
                     </div>
                 </div>
                 <div class="my-2"></div>

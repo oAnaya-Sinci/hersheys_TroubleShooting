@@ -416,9 +416,7 @@ $('#downloadExcel').click(function() {
     let date = new Date();
     let today = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
 
-    // exportTableToExcel('dataTableReport', 'dac_troubleshooting_' + today);
-    // exportData('dataTableReport', 'dac_troubleshooting_' + today);
-    exportTableToCSV('dac_troubleshooting_' + today);
+    exportTableToCSV('dac_troubleshooting_' + today + ".csv");
 
     $('#downloadExcel').prop("disabled", true);
 });

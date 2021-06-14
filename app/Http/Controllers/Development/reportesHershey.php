@@ -165,6 +165,8 @@ class reportesHershey extends Controller
 
     public function get_DataTable(Request $arrayData){
 
+        $ColumnsIncidencias = array('bssnu', 'area_linea', 'proceso', 'equipment_system', 'component', 'icd_Subsystem', 'icd_ControlPanel','issue', 'action_r', 'icd_Priority', 'icd_Responsible', 'icd_DiagramaProcManual', 'icd_Respaldo', 'icd_reportedBy', 'icd_ProblemDescription', 'icd_Comments', 'icd_Refaccion');
+
         $data = $arrayData['data'];
         $pos = (sizeof($data)-1);
 
@@ -188,7 +190,7 @@ class reportesHershey extends Controller
 
         $Columns = array('icd_bu', 'icd_area_linea', 'icd_proceso', 'icd_equipment_system', 'icd_component');
 
-        $query = 'SELECT DISTINCT icd.*, bu.ctg_name AS bssnu, area_linea.ctg_name AS area_linea, proceso.ctg_name AS proceso, equip_system.ctg_name AS equipment_system,  component.ctg_name AS component, issue.ctg_name AS issue, actionr.ctg_name AS action_r FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.' . $Columns[$lastCol];
+        $query = 'SELECT DISTINCT icd.*, bu.ctg_name AS bssnu, area_linea.ctg_name AS area_linea, proceso.ctg_name AS proceso, equip_system.ctg_name AS equipment_system, component.ctg_name AS component, issue.ctg_name AS issue, actionr.ctg_name AS action_r FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.' . $Columns[$lastCol];
         $query .= ' INNER JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType ';
 
         $query .= ' LEFT JOIN catalogos AS bu ON icd.icd_bu = bu.ctg_id';
@@ -221,10 +223,32 @@ class reportesHershey extends Controller
             $concatNE == '' ? '' : $query .= " AND icd.". $Columns[$lastCol] ." IN (" . $concatNE .  ")";
         }
 
-        $query .= " ORDER BY area_linea";
+        $query .= " ORDER BY bssnu, area_linea, proceso, equipment_system, component";
 
         $reportData = DB::select($query);
 
+        foreach($reportData AS $rd){
+
+            foreach($ColumnsIncidencias AS $ci){
+
+                $rd->$ci = $this->changueEspecialCaracters($rd->$ci);
+            }
+        }
+
         return json_encode($reportData);
     }
+
+    /**
+     * Funciones para quitar cararctees a cadena
+     */
+
+    public function changueEspecialCaracters($valueStr){
+
+        $especialC = array("á", "é", "í", "ó", "ú", "ñ", "Á", "É", "Í", "Ó", "Ú", 'Ñ');
+        $newEspecialC = array("a", "e", "i", "o", "u", "n", "A", "E", "I", "O", "U", "ta");
+
+        $replaceStr = str_replace($especialC, $newEspecialC, $valueStr);
+
+        return $replaceStr;
+     }
 }
