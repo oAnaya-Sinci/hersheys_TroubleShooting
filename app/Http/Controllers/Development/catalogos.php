@@ -175,8 +175,8 @@ class catalogos extends Controller
         $catalogos = DB::table('catalogos')
         ->select(DB::raw("catalogos.ctg_id, IF( padre.ctg_name <> '', CONCAT(padre.ctg_name, ' / ', catalogos.ctg_name), catalogos.ctg_name ) AS ctg_name"))
         ->leftjoin('catalogos AS padre', 'catalogos.ctg_padre', 'padre.ctg_id')
-        ->where('ctg_tipo', '=', $_GET['element'])
-        ->where('catalogos.ctg_eliminado', 0)
+        ->where('catalogos.ctg_tipo', '=', $_GET['element'])
+        ->where('catalogos.catalogos.ctg_eliminado', 0)
         ->get();
 
         return json_encode( $catalogos );
