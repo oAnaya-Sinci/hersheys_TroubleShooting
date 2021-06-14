@@ -137,6 +137,7 @@ class incidencias extends Controller
         ->where('ctg_tipo', '=', $ctgTipo)
         ->where('ctg_padre', '=', $ctgPadre == 'null' ? null : $ctgPadre)
         ->where('catalogos.ctg_eliminado', 0)
+        ->orderby('ctg.name')
         ->get();
 
         return json_encode( $catalogos );

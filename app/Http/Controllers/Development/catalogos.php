@@ -152,6 +152,7 @@ class catalogos extends Controller
         ->leftjoin('catalogos AS padre', 'catalogos.ctg_padre', 'padre.ctg_id')
         ->where('catalogos.ctg_tipo', '=', $elemento)
         ->where('catalogos.ctg_eliminado', 0)
+        ->orderby('catalogos.ctg.name')
         ->get();
 
         return json_encode( $catalogos );
@@ -177,6 +178,7 @@ class catalogos extends Controller
         ->leftjoin('catalogos AS padre', 'catalogos.ctg_padre', 'padre.ctg_id')
         ->where('catalogos.ctg_tipo', '=', $_GET['element'])
         ->where('catalogos.ctg_eliminado', 0)
+        ->orderby('catalogos.ctg.name')
         ->get();
 
         return json_encode( $catalogos );
