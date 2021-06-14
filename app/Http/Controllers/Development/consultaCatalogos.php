@@ -95,7 +95,7 @@ class consultaCatalogos extends Controller
 
     function getElementos(){
 
-        $Elementos = catalogos::select('catalogos.id AS cata_id', 'jc.jrq_nombre AS tipo', 'catalogos.ctg_name AS nombre', catalogos::raw("IF( grand_parent.ctg_name <> '', CONCAT(grand_parent.ctg_name, " / ", parent.ctg_name), parent.ctg_name ) AS padre"))
+        $Elementos = catalogos::select('catalogos.id AS cata_id', 'jc.jrq_nombre AS tipo', 'catalogos.ctg_name AS nombre', catalogos::raw('IF( grand_parent.ctg_name <> "", CONCAT(grand_parent.ctg_name, " / ", parent.ctg_name), parent.ctg_name ) AS padre'))
                         ->leftJoin('catalogos AS parent', 'catalogos.ctg_padre', '=', 'parent.ctg_id')
                         ->leftJoin('catalogos AS grand_parent', 'parent.ctg_padre', '=', 'grand_parent.ctg_id')
                         ->join('jerarquia_catalogos AS jc', 'catalogos.ctg_tipo', '=', 'jc.jrq_id')
