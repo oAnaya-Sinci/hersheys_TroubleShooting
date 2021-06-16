@@ -316,6 +316,7 @@ $('#storeIncidencias').click(function() {
         }
     }).done(function(respuesta) {
         $('#successModal').modal('show');
+        $("#incidencias")[0].reset();
     });
 });
 
