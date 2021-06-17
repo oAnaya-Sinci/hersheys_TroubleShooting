@@ -125,12 +125,12 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <label class="mb-0">Reporting Date</label>
-                        <input type="text" name="ReportingDate" class="form-control bc-choco mb-1 datetimepicker" placeholder="Reporting Date" />
+                        <input type="text" id="ReportingDate" name="ReportingDate" class="form-control bc-choco mb-1 datetimepicker" placeholder="Reporting Date" />
                     </div>
 
                     <div class="col-lg-4">
                         <label class="mb-0">Closing Date</label>
-                        <input type="text" name="ClosisngDate" class="form-control bc-choco mb-1 datetimepicker" placeholder="Closing Date" />
+                        <input type="text" id="ClosingDate" name="ClosingDate" class="form-control bc-choco mb-1 datetimepicker" placeholder="Closing Date" />
                     </div>
                     <div class="col-lg-4">
                         <label class="mb-0">Response Time en Minutos</label>

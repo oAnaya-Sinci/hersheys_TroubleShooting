@@ -35,9 +35,9 @@ class consultaCatalogos extends Controller
                         ->leftJoin('catalogos AS grand_grand_parent', 'grand_parent.ctg_padre', '=', 'grand_grand_parent.ctg_id')
                         ->join('jerarquia_catalogos AS jc', 'catalogos.ctg_tipo', '=', 'jc.jrq_id')
                         ->where('catalogos.ctg_eliminado', 0)
-                        ->where('parent.ctg_eliminado', 0)
-                        ->where('grand_parent.ctg_eliminado', 0)
-                        ->where('grand_grand_parent.ctg_eliminado', 0)
+                        // ->where('parent.ctg_eliminado', 0)
+                        // ->where('grand_parent.ctg_eliminado', 0)
+                        // ->where('grand_grand_parent.ctg_eliminado', 0)
                         ->distinct()
                         ->get();
 
