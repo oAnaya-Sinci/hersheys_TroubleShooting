@@ -102,7 +102,9 @@ function calculeTotalTime(st, et) {
     et = et.split(':');
 
     if (ReportD < ClosingD)
-        et[0] += 24;
+        et[0] = parseInt(et[0]) + parseInt(24);
+
+    console.log(et[0]);
 
     var tt_h = parseInt(et[0]) - parseInt(st[0]);
     var tt_m = 0;
