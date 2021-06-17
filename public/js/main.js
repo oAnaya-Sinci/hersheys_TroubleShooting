@@ -85,15 +85,23 @@ function calculeTotalTime(st, et) {
     let ReportD = $('#ReportingDate').val();
     let ClosingD = $('#ClosingDate').val();
 
+    var rd = 0;
+    var cd = 0;
+    var dd = 1;
+
     ReportD = ReportD.split("-");
+    rd = ReportD[0];
     ReportD = ReportD[2] + "-" + ReportD[1] + "-" + ReportD[0];
     ReportD = new Date(ReportD);
-    // res.setDate(res.getDate() + days);
+    // ReportD.setDate(ReportD.getDate() + 1);
 
     ClosingD = ClosingD.split("-");
+    cd = ClosingD[0];
     ClosingD = ClosingD[2] + "-" + ClosingD[1] + "-" + ClosingD[0];
     ClosingD = new Date(ClosingD);
-    // res.setDate(res.getDate() + days);
+    // ReportD.setDate(ReportD.getDate() + 1);
+
+    dd = ((parseInt(cd) - parseInt(rd)) * 24);
 
     ReportD = Date.parse(ReportD) / 1000;
     ClosingD = Date.parse(ClosingD) / 1000;
@@ -102,7 +110,7 @@ function calculeTotalTime(st, et) {
     et = et.split(':');
 
     if (ReportD < ClosingD)
-        et[0] = parseInt(et[0]) + parseInt(24);
+        et[0] = parseInt(et[0]) + parseInt(dd);
 
     console.log(et[0]);
 
