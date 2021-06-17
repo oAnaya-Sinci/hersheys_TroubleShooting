@@ -28,8 +28,8 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Elemento</th>
+                                <th>B.Abuelo / Abuelo / Padre</th>
                                 <th>Nombre</th>
-                                <th>Abuelo / Padre</th>
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
@@ -39,8 +39,16 @@
                             <tr>
                                 <td>{{$Ele['cata_id']}}</td>
                                 <td>{{$Ele['tipo']}}</td>
+
+                                @if($Ele['gg_parent'] != "")
+                                    <td>{{$Ele['gg_parent'] . " / " . $Ele['padre']}}</td>
+
+                                @else
+                                    <td>{{$Ele['padre']}}</td>
+
+                                @endif
+
                                 <td>{{$Ele['nombre']}}</td>
-                                <td>{{$Ele['padre']}}</td>
                                 <td style="text-align: center;"><button id="deleteCatalog" class="btn btn-danger"><i class="fas fa-fw far fa-trash"></i></button></td>
                             </tr>
 
