@@ -61,6 +61,11 @@
                         <label class="mb-0">Componet</label>
                         <select id="jrq-component" name="jrq-component" class="form-control bc-choco mb-1">
                             <option value=''>Seleccionar Elemento</option>
+                            @foreach($Componente AS $Com)
+
+                                <option value="{{ $Com['ctg_id'] }}"> {{ $Com['ctg_name'] }} </option>
+
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-lg-4">
@@ -186,12 +191,14 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <label class="mb-0">Problem Description</label>
-                        <textarea name="ProblemDescription" class="form-control bc-choco mb-1" rows="5"></textarea>
+                        <div style="text-align: end; margin-top: -1.5rem;"> Caracteres Restantes: <span style="color: #08c708" id="lessProblem">1000</span></div>
+                        <textarea id="ProblemDescription" name="ProblemDescription" class="form-control bc-choco mb-1" rows="5" maxlength="1000"></textarea>
                     </div>
 
                     <div class="col-lg-6">
                         <label class="mb-0">Comments</label>
-                        <textarea name="Comments" class="form-control bc-choco mb-1" rows="5"></textarea>
+                        <div style="text-align: end; margin-top: -1.5rem;"> Caracteres Restantes: <span style="color: #08c708" id="lessComment">1000</span></div>
+                        <textarea id="Comments" name="Comments" class="form-control bc-choco mb-1" rows="5" maxlength="1000"></textarea>
                     </div>
                 </div>
 

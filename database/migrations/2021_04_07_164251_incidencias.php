@@ -38,8 +38,8 @@ class Incidencias extends Migration
             $table->string('icd_Refaccion');
             $table->string('icd_reportedBy');
             $table->string('icd_tiempoDiagnosticar');
-            $table->string('icd_ProblemDescription', 500);
-            $table->string('icd_Comments', 500);
+            $table->text('icd_ProblemDescription');
+            $table->text('icd_Comments');
             $table->integer('user_id');
             $table->timestamps();
         });

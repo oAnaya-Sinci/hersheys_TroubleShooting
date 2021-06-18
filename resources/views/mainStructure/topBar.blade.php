@@ -55,7 +55,13 @@
     function actualDate(){
 
         var dt = new Date();
-        var actualDate = dt.toLocaleString();
+
+        var newDateOptions = {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit"
+        }
+        var actualDate = dt.toLocaleString('en-GB');
 
         document.getElementById('actualDate').innerHTML = actualDate;
 

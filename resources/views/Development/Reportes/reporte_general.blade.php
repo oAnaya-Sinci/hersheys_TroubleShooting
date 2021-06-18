@@ -132,12 +132,13 @@
                                 <option value=''>Seleccionar Elemento</option>
                             </select>
                         </div>
-                        <div class="form-group">
+
+                        <!-- <div class="form-group">
                             <label>Equipment / System</label>
                             <select id="jrq-equipmnet-system" name="jrq-equipment" class="form-control bc-choco slctReporte">
                                 <option value=''>Seleccionar Elemento</option>
                             </select>
-                        </div>
+                        </div> -->
 
                         <!-- <div class="form-group">
                             <label>Componet</label>

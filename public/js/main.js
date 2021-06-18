@@ -93,13 +93,13 @@ function calculeTotalTime(st, et) {
     rd = ReportD[0];
     ReportD = ReportD[2] + "-" + ReportD[1] + "-" + ReportD[0];
     ReportD = new Date(ReportD);
-    // ReportD.setDate(ReportD.getDate() + 1);
+    ReportD.setDate(ReportD.getDate() + 1);
 
     ClosingD = ClosingD.split("-");
     cd = ClosingD[0];
     ClosingD = ClosingD[2] + "-" + ClosingD[1] + "-" + ClosingD[0];
     ClosingD = new Date(ClosingD);
-    // ReportD.setDate(ReportD.getDate() + 1);
+    ClosingD.setDate(ClosingD.getDate() + 1);
 
     dd = ((parseInt(cd) - parseInt(rd)) * 24);
 
@@ -111,8 +111,6 @@ function calculeTotalTime(st, et) {
 
     if (ReportD < ClosingD)
         et[0] = parseInt(et[0]) + parseInt(dd);
-
-    console.log(et[0]);
 
     var tt_h = parseInt(et[0]) - parseInt(st[0]);
     var tt_m = 0;
@@ -259,11 +257,11 @@ $('#jrq-proceso').change(function() {
     $("#jrq-component").append("<option value=''>Seleccionar Elemento</option>");
 });
 
-$('#jrq-equipmnet-system').change(function() {
+// $('#jrq-equipmnet-system').change(function() {
 
-    var Element = "jrq-component";
-    getDataSelcts(Element, $('#jrq-equipmnet-system').val());
-});
+//     var Element = "jrq-component";
+//     getDataSelcts(Element, $('#jrq-equipmnet-system').val());
+// });
 
 function getDataSelcts(element, select) {
 
@@ -505,4 +503,45 @@ $('#delteDataCatalogo').click(function() {
             showError(Message);
         }
     });
+});
+
+/**
+ * Caracteres restantes en Problem Description y Comentarios
+ */
+
+$totCaractersArea = 1000;
+
+$('#ProblemDescription').on('keyup', function() {
+
+    console.log($(this));
+    console.log($(this).val().length);
+
+    let totRest = $totCaractersArea - $(this).val().length;
+
+    $('#lessProblem').text(totRest);
+
+    if (totRest > 749)
+        $('#lessProblem').css("color", "#08c708");
+
+    else if (totRest < 750 && totRest > 249)
+        $('#lessProblem').css("color", "#e8a805");
+
+    else
+        $('#lessProblem').css("color", "red ");
+});
+
+$('#Comments').on('keyup', function() {
+
+    let totRest = $totCaractersArea - $(this).val().length;
+
+    $('#lessComment').text(totRest);
+
+    if (totRest > 749)
+        $('#lessComment').css("color", "#08c708");
+
+    else if (totRest < 750 && totRest > 249)
+        $('#lessComment').css("color", "#e8a805");
+
+    else
+        $('#lessComment').css("color", "red ");
 });
