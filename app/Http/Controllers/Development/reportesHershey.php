@@ -12,8 +12,8 @@ class reportesHershey extends Controller
 {
     public function reporte_general(){
 
-        $BU = Catalogos::where('ctg_tipo', '=', 'jrq-bussn')->get();
-        $areaLinea = Catalogos::where('ctg_tipo', '=', 'jrq-area-line')->get();
+        $BU = Catalogos::where('ctg_tipo', '=', 'jrq-bussn')->orderby('ctg_name')->get();
+        $areaLinea = Catalogos::where('ctg_tipo', '=', 'jrq-area-line')->orderby('ctg_name')->get();
         $loggin_User = Auth()->User()->name;
         $adminUser = Auth()->User()->admin_user;
 

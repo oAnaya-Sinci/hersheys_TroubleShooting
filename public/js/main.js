@@ -80,6 +80,16 @@ $('#endTime').blur(function() {
     calculeTotalTime(st, et);
 });
 
+$('#totalTime').blur(function() {
+
+    $('#totalTime').attr('disabled', 'disabled');
+
+    var st = $('#startTime').val();
+    var et = $('#endTime').val();
+
+    calculeTotalTime(st, et);
+});
+
 function calculeTotalTime(st, et) {
 
     let ReportD = $('#ReportingDate').val();
@@ -214,10 +224,9 @@ $('#storeCatalogos').click(function() {
             showError(Message);
         }
     }).done(function(respuesta) {
+
+        $("#elementForm")[0].reset();
         $('#successModal').modal('show');
-        $('#element_type').val('');
-        $('#nombre_elemento').val('');
-        $('#element_parent').val('');
     });
 });
 
@@ -311,6 +320,8 @@ function onlyNumberKey(evt) {
 
 $('#storeIncidencias').click(function() {
 
+    $('#totalTime').removeAttr('disabled');
+
     var formulario = $("#incidencias").serializeArray();
 
     var data = {
@@ -324,9 +335,12 @@ $('#storeIncidencias').click(function() {
         url: "/TroubleShooting/storeIncidencias",
         data: data,
         error: function(Message) {
+            $('#totalTime').attr('disabled', 'disabled');
             showError(Message);
         }
     }).done(function(respuesta) {
+
+        $('#totalTime').attr('disabled', 'disabled');
         $('#successModal').modal('show');
         $("#incidencias")[0].reset();
     });

@@ -155,7 +155,7 @@
                     </div>
                     <div class="col-lg-4">
                         <label class="mb-0">Total Time</label>
-                        <input type="text" id="totalTime" name="TotalTime" class="form-control bc-choco mb-1" placeholder="total time" />
+                        <input type="text" id="totalTime" name="TotalTime" class="form-control bc-choco mb-1" placeholder="total time" disabled/>
                     </div>
                 </div>
                 <div class="my-2"></div>
