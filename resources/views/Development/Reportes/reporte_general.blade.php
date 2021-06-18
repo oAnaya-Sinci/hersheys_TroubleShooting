@@ -133,23 +133,9 @@
                             </select>
                         </div>
 
-                        <!-- <div class="form-group">
-                            <label>Equipment / System</label>
-                            <select id="jrq-equipmnet-system" name="jrq-equipment" class="form-control bc-choco slctReporte">
-                                <option value=''>Seleccionar Elemento</option>
-                            </select>
-                        </div> -->
-
-                        <!-- <div class="form-group">
-                            <label>Componet</label>
-                            <select id="jrq-component" name="jrq-component" class="form-control bc-choco slctReporte">
-                                <option value=''>Seleccionar Elemento</option>
-                            </select>
-                        </div> -->
-
                         <div class="showReport">
-                            <button id="showReportButton" class="btn btn-primary">Mostrar Reporte</button>
-                            <button id="downloadExcel" class="btn btn-secondary" >CSV</button>
+                            <button id="showReportButton" class="btn btn-primary"> Mostrar <i class="fas fa-chart-line" aria-hidden="true"> </i></button>
+                            <button id="downloadExcel" class="btn btn-secondary">CSV <i class="fas fa-cloud-download-alt" aria-hidden="true"> </i></button>
                         </div>
                 </div>
             </div>

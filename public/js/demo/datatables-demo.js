@@ -2,3 +2,8 @@
 $(document).ready(function() {
     reloadDataTable = $('#dataTable').DataTable({ searching: true, pageLength: 25 });
 });
+
+function iniciateRowsCommentsProblems() {
+
+
+}

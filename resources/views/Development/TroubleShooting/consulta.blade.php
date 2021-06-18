@@ -28,7 +28,7 @@
                                 <th>SubSystem</th>
                                 <th>Componet</th>
                                 <th>Control Panel</th>
-                                <th>Problem Description</th>
+                                <!-- <th>Problem Description</th> -->
                                 <th>Issue Type</th>
                                 <th>Priority</th>
                                 <th>Action Require</th>
@@ -46,6 +46,7 @@
                                 <th>Refaccion</th>
                                 <th>Tiempo Diagnosticar</th>
                                 <th>Comments</th>
+                                <th>Problem Description</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,31 +55,37 @@
 
                                 <tr>
                                     <td>{{$Inci['id']}}</td>
-                                    <td>{{$Inci['bssnu']}}</td>
+                                    <td>{{$Inci['BU']}}</td>
                                     <td>{{$Inci['area_linea']}}</td>
                                     <td>{{$Inci['proceso']}}</td>
-                                    <td>{{$Inci['equipment_system']}}</td>
-                                    <td>{{$Inci['icd_Subsystem']}}</td>
+                                    <td>{{$Inci['equip_system']}}</td>
+                                    <td>{{$Inci['SubSistema']}}</td>
                                     <td>{{$Inci['component']}}</td>
-                                    <td>{{$Inci['icd_ControlPanel']}}</td>
-                                    <td>{{$Inci['icd_ProblemDescription']}}</td>
-                                    <td>{{$Inci['issue']}}</td>
-                                    <td>{{$Inci['icd_Priority']}}</td>
-                                    <td>{{$Inci['action']}}</td>
-                                    <td>{{$Inci['icd_Responsible']}}</td>
-                                    <td>{{$Inci['icd_reportedBy']}}</td>
-                                    <td>{{$Inci['icd_ReportingDate']}}</td>
-                                    <td>{{$Inci['icd_ClosingDate']}}</td>
-                                    <td>{{$Inci['icd_Shift']}}</td>
-                                    <td>{{$Inci['icd_ResponseTime']}}</td>
-                                    <td>{{$Inci['icd_StartTime']}}</td>
-                                    <td>{{$Inci['icd_EndTime']}}</td>
-                                    <td>{{$Inci['icd_TotalTime']}}</td>
-                                    <td>{{$Inci['icd_DiagramaProcManual']}}</td>
-                                    <td>{{$Inci['icd_Respaldo']}}</td>
-                                    <td>{{$Inci['icd_Refaccion']}}</td>
-                                    <td>{{$Inci['icd_tiempoDiagnosticar']}}</td>
-                                    <td>{{$Inci['icd_Comments']}}</td>
+                                    <td>{{$Inci['Control_Panel']}}</td>
+                                    <!-- <td>{{$Inci['icd_ProblemDescription']}}</td> -->
+                                    <td>{{$Inci['issue_type']}}</td>
+                                    <td>{{$Inci['Prioridad']}}</td>
+                                    <td>{{$Inci['action_required']}}</td>
+                                    <td>{{$Inci['Responsable']}}</td>
+                                    <td>{{$Inci['Reportado_Por']}}</td>
+                                    <td>{{$Inci['Fecha_Reporte']}}</td>
+                                    <td>{{$Inci['Fecha_Cierre']}}</td>
+                                    <td>{{$Inci['Turno']}}</td>
+                                    <td>{{$Inci['Tiempo_Respuesta']}}</td>
+                                    <td>{{$Inci['Hora_Inicio']}}</td>
+                                    <td>{{$Inci['Hora_Termino']}}</td>
+                                    <td>{{$Inci['Tiempo_Total']}}</td>
+                                    <td>{{$Inci['Diagrama_procedimiento_manual']}}</td>
+                                    <td>{{$Inci['Respaldo']}}</td>
+                                    <td>{{$Inci['Refaccion']}}</td>
+                                    <td>{{$Inci['Tiempo_Diagnosticar']}}</td>
+                                    <!-- <td>{{$Inci['icd_Comments']}}</td> -->
+                                    <td style="text-align: center;">
+                                        <button id="showComment" class="btn btn-info btn-sm"><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <button id="showProblemDescription" class="btn btn-info btn-sm"><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>
+                                    </td>
                                 </tr>
 
                             @endforeach

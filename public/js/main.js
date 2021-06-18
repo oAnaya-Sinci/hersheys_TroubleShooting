@@ -1,3 +1,5 @@
+// const { data } = require("jquery");
+
 jQuery(document).ready(function($) {
     if (window.jQuery().datetimepicker) {
         $('.datetimepicker').datetimepicker({
@@ -55,7 +57,7 @@ jQuery(document).ready(function($) {
     //     },
     //     columns: [ //or different depending on the structure of the object
     //         { "data": "user.id" },
-    //         { "data": "user.name" },
+    //         { "data": "user.name" },|
     //         { "data": "user.email" },
     //         { "data": "user.admin_user" },
     //         { "data": "user.created_at" }
@@ -64,33 +66,22 @@ jQuery(document).ready(function($) {
 
 });
 
-$('#startTime').blur(function() {
+$('#startTime').blur(function() { calculeTotalTime(); });
 
-    var st = $(this).val();
-    var et = $('#endTime').val();
+$('#endTime').blur(function() { calculeTotalTime(); });
 
-    calculeTotalTime(st, et);
-});
+$('#ReportingDate').blur(function() { calculeTotalTime(); });
 
-$('#endTime').blur(function() {
+$('#ClosingDate').blur(function() { calculeTotalTime(); });
+
+$('#totalTime').blur(function() { calculeTotalTime(); });
+
+function calculeTotalTime() {
 
     var st = $('#startTime').val();
-    var et = $(this).val();
-
-    calculeTotalTime(st, et);
-});
-
-$('#totalTime').blur(function() {
+    var et = $('#endTime').val();
 
     $('#totalTime').attr('disabled', 'disabled');
-
-    var st = $('#startTime').val();
-    var et = $('#endTime').val();
-
-    calculeTotalTime(st, et);
-});
-
-function calculeTotalTime(st, et) {
 
     let ReportD = $('#ReportingDate').val();
     let ClosingD = $('#ClosingDate').val();
@@ -544,3 +535,58 @@ $('#Comments').on('keyup', function() {
     else
         $('#lessComment').css("color", "red ");
 });
+
+/**
+ * get Comments or Probelm description from database
+ */
+
+$('.table.table-bordered.incidencias tbody tr td #showComment').each(function() {
+
+    $(this).click(function() {
+
+        let id = $(this).parents('tr').children(0)[0].innerText;
+        getCommentsProblems(id, 'icd_Comments');
+    })
+});
+
+$('.table.table-bordered.incidencias tbody tr td #showProblemDescription').each(function() {
+
+    $(this).click(function() {
+
+        let id = $(this).parents('tr').children(0)[0].innerText;
+        getCommentsProblems(id, 'icd_ProblemDescription');
+    })
+});
+
+function getCommentsProblems(id, column) {
+
+
+    Header = (column == 'icd_Comments' ? '<h5>Comentarios</h5>' : '<h5>Descripcion del Problema</h5>');
+
+    let values = { id: id, column: column };
+
+    var data = {
+        data: values,
+        _token: $('meta[name="csrf-token"]').attr('content')
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: '/TroubleShooting/getCommentsProblems',
+        data: data,
+        error: function(Message) {
+            showError(Message);
+        }
+    }).done(function(Message) {
+
+        Message = JSON.parse(Message);
+
+        $('#MessageModal .modal-body').empty();
+
+        $('#MessageModal .modal-body').append(Header);
+        $('#MessageModal .modal-body').append('<hr class="sidebar-divider d-none d-md-block">');
+        $('#MessageModal .modal-body').append(Message);
+
+        $('#MessageModal').modal('show');
+    });
+}

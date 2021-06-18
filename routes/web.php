@@ -50,6 +50,7 @@ Route::group(['middleware'=>['auth']],function(){
     // Rutas para acciones con incidencias
     Route::get('TroubleShooting/registros', [incidencias::class, 'index']);
     Route::get('TroubleShooting/consultas', [consultaIncidencias::class, 'index']);
+    Route::post('TroubleShooting/getCommentsProblems', [consultaIncidencias::class, 'getData_Comments_Problem']);
 
     /* Obtener informacion segun el elemento seleccionado */
     Route::post('Catalogos/getDataElement', [catalogos::class, 'getElements']);
