@@ -231,9 +231,6 @@ $('#jrq-bussn').change(function() {
 
     $("#jrq-equipmnet-system").empty();
     $("#jrq-equipmnet-system").append("<option value=''>Seleccionar Elemento</option>");
-
-    $("#jrq-component").empty();
-    $("#jrq-component").append("<option value=''>Seleccionar Elemento</option>");
 });
 
 $('#jrq-area-line').change(function() {
@@ -243,25 +240,13 @@ $('#jrq-area-line').change(function() {
 
     $("#jrq-equipmnet-system").empty();
     $("#jrq-equipmnet-system").append("<option value=''>Seleccionar Elemento</option>");
-
-    $("#jrq-component").empty();
-    $("#jrq-component").append("<option value=''>Seleccionar Elemento</option>");
 });
 
 $('#jrq-proceso').change(function() {
 
     var Element = "jrq-equipmnet-system";
     getDataSelcts(Element, $('#jrq-proceso').val());
-
-    $("#jrq-component").empty();
-    $("#jrq-component").append("<option value=''>Seleccionar Elemento</option>");
 });
-
-// $('#jrq-equipmnet-system').change(function() {
-
-//     var Element = "jrq-component";
-//     getDataSelcts(Element, $('#jrq-equipmnet-system').val());
-// });
 
 function getDataSelcts(element, select) {
 
