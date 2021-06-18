@@ -1,54 +1,59 @@
     /*Omar Anaya Cambios CSS*/
-    
+
     .bg-hershey {
         background-color: #5c262f !important;
         color: #fff !important
     }
-    
+
     .bg-hershey a {
         color: #fff !important;
     }
-    
+
     .container .card-header {
         background-color: #5c262f;
         color: #fff;
     }
-    
+
     body {
         background-color: #ededed;
     }
-    
+
     #description {
         display: none;
     }
-    
+
     textarea {
         resize: none;
     }
-    
+
     .incidencias {
         white-space: nowrap;
     }
-    
+
     .showReport {
         text-align: right;
     }
-    
+
     #showReporteGrafico {
         width: auto;
         height: 642px;
     }
-    
+
     .modal.fade .modal-content .modal-hersheys {
         background-color: #5c262f;
         color: #fff;
     }
-    
+
     .errorModal .modal-content .modal-Error {
         background-color: red !important;
         color: #fff !important;
     }
-    
+
     .modal.fade .modal-content .modal-header button span {
         color: white;
+    }
+
+    .commentsProblems {
+        text-align: justify;
+        text-justify: inter-word;
     }

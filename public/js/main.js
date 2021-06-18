@@ -1,6 +1,9 @@
 // const { data } = require("jquery");
 
 jQuery(document).ready(function($) {
+
+    iniciateRowsCommentsProblems();
+
     if (window.jQuery().datetimepicker) {
         $('.datetimepicker').datetimepicker({
             // Formats
@@ -44,6 +47,8 @@ jQuery(document).ready(function($) {
             }
         });
     }
+
+    reloadDataTable = $('#dataTable').DataTable({ searching: true, pageLength: 25 });
 
     // var data = {
     //     _token: $('meta[name="csrf-token"]').attr('content')
@@ -499,12 +504,9 @@ $('#delteDataCatalogo').click(function() {
  * Caracteres restantes en Problem Description y Comentarios
  */
 
-$totCaractersArea = 1000;
+$totCaractersArea = 1500;
 
 $('#ProblemDescription').on('keyup', function() {
-
-    console.log($(this));
-    console.log($(this).val().length);
 
     let totRest = $totCaractersArea - $(this).val().length;
 
@@ -540,26 +542,29 @@ $('#Comments').on('keyup', function() {
  * get Comments or Probelm description from database
  */
 
-$('.table.table-bordered.incidencias tbody tr td #showComment').each(function() {
+function iniciateRowsCommentsProblems() {
 
-    $(this).click(function() {
+    $('.table.table-bordered.incidencias tbody tr td #showComment').each(function() {
 
-        let id = $(this).parents('tr').children(0)[0].innerText;
-        getCommentsProblems(id, 'icd_Comments');
-    })
-});
+        $(this).click(function() {
 
-$('.table.table-bordered.incidencias tbody tr td #showProblemDescription').each(function() {
+            let id = $(this).parents('tr').children(0)[0].innerText;
+            getCommentsProblems(id, 'icd_Comments');
+        })
+    });
 
-    $(this).click(function() {
+    $('.table.table-bordered.incidencias tbody tr td #showProblemDescription').each(function() {
 
-        let id = $(this).parents('tr').children(0)[0].innerText;
-        getCommentsProblems(id, 'icd_ProblemDescription');
-    })
-});
+        $(this).click(function() {
+
+            let id = $(this).parents('tr').children(0)[0].innerText;
+            getCommentsProblems(id, 'icd_ProblemDescription');
+        })
+    });
+}
+
 
 function getCommentsProblems(id, column) {
-
 
     Header = (column == 'icd_Comments' ? '<h5>Comentarios</h5>' : '<h5>Descripcion del Problema</h5>');
 
@@ -579,13 +584,13 @@ function getCommentsProblems(id, column) {
         }
     }).done(function(Message) {
 
-        Message = JSON.parse(Message);
+        // Message = JSON.parse(Message);
 
         $('#MessageModal .modal-body').empty();
 
         $('#MessageModal .modal-body').append(Header);
         $('#MessageModal .modal-body').append('<hr class="sidebar-divider d-none d-md-block">');
-        $('#MessageModal .modal-body').append(Message);
+        $('#MessageModal .modal-body').append("<p class='commentsProblems'>" + Message + "</p>");
 
         $('#MessageModal').modal('show');
     });

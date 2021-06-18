@@ -137,6 +137,6 @@ class consultaIncidencias extends Controller
 
         $response = Incidencias::select($values['column'])->where('id', $values['id'])->get();
 
-        return json_encode($response[0][$values['column']]);
+        return nl2br($response[0][$values['column']]);
      }
 }
