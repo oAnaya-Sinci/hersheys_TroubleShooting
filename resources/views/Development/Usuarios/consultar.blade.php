@@ -17,7 +17,7 @@
             <div class="card-body">
 
                 <div class="table-responsive">
-                    <table class="table table-bordered usuarios" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered usuarios nonIncidencias" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>Id</th>

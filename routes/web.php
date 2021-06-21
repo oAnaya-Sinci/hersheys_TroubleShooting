@@ -46,40 +46,32 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('Catalogos/modificar/getData', [catalogos::class, 'get_elements_modificar']);
     Route::get('Catalogos/consultas', [consultaCatalogos::class, 'index']);
     Route::post('Catalogos/eliminar', [consultaCatalogos::class, 'deleteCatalog']);
+    /* Obtener informacion segun el elemento seleccionado */
+    Route::post('Catalogos/getDataElement', [catalogos::class, 'getElements']);
+    /* Guardar informacion sobre los catalogos */
+    Route::post('Catalogos/storeCatalogos', [catalogos::class, 'store']);
 
     // Rutas para acciones con incidencias
     Route::get('TroubleShooting/registros', [incidencias::class, 'index']);
     Route::get('TroubleShooting/consultas', [consultaIncidencias::class, 'index']);
     Route::post('TroubleShooting/getCommentsProblems', [consultaIncidencias::class, 'getData_Comments_Problem']);
-
-    /* Obtener informacion segun el elemento seleccionado */
-    Route::post('Catalogos/getDataElement', [catalogos::class, 'getElements']);
-
-    /* Guardar informacion sobre los catalogos */
-    Route::post('Catalogos/storeCatalogos', [catalogos::class, 'store']);
-
+    Route::post('TroubleShooting/getIncidenciasData', [consultaIncidencias::class, 'getIncidencias']);
     /* Guardar informacion a actualizar sobre los catalogos */
     Route::post('TroubleShooting/upadateCatalogos', [catalogos::class, 'update']);
-
     /* Obtener informacion de los catalogos para registra incidencias */
     Route::post('TroubleShooting/getDataSelects', [incidencias::class, 'getElements']);
-
     /* Guardar informacion sobre los catalogos */
     Route::post('TroubleShooting/storeIncidencias', [incidencias::class, 'store']);
 
     /** * Rutas Reportes Proyecto */
     Route::get('Reporte/reporte_general', [reportesHershey::class, 'reporte_general']);
-
-    Route::post('Reporte/getDataReport/', [reportesHershey::class, 'get_data_reporte']);
-    Route::post('Reporte/getDataTable/', [reportesHershey::class, 'get_DataTable']);
+    Route::post('Reporte/getDataReport', [reportesHershey::class, 'get_data_reporte']);
+    Route::post('Reporte/getDataTable', [reportesHershey::class, 'get_DataTable']);
 
     /* Consultar Usuarios */
     Route::get('usuarios/consultar', [usuarios::class, 'index']);
     Route::post('usuarios/updateInfo', [usuarios::class, 'updateDataUser']);
     Route::post('usuarios/deleteUser', [usuarios::class, 'deleteDataUser']);
-
-    // Testing datatable ajax reload
-    Route::post('usuarios/consultarTable', [usuarios::class, 'dataTable']);
 
     /** Logout */
     Route::post('logout', [logout::class, 'logout']);

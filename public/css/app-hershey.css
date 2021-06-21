@@ -53,6 +53,10 @@
         color: white;
     }
 
+    .btnCommtsProblm {
+        text-align: center;
+    }
+
     .commentsProblems {
         text-align: justify;
         text-justify: inter-word;

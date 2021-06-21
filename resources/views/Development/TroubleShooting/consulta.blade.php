@@ -49,48 +49,6 @@
                                 <th>Problem Description</th>
                             </tr>
                         </thead>
-                        <tbody>
-
-                            @foreach($Incidencias AS $Inci)
-
-                                <tr>
-                                    <td>{{$Inci['id']}}</td>
-                                    <td>{{$Inci['BU']}}</td>
-                                    <td>{{$Inci['area_linea']}}</td>
-                                    <td>{{$Inci['proceso']}}</td>
-                                    <td>{{$Inci['equip_system']}}</td>
-                                    <td>{{$Inci['SubSistema']}}</td>
-                                    <td>{{$Inci['component']}}</td>
-                                    <td>{{$Inci['Control_Panel']}}</td>
-                                    <!-- <td>{{$Inci['icd_ProblemDescription']}}</td> -->
-                                    <td>{{$Inci['issue_type']}}</td>
-                                    <td>{{$Inci['Prioridad']}}</td>
-                                    <td>{{$Inci['action_required']}}</td>
-                                    <td>{{$Inci['Responsable']}}</td>
-                                    <td>{{$Inci['Reportado_Por']}}</td>
-                                    <td>{{$Inci['Fecha_Reporte']}}</td>
-                                    <td>{{$Inci['Fecha_Cierre']}}</td>
-                                    <td>{{$Inci['Turno']}}</td>
-                                    <td>{{$Inci['Tiempo_Respuesta']}}</td>
-                                    <td>{{$Inci['Hora_Inicio']}}</td>
-                                    <td>{{$Inci['Hora_Termino']}}</td>
-                                    <td>{{$Inci['Tiempo_Total']}}</td>
-                                    <td>{{$Inci['Diagrama_procedimiento_manual']}}</td>
-                                    <td>{{$Inci['Respaldo']}}</td>
-                                    <td>{{$Inci['Refaccion']}}</td>
-                                    <td>{{$Inci['Tiempo_Diagnosticar']}}</td>
-                                    <!-- <td>{{$Inci['icd_Comments']}}</td> -->
-                                    <td style="text-align: center;">
-                                        <button id="showComment" class="btn btn-info btn-sm"><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>
-                                    </td>
-                                    <td style="text-align: center;">
-                                        <button id="showProblemDescription" class="btn btn-info btn-sm"><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>
-                                    </td>
-                                </tr>
-
-                            @endforeach
-
-                        </tbody>
                     </table>
                 </div>
 

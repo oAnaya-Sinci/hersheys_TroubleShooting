@@ -32,10 +32,10 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="table-responsive">
-                                <table class="table table-bordered incidencias" id="dataTableReport" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTableReport" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                        <!-- <th>Row</th> -->
+                                        <th>Id</th>
                                         <th>BU</th>
                                         <th>Area / Line</th>
                                         <th>Proceso</th>
@@ -43,7 +43,6 @@
                                         <th>SubSystem</th>
                                         <th>Componet</th>
                                         <th>Control Panel</th>
-                                        <!-- <th>Problem Description</th> -->
                                         <th>Issue Type</th>
                                         <th>Priority</th>
                                         <th>Action Require</th>
@@ -60,8 +59,6 @@
                                         <th>Respaldo</th>
                                         <th>Refaccion</th>
                                         <th>Tiempo Diagnosticar</th>
-                                        <!-- <th>Comments</th> -->
-                                        <!-- <th>Usario Registro</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>

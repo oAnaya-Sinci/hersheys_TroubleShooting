@@ -15,11 +15,10 @@ class consultaIncidencias extends Controller
      */
     public function index()
     {
-        $Incidencias = $this->getIncidencias();
         $loggin_User = Auth()->User()->name;
         $adminUser = Auth()->User()->admin_user;
 
-        return view('Development/TroubleShooting/consulta', compact('Incidencias', 'loggin_User', 'adminUser'));
+        return view('Development/TroubleShooting/consulta', compact('loggin_User', 'adminUser'));
     }
 
     /**
@@ -110,31 +109,25 @@ class consultaIncidencias extends Controller
                             incidencias.icd_reportedBy AS Reportado_Por,
                             incidencias.icd_tiempoDiagnosticar AS Tiempo_Diagnosticar,
                             --incidencias.icd_ProblemDescription AS Descripcion_Problema,
-                            --incidencias.icd_Comments AS Comentarios,
-                            --incidencias.created_at, incidencias.updated_at";
-
-    // , 'bu.ctg_name AS bssnu', 'area_linea.ctg_name AS area_linea', 'proceso.ctg_name AS proceso', 'equip_system.ctg_name AS equipment_system',  'component.ctg_name AS component', 'issue.ctg_name AS issue', 'actionr.ctg_name AS action'
+                            --incidencias.icd_Comments AS Comentarios";
 
         $Incidencias = Incidencias::select(Incidencias::raw($columnsIncidenc))
                         ->leftjoin('catalogos AS BU', 'incidencias.icd_bu', 'BU.ctg_id')
                         ->leftjoin('catalogos AS AL', 'incidencias.icd_area_linea', 'AL.ctg_id')
                         ->leftjoin('catalogos AS PC', 'incidencias.icd_proceso', 'PC.ctg_id')
                         ->leftjoin('catalogos AS ES', 'incidencias.icd_equipment_system', 'ES.ctg_id')
-                        // ->leftjoin('catalogos AS subsystem', 'incidencias.icd_Subsystem', 'subsystem.ctg_id')
                         ->leftjoin('catalogos AS CP', 'incidencias.icd_component', 'CP.ctg_id')
-                        // ->leftjoin('catalogos AS cntrlp', 'incidencias.icd_controlpanel', 'cntrlp.ctg_id')
                         ->leftjoin('catalogos AS IT', 'incidencias.icd_issuetype', 'IT.ctg_id')
                         ->leftjoin('catalogos AS AR', 'incidencias.icd_actionrequired', 'AR.ctg_id')
                         // ->distinct()
                         ->get();
 
-        return $Incidencias;
+        return json_encode($Incidencias);
      }
 
      public function getData_Comments_Problem(Request $request){
 
         $values = $request['data'];
-
         $response = Incidencias::select($values['column'])->where('id', $values['id'])->get();
 
         return nl2br($response[0][$values['column']]);

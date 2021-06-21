@@ -1,4 +1,4 @@
-// const { data } = require("jquery");
+let dataTableIncidencias;
 
 jQuery(document).ready(function($) {
 
@@ -48,37 +48,79 @@ jQuery(document).ready(function($) {
         });
     }
 
-    reloadDataTable = $('#dataTable').DataTable({ searching: true, pageLength: 25 });
+    $('#dataTable.nonIncidencias').DataTable({ searching: true, pageLength: 25 });
 
-    // var data = {
-    //     _token: $('meta[name="csrf-token"]').attr('content')
-    // }
+    var data = {
+        _token: $('meta[name="csrf-token"]').attr('content')
+    }
 
-    // $('.table-bordered.usuarios').DataTable({
-    //     ajax: {
-    //         url: '/usuarios/consultarTable',
-    //         type: 'POST',
-    //         data: data
-    //     },
-    //     columns: [ //or different depending on the structure of the object
-    //         { "data": "user.id" },
-    //         { "data": "user.name" },|
-    //         { "data": "user.email" },
-    //         { "data": "user.admin_user" },
-    //         { "data": "user.created_at" }
-    //     ]
-    // });
-
+    dataTableIncidencias = $('#dataTable.incidencias').DataTable({
+        searching: true,
+        pageLength: 25,
+        dom: "Bfrtip",
+        ajax: {
+            url: "/TroubleShooting/getIncidenciasData",
+            type: 'POST',
+            data: data,
+            "dataSrc": ""
+        },
+        columns: [
+            { data: "id" },
+            { data: "BU" },
+            { data: "area_linea" },
+            { data: "proceso" },
+            { data: "equip_system" },
+            { data: "SubSistema" },
+            { data: "component" },
+            { data: "Control_Panel" },
+            { data: "issue_type" },
+            { data: "Prioridad" },
+            { data: "action_required" },
+            { data: "Responsable" },
+            { data: "Reportado_Por" },
+            { data: "Fecha_Reporte" },
+            { data: "Fecha_Cierre" },
+            { data: "Turno" },
+            { data: "Tiempo_Respuesta" },
+            { data: "Hora_Inicio" },
+            { data: "Hora_Termino" },
+            { data: "Tiempo_Total" },
+            { data: "Diagrama_procedimiento_manual" },
+            { data: "Respaldo" },
+            { data: "Refaccion" },
+            { data: "Tiempo_Diagnosticar" },
+            {
+                data: "",
+                render: function(row) {
+                    return '<button id="showComment" class="btn btn-info btn-sm"><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>'
+                }
+            },
+            {
+                data: "",
+                render: function(row) {
+                    return '<button id="showProblemDescription" class="btn btn-info btn-sm"><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>'
+                }
+            }
+        ],
+        "initComplete": function() {
+            iniciateRowsCommentsProblems();
+        },
+        "columnDefs": [
+            { className: "btnCommtsProblm", "targets": [24, 25] }
+        ]
+    });
 });
 
+/**Reload table incidencais By date */
+
+// dataTableIncidencias.ajax.reload();
+
+/* End */
+
 $('#startTime').blur(function() { calculeTotalTime(); });
-
 $('#endTime').blur(function() { calculeTotalTime(); });
-
 $('#ReportingDate').blur(function() { calculeTotalTime(); });
-
 $('#ClosingDate').blur(function() { calculeTotalTime(); });
-
 $('#totalTime').blur(function() { calculeTotalTime(); });
 
 function calculeTotalTime() {
@@ -183,9 +225,6 @@ $('#element_type').change(function() {
 
             $("#element_parent").empty();
             $("#element_parent").append("<option value=''>Seleccionar Elemento</option>");
-
-            // if (Element != 'jrq-bussn')
-            //     $("#element_parent").append("<option value='NA'>No Aplica</option>");
 
             $.each(data, function(index, value) {
 
@@ -566,7 +605,7 @@ function iniciateRowsCommentsProblems() {
 
 function getCommentsProblems(id, column) {
 
-    Header = (column == 'icd_Comments' ? '<h5>Comentarios</h5>' : '<h5>Descripcion del Problema</h5>');
+    Header = (column == 'icd_Comments' ? '<h5>Comentarios:</h5>' : '<h5>Descripcion del Problema:</h5>');
 
     let values = { id: id, column: column };
 

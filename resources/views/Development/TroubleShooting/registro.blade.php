@@ -192,13 +192,13 @@
                     <div class="col-lg-6">
                         <label class="mb-0">Problem Description</label>
                         <div style="text-align: end; margin-top: -1.5rem;"> Caracteres Restantes: <span style="color: #08c708" id="lessProblem">1500</span></div>
-                        <textarea id="ProblemDescription" name="ProblemDescription" class="form-control bc-choco mb-1" rows="5" maxlength="1500"></textarea>
+                        <textarea id="ProblemDescription" name="ProblemDescription" class="form-control bc-choco mb-1" rows="8" maxlength="1500"></textarea>
                     </div>
 
                     <div class="col-lg-6">
                         <label class="mb-0">Comments</label>
                         <div style="text-align: end; margin-top: -1.5rem;"> Caracteres Restantes: <span style="color: #08c708" id="lessComment">1500</span></div>
-                        <textarea id="Comments" name="Comments" class="form-control bc-choco mb-1" rows="5" maxlength="1500"></textarea>
+                        <textarea id="Comments" name="Comments" class="form-control bc-choco mb-1" rows="8" maxlength="1500"></textarea>
                     </div>
                 </div>
 
