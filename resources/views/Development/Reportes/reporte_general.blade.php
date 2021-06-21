@@ -46,7 +46,6 @@
                                         <th>Issue Type</th>
                                         <th>Priority</th>
                                         <th>Action Require</th>
-                                        <th>Responsible</th>
                                         <th>Report By</th>
                                         <th>Reporting Date</th>
                                         <th>Closing Date</th>
@@ -59,6 +58,7 @@
                                         <th>Respaldo</th>
                                         <th>Refaccion</th>
                                         <th>Tiempo Diagnosticar</th>
+                                        <th>Estatus</th>
                                         </tr>
                                     </thead>
                                     <tbody>

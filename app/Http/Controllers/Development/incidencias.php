@@ -22,11 +22,15 @@ class incidencias extends Controller
         $Issues = Catalogos::where('ctg_tipo', '=', 'jrq-issue')->where('catalogos.ctg_eliminado', 0)->orderby('ctg_name')->get();
         $Componente = Catalogos::where('ctg_tipo', '=', 'jrq-component')->where('catalogos.ctg_eliminado', 0)->orderby('ctg_name')->get();
         $ActionReq = Catalogos::where('ctg_tipo', '=', 'jrq-action')->where('catalogos.ctg_eliminado', 0)->orderby('ctg_name')->get();
+        $Detractor = Catalogos::where('ctg_tipo', '=', 'jrq-detractor')->where('catalogos.ctg_eliminado', 0)->orderby('ctg_name')->get();
+        $Respaldo = Catalogos::where('ctg_tipo', '=', 'jrq-respaldo')->where('catalogos.ctg_eliminado', 0)->orderby('ctg_name')->get();
+        $Refaccion = Catalogos::where('ctg_tipo', '=', 'jrq-refaccion')->where('catalogos.ctg_eliminado', 0)->orderby('ctg_name')->get();
         $Estatus = Catalogos::where('ctg_tipo', '=', 'jrq-estatus')->where('catalogos.ctg_eliminado', 0)->orderby('ctg_name')->get();
+
         $loggin_User = Auth()->User()->name;
         $adminUser = Auth()->User()->admin_user;
 
-        return view('Development/TroubleShooting/registro', compact('BU', 'areaLinea', 'Issues', 'ActionReq', 'Estatus', 'Componente', 'loggin_User', 'adminUser'));
+        return view('Development/TroubleShooting/registro', compact('BU', 'areaLinea', 'Issues', 'ActionReq', 'Detractor', 'Respaldo', 'Refaccion', 'Estatus', 'Componente', 'loggin_User', 'adminUser'));
     }
 
     /**

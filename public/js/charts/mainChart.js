@@ -122,7 +122,7 @@ function get_dataTable() {
             $.each(data, function(index, value) {
 
                 tbody += '<tr>'
-                    // tbody += '<td>' + value['id'] + '</td>';
+                tbody += '<td>' + value['id'] + '</td>';
                 tbody += '<td>' + value['bssnu'] + '</td>';
                 tbody += '<td>' + value['area_linea'] + '</td>';
                 tbody += '<td>' + value['proceso'] + '</td>';
@@ -134,7 +134,6 @@ function get_dataTable() {
                 tbody += '<td>' + value['issue'] + '</td>';
                 tbody += '<td>' + value['icd_Priority'] + '</td>';
                 tbody += '<td>' + value['action_r'] + '</td>';
-                tbody += '<td>' + value['icd_Responsible'] + '</td>';
                 tbody += '<td>' + value['icd_reportedBy'] + '</td>';
                 tbody += '<td>' + value['icd_ReportingDate'] + '</td>';
                 tbody += '<td>' + value['icd_ClosingDate'] + '</td>';
@@ -147,11 +146,12 @@ function get_dataTable() {
                 tbody += '<td>' + value['icd_Respaldo'] + '</td>';
                 tbody += '<td>' + value['icd_Refaccion'] + '</td>';
                 tbody += '<td>' + value['icd_tiempoDiagnosticar'] + '</td>';
+                tbody += '<td>' + value['Estatus'] + '</td>';
                 // tbody += '<td>' + value['icd_Comments'] + '</td>';
                 tbody += '</tr>';
             });
 
-            $('#dataTableReport.incidencias tbody').html(tbody);
+            $('#dataTableReport tbody').html(tbody);
         },
         error: function(Message) {
             showError(Message)

@@ -162,16 +162,41 @@
 
                 <div class="row">
                     <div class="col-lg-4">
-                        <label class="mb-0">Diagrama Procedimiento Manual</label>
-                        <input type="text" name="Diagrama" class="form-control bc-choco mb-1" placeholder="Diagrama" />
+                        <!-- <label class="mb-0">Diagrama Procedimiento Manual</label> -->
+                        <label class="mb-0">Detractores</label>
+                        <!-- <input type="text" name="Diagrama" class="form-control bc-choco mb-1" placeholder="Diagrama" /> -->
+                        <select name="Estatus" class="form-control bc-choco mb-1">
+                            <option value=''>Seleccionar Detractor</option>
+                            @foreach($Detractor AS $Dtc)
+
+                                <option value="{{ $Dtc['ctg_id'] }}"> {{ $Dtc['ctg_name'] }} </option>
+
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-lg-4">
                         <label class="mb-0">Respaldo</label>
-                        <input type="text" name="Respaldo" class="form-control bc-choco mb-1" placeholder="Respaldo" />
+                        <!-- <input type="text" name="Respaldo" class="form-control bc-choco mb-1" placeholder="Respaldo" /> -->
+                        <select name="Estatus" class="form-control bc-choco mb-1">
+                            <option value=''>Seleccionar Respaldo</option>
+                            @foreach($Respaldo AS $Rspd)
+
+                                <option value="{{ $Rspd['ctg_id'] }}"> {{ $Rspd['ctg_name'] }} </option>
+
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-lg-4">
                         <label class="mb-0">Refaccion</label>
-                        <input type="text" name="Refaccion" class="form-control bc-choco mb-1" placeholder="refaccion" />
+                        <!-- <input type="text" name="Refaccion" class="form-control bc-choco mb-1" placeholder="refaccion" /> -->
+                        <select name="Estatus" class="form-control bc-choco mb-1">
+                            <option value=''>Seleccionar Refaccion</option>
+                            @foreach($Refaccion AS $Rfcc)
+
+                                <option value="{{ $Rfcc['ctg_id'] }}"> {{ $Rfcc['ctg_name'] }} </option>
+
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="my-2"></div>

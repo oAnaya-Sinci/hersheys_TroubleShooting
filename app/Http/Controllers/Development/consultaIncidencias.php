@@ -96,6 +96,8 @@ class consultaIncidencias extends Controller
         $columnsIncidenc = "BU.ctg_name AS BU, AL.ctg_name AS area_linea, PC.ctg_name AS proceso,
                             ES.ctg_name AS equip_system, CP.ctg_name AS component,
                             IT.ctg_name AS issue_type, AR.ctg_name AS action_required,
+                            DT.ctg_name AS Diagrama_procedimiento_manual,
+                            RP.ctg_name AS Respaldo, RF.ctg_name AS Refaccion,
                             IF (ST.ctg_name <> '', ST.ctg_name, 'Sin Estatus') AS Estatus,
                             incidencias.id,
                             incidencias.created_at AS Fecha_Registro, incidencias.icd_subsystem AS SubSistema,
@@ -105,12 +107,8 @@ class consultaIncidencias extends Controller
                             incidencias.icd_ClosingDate AS Fecha_Cierre, incidencias.icd_ResponseTime AS Tiempo_Respuesta,
                             incidencias.icd_StartTime AS Hora_Inicio, incidencias.icd_EndTime AS Hora_Termino,
                             incidencias.icd_TotalTime AS Tiempo_Total,
-                            incidencias.icd_DiagramaProcManual AS Diagrama_procedimiento_manual,
-                            incidencias.icd_Respaldo AS Respaldo, incidencias.icd_Refaccion AS Refaccion,
                             incidencias.icd_reportedBy AS Reportado_Por,
-                            incidencias.icd_tiempoDiagnosticar AS Tiempo_Diagnosticar,
-                            --incidencias.icd_ProblemDescription AS Descripcion_Problema,
-                            --incidencias.icd_Comments AS Comentarios";
+                            incidencias.icd_tiempoDiagnosticar AS Tiempo_Diagnosticar";
 
         $Incidencias = Incidencias::select(Incidencias::raw($columnsIncidenc))
                         ->leftjoin('catalogos AS BU', 'incidencias.icd_bu', 'BU.ctg_id')
@@ -121,6 +119,9 @@ class consultaIncidencias extends Controller
                         ->leftjoin('catalogos AS IT', 'incidencias.icd_issuetype', 'IT.ctg_id')
                         ->leftjoin('catalogos AS AR', 'incidencias.icd_actionrequired', 'AR.ctg_id')
                         ->leftjoin('catalogos AS ST', 'incidencias.icd_Estatus', 'ST.ctg_id')
+                        ->leftjoin('catalogos AS DT', 'incidencias.icd_DiagramaProcManual', 'DT.ctg_id')
+                        ->leftjoin('catalogos AS RP', 'incidencias.icd_Respaldo', 'RP.ctg_id')
+                        ->leftjoin('catalogos AS RF', 'incidencias.icd_Refaccion', 'RF.ctg_id')
                         // ->distinct()
                         ->get();
 
