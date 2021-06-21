@@ -25,7 +25,7 @@ class Incidencias extends Migration
             $table->string('icd_IssueType');
             $table->string('icd_ActionRequired');
             $table->string('icd_Priority');
-            $table->string('icd_Responsible');
+            $table->string('icd_Estatus')->nullable();
             $table->string('icd_Shift');
             $table->string('icd_ReportingDate');
             $table->string('icd_ClosingDate');

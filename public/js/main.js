@@ -76,7 +76,6 @@ jQuery(document).ready(function($) {
             { data: "issue_type" },
             { data: "Prioridad" },
             { data: "action_required" },
-            { data: "Responsable" },
             { data: "Reportado_Por" },
             { data: "Fecha_Reporte" },
             { data: "Fecha_Cierre" },
@@ -89,6 +88,7 @@ jQuery(document).ready(function($) {
             { data: "Respaldo" },
             { data: "Refaccion" },
             { data: "Tiempo_Diagnosticar" },
+            { data: "Estatus" },
             {
                 data: "",
                 render: function(row) {

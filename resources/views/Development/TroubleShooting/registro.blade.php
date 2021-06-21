@@ -81,7 +81,7 @@
                         <input type="text" id="jrq-ctrlPanl" name="jrq-ctrlPanl" class="form-control bc-choco mb-1" placeholder="Control Panel" />
                     </div>
                     <div class="col-lg-4">
-                        <label class="mb-0">Issue Type</label>
+                        <label class="mb-0">Tipo de falla</label>
                         <select id="jrq-issue" name="jrq-issue" class="form-control bc-choco mb-1">
                             <option value=''>Seleccionar Issue</option>
                             @foreach($Issues AS $is)
@@ -111,8 +111,8 @@
                         <input type="text" name="priority" class="form-control bc-choco mb-1" placeholder="priority" />
                     </div>
                     <div class="col-lg-4">
-                        <label class="mb-0">Responsible</label>
-                        <input type="text" name="responsible" class="form-control bc-choco mb-1" placeholder="responsible" value="{{$loggin_User}}"/>
+                        <label class="mb-0">Reported By</label>
+                        <input type="text" name="ReportedBy" class="form-control bc-choco mb-1" placeholder="Reported By" value="{{$loggin_User}}"/>
                     </div>
 
                     <div class="col-lg-4">
@@ -182,8 +182,15 @@
                         <input type="text" id="TiempoDiagnos" name="TiempoDiagnos" class="form-control bc-choco mb-1" placeholder="Tiempo en Diagnosticar" maxlength="4"/>
                     </div>
                     <div class="col-lg-4">
-                        <label class="mb-0">Reported By</label>
-                        <input type="text" name="ReportedBy" class="form-control bc-choco mb-1" placeholder="Reported By" value="{{$loggin_User}}"/>
+                        <label class="mb-0">Estatus</label>
+                        <select name="Estatus" class="form-control bc-choco mb-1">
+                            <option value=''>Sin Estatus</option>
+                            @foreach($Estatus AS $Ests)
+
+                                <option value="{{ $Ests['ctg_id'] }}"> {{ $Ests['ctg_name'] }} </option>
+
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="my-2"></div>

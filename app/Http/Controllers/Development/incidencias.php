@@ -22,10 +22,11 @@ class incidencias extends Controller
         $Issues = Catalogos::where('ctg_tipo', '=', 'jrq-issue')->where('catalogos.ctg_eliminado', 0)->orderby('ctg_name')->get();
         $Componente = Catalogos::where('ctg_tipo', '=', 'jrq-component')->where('catalogos.ctg_eliminado', 0)->orderby('ctg_name')->get();
         $ActionReq = Catalogos::where('ctg_tipo', '=', 'jrq-action')->where('catalogos.ctg_eliminado', 0)->orderby('ctg_name')->get();
+        $Estatus = Catalogos::where('ctg_tipo', '=', 'jrq-estatus')->where('catalogos.ctg_eliminado', 0)->orderby('ctg_name')->get();
         $loggin_User = Auth()->User()->name;
         $adminUser = Auth()->User()->admin_user;
 
-        return view('Development/TroubleShooting/registro', compact('BU', 'areaLinea', 'Issues', 'ActionReq', 'Componente', 'loggin_User', 'adminUser'));
+        return view('Development/TroubleShooting/registro', compact('BU', 'areaLinea', 'Issues', 'ActionReq', 'Estatus', 'Componente', 'loggin_User', 'adminUser'));
     }
 
     /**
@@ -59,7 +60,7 @@ class incidencias extends Controller
         $incidencia->icd_IssueType = $data[7]['value'];
         $incidencia->icd_ActionRequired = $data[8]['value'];
         $incidencia->icd_Priority = $data[9]['value'];
-        $incidencia->icd_Responsible = $data[10]['value'];
+        $incidencia->icd_reportedBy = $data[10]['value'];
         $incidencia->icd_Shift = $data[11]['value'];
         $incidencia->icd_ReportingDate = $data[12]['value'];
         $incidencia->icd_ClosingDate = $data[13]['value'];
@@ -71,7 +72,7 @@ class incidencias extends Controller
         $incidencia->icd_Respaldo = $data[19]['value'];
         $incidencia->icd_Refaccion = $data[20]['value'];
         $incidencia->icd_tiempoDiagnosticar = $data[21]['value'];
-        $incidencia->icd_reportedBy = $data[22]['value'];
+        $incidencia->icd_Estatus = $data[22]['value'];
         $incidencia->icd_ProblemDescription = $data[23]['value'];
         $incidencia->icd_Comments = $data[24]['value'];
         $incidencia->user_id = Auth()->User()->id;

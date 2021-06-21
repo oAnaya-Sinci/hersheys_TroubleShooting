@@ -96,11 +96,12 @@ class consultaIncidencias extends Controller
         $columnsIncidenc = "BU.ctg_name AS BU, AL.ctg_name AS area_linea, PC.ctg_name AS proceso,
                             ES.ctg_name AS equip_system, CP.ctg_name AS component,
                             IT.ctg_name AS issue_type, AR.ctg_name AS action_required,
+                            IF (ST.ctg_name <> '', ST.ctg_name, 'Sin Estatus') AS Estatus,
                             incidencias.id,
-                            incidencias.created_at AS Fecha_Registro,
-                            incidencias.icd_subsystem AS SubSistema, incidencias.icd_controlpanel AS Control_Panel,
-                            incidencias.icd_priority AS Prioridad, incidencias.icd_responsible AS Responsable,
-                            incidencias.icd_shift AS Turno, incidencias.icd_ReportingDate AS Fecha_Reporte,
+                            incidencias.created_at AS Fecha_Registro, incidencias.icd_subsystem AS SubSistema,
+                             incidencias.icd_controlpanel AS Control_Panel,
+                            incidencias.icd_priority AS Prioridad, incidencias.icd_shift AS Turno,
+                            incidencias.icd_ReportingDate AS Fecha_Reporte,
                             incidencias.icd_ClosingDate AS Fecha_Cierre, incidencias.icd_ResponseTime AS Tiempo_Respuesta,
                             incidencias.icd_StartTime AS Hora_Inicio, incidencias.icd_EndTime AS Hora_Termino,
                             incidencias.icd_TotalTime AS Tiempo_Total,
@@ -119,6 +120,7 @@ class consultaIncidencias extends Controller
                         ->leftjoin('catalogos AS CP', 'incidencias.icd_component', 'CP.ctg_id')
                         ->leftjoin('catalogos AS IT', 'incidencias.icd_issuetype', 'IT.ctg_id')
                         ->leftjoin('catalogos AS AR', 'incidencias.icd_actionrequired', 'AR.ctg_id')
+                        ->leftjoin('catalogos AS ST', 'incidencias.icd_Estatus', 'ST.ctg_id')
                         // ->distinct()
                         ->get();
 
