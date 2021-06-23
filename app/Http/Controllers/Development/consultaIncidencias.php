@@ -94,11 +94,10 @@ class consultaIncidencias extends Controller
      public function getIncidencias(){
 
         $columnsIncidenc = "BU.ctg_name AS BU, AL.ctg_name AS area_linea, PC.ctg_name AS proceso,
-                            ES.ctg_name AS equip_system, CP.ctg_name AS component,
+                            ES.ctg_name AS equip_system, TC.ctg_name AS TipoCtrl, CP.ctg_name AS component,
                             IT.ctg_name AS issue_type, AR.ctg_name AS action_required,
                             DT.ctg_name AS Diagrama_procedimiento_manual,
-                            RP.ctg_name AS Respaldo, RF.ctg_name AS Refaccion,
-                            IF (ST.ctg_name <> '', ST.ctg_name, 'Sin Estatus') AS Estatus,
+                            RP.ctg_name AS Respaldo, RF.ctg_name AS Refaccion, ST.ctg_name AS Estatus,
                             incidencias.id,
                             incidencias.created_at AS Fecha_Registro, incidencias.icd_subsystem AS SubSistema,
                              incidencias.icd_controlpanel AS Control_Panel,
@@ -115,6 +114,7 @@ class consultaIncidencias extends Controller
                         ->leftjoin('catalogos AS AL', 'incidencias.icd_area_linea', 'AL.ctg_id')
                         ->leftjoin('catalogos AS PC', 'incidencias.icd_proceso', 'PC.ctg_id')
                         ->leftjoin('catalogos AS ES', 'incidencias.icd_equipment_system', 'ES.ctg_id')
+                        ->leftjoin('catalogos AS TC', 'incidencias.icd_Tipo_Controlador', 'TC.ctg_id')
                         ->leftjoin('catalogos AS CP', 'incidencias.icd_component', 'CP.ctg_id')
                         ->leftjoin('catalogos AS IT', 'incidencias.icd_issuetype', 'IT.ctg_id')
                         ->leftjoin('catalogos AS AR', 'incidencias.icd_actionrequired', 'AR.ctg_id')

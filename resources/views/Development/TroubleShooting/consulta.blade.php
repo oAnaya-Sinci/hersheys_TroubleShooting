@@ -26,6 +26,7 @@
                                 <th>Proceso</th>
                                 <th>Equipment / System</th>
                                 <th>SubSystem</th>
+                                <th>Tipo Controlador</th>
                                 <th>Componet</th>
                                 <th>Control Panel</th>
                                 <!-- <th>Problem Description</th> -->

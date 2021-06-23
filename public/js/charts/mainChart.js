@@ -128,6 +128,7 @@ function get_dataTable() {
                 tbody += '<td>' + value['proceso'] + '</td>';
                 tbody += '<td>' + value['equipment_system'] + '</td>';
                 tbody += '<td>' + value['icd_Subsystem'] + '</td>';
+                tbody += '<td>' + value['Tipo_Ctrl'] + '</td>';
                 tbody += '<td>' + value['component'] + '</td>';
                 tbody += '<td>' + value['icd_ControlPanel'] + '</td>';
                 // tbody += '<td>' + value['icd_ProblemDescription'] + '</td>';

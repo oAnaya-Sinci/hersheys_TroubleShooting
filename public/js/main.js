@@ -71,6 +71,7 @@ jQuery(document).ready(function($) {
             { data: "proceso" },
             { data: "equip_system" },
             { data: "SubSistema" },
+            { data: "TipoCtrl" },
             { data: "component" },
             { data: "Control_Panel" },
             { data: "issue_type" },

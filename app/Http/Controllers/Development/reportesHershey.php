@@ -193,9 +193,10 @@ class reportesHershey extends Controller
         $query = 'SELECT DISTINCT
                                 icd.*, DT.ctg_name AS icd_DiagramaProcManual,
                                 RP.ctg_name AS icd_Respaldo, RF.ctg_name AS icd_Refaccion,
-                                IF (ST.ctg_name <> "", ST.ctg_name, "Sin Estatus") AS Estatus,
-                                bu.ctg_name AS bssnu, area_linea.ctg_name AS area_linea, proceso.ctg_name AS proceso,
+                                ST.ctg_name AS Estatus, bu.ctg_name AS bssnu, 
+                                area_linea.ctg_name AS area_linea, proceso.ctg_name AS proceso,
                                 equip_system.ctg_name AS equipment_system, component.ctg_name AS component,
+                                TC.ctg_name AS Tipo_Ctrl,
                                 issue.ctg_name AS issue, actionr.ctg_name AS action_r, users.name AS user_name
 
                     FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.' . $Columns[$lastCol];
@@ -207,6 +208,7 @@ class reportesHershey extends Controller
         $query .= ' LEFT JOIN catalogos AS proceso ON icd.icd_proceso = proceso.ctg_id';
         $query .= ' LEFT JOIN catalogos AS equip_system ON icd.icd_equipment_system = equip_system.ctg_id';
         $query .= ' LEFT JOIN catalogos AS subsystem ON icd.icd_Subsystem = subsystem.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS TC ON icd.icd_Tipo_Controlador = TC.ctg_id';
         $query .= ' LEFT JOIN catalogos AS component ON icd.icd_component = component.ctg_id';
         $query .= ' LEFT JOIN catalogos AS cntrlp ON icd.icd_controlpanel = cntrlp.ctg_id';
         $query .= ' LEFT JOIN catalogos AS issue ON icd.icd_issuetype = issue.ctg_id';

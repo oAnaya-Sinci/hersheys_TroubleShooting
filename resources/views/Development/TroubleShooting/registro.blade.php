@@ -34,11 +34,11 @@
                         <label class="mb-0">Area / Linea </label>
                         <select id="jrq-area-line" name="jrq-area-line" class="form-control bc-choco mb-1">
                             <option value=''>Seleccionar Elemento</option>
-                            @foreach($areaLinea AS $al)
+                            <!-- @foreach($areaLinea AS $al)
 
                                 <option value="{{ $al['ctg_id'] }}"> {{ $al['ctg_name'] }} </option>
 
-                            @endforeach
+                            @endforeach -->
                         </select>
                     </div>
                     <div class="col-lg-4">
@@ -58,6 +58,17 @@
                         </select>
                     </div>
                     <div class="col-lg-4">
+                        <label class="mb-0">Tipo de Controlador</label>
+                        <select id="jrq-component" name="jrq-component" class="form-control bc-choco mb-1">
+                            <option value=''>Seleccionar Elemento</option>
+                            @foreach($TipoCtrl AS $t_ctrl)
+
+                                <option value="{{ $t_ctrl['ctg_id'] }}"> {{ $t_ctrl['ctg_name'] }} </option>
+
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-lg-4">
                         <label class="mb-0">Componet</label>
                         <select id="jrq-component" name="jrq-component" class="form-control bc-choco mb-1">
                             <option value=''>Seleccionar Elemento</option>
@@ -68,14 +79,16 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-lg-4">
-                        <label class="mb-0">Sub Sistema</label>
-                        <input type="text" id="jrq-subsystem" name="jrq-subsystem" class="form-control bc-choco mb-1" placeholder="Sub Sistema" />
-                    </div>
+
                 </div>
                 <div class="my-2"></div>
 
                 <div class="row">
+                    <div class="col-lg-4">
+                        <label class="mb-0">Sub Sistema</label>
+                        <input type="text" id="jrq-subsystem" name="jrq-subsystem" class="form-control bc-choco mb-1" placeholder="Sub Sistema" />
+                    </div>
+
                     <div class="col-lg-4">
                         <label class="mb-0">Control Panel</label>
                         <input type="text" id="jrq-ctrlPanl" name="jrq-ctrlPanl" class="form-control bc-choco mb-1" placeholder="Control Panel" />
@@ -91,6 +104,11 @@
                             @endforeach
                         </select>
                     </div>
+                </div>
+                <div class="my-2"></div>
+
+                <div class="row">
+
                     <div class="col-lg-4">
                         <label class="mb-0">Action Required</label>
                         <select id="jrq-action" name="jrq-action" class="form-control bc-choco mb-1">
@@ -102,18 +120,6 @@
                         @endforeach
                         </select>
                     </div>
-                </div>
-                <div class="my-2"></div>
-
-                <div class="row">
-                    <div class="col-lg-4">
-                        <label class="mb-0">Priority</label>
-                        <input type="text" name="priority" class="form-control bc-choco mb-1" placeholder="priority" />
-                    </div>
-                    <div class="col-lg-4">
-                        <label class="mb-0">Reported By</label>
-                        <input type="text" name="ReportedBy" class="form-control bc-choco mb-1" placeholder="Reported By" value="{{$loggin_User}}"/>
-                    </div>
 
                     <div class="col-lg-4">
                         <label class="mb-0">Turno</label>
@@ -123,6 +129,11 @@
                             <option value='2'>Vespertino</option>
                             <option value='2'>Nocturno</option>
                         </select>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <label class="mb-0">Priority</label>
+                        <input type="text" name="priority" class="form-control bc-choco mb-1" placeholder="priority" />
                     </div>
                 </div>
                 <div class="my-2"></div>
@@ -206,10 +217,11 @@
                         <label class="mb-0">Tiempo en Diagnosticar en Minutos</label>
                         <input type="text" id="TiempoDiagnos" name="TiempoDiagnos" class="form-control bc-choco mb-1" placeholder="Tiempo en Diagnosticar" maxlength="4"/>
                     </div>
+
                     <div class="col-lg-4">
                         <label class="mb-0">Estatus</label>
                         <select name="Estatus" class="form-control bc-choco mb-1">
-                            <option value=''>Sin Estatus</option>
+                            <option value='Sin Estatus'>Sin Estatus</option>
                             @foreach($Estatus AS $Ests)
 
                                 <option value="{{ $Ests['ctg_id'] }}"> {{ $Ests['ctg_name'] }} </option>
@@ -217,18 +229,23 @@
                             @endforeach
                         </select>
                     </div>
+
+                    <div class="col-lg-4">
+                        <label class="mb-0">Reported By</label>
+                        <input type="text" name="ReportedBy" class="form-control bc-choco mb-1" placeholder="Reported By" value="{{$loggin_User}}"/>
+                    </div>
                 </div>
                 <div class="my-2"></div>
 
                 <div class="row">
                     <div class="col-lg-6">
-                        <label class="mb-0">Problem Description</label>
+                        <label class="mb-0">Descripcion del Problema</label>
                         <div style="text-align: end; margin-top: -1.5rem;"> Caracteres Restantes: <span style="color: #08c708" id="lessProblem">1500</span></div>
                         <textarea id="ProblemDescription" name="ProblemDescription" class="form-control bc-choco mb-1" rows="8" maxlength="1500"></textarea>
                     </div>
 
                     <div class="col-lg-6">
-                        <label class="mb-0">Comments</label>
+                        <label class="mb-0">Comentarios</label>
                         <div style="text-align: end; margin-top: -1.5rem;"> Caracteres Restantes: <span style="color: #08c708" id="lessComment">1500</span></div>
                         <textarea id="Comments" name="Comments" class="form-control bc-choco mb-1" rows="8" maxlength="1500"></textarea>
                     </div>
