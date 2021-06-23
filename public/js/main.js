@@ -107,7 +107,7 @@ jQuery(document).ready(function($) {
             iniciateRowsCommentsProblems();
         },
         "columnDefs": [
-            { className: "btnCommtsProblm", "targets": [24, 25] }
+            { className: "btnCommtsProblm", "targets": [25, 26] }
         ]
     });
 });
