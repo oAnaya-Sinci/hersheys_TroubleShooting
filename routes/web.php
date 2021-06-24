@@ -64,9 +64,14 @@ Route::group(['middleware'=>['auth']],function(){
     Route::post('TroubleShooting/storeIncidencias', [incidencias::class, 'store']);
 
     /** * Rutas Reportes Proyecto */
-    Route::get('Reporte/reporte_general', [reportesHershey::class, 'reporte_general']);
+    //Reportes de Incidencias
+    Route::get('Reporte/reporte_general', [reportesHershey::class, 'reporte_incidencias']);
     Route::post('Reporte/getDataReport', [reportesHershey::class, 'get_data_reporte']);
     Route::post('Reporte/getDataTable', [reportesHershey::class, 'get_DataTable']);
+
+    //Reporte de Usuarios
+    Route::get('Reporte/reporte_usuarios', [reportesHershey::class, 'reporte_usuarios']);
+    /**Fin rutas reportes */
 
     /* Consultar Usuarios */
     Route::get('usuarios/consultar', [usuarios::class, 'index']);

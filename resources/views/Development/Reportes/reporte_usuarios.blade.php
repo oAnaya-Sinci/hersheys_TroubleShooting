@@ -83,14 +83,14 @@
                 </div>
                 <div class="card-body">
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>Tipo Grafica</label>
                             <select id="typeChart" name="typeChart" class="form-control bc-choco">
                                 <option value='combo'>Grafica Combinada</option>
                                 <option value='line'>Grafica de linea</option>
                                 <option value='pie'>Grafica de pastel</option>
                             </select>
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                             <label>Fecha</label>
@@ -102,38 +102,9 @@
                             <input type="text" id="fechaFin" class="form-control bc-choco datetimepickerChart slctReporte" />
                         </div>
 
-                        <div class="form-group">
-                            <label>BU - Business Unit</label>
-                            <select id="jrq-bussn" name="jrq-bussn" class="form-control bc-choco slctReporte">
-                                <option value=''>Seleccionar Elemento</option>
-                                @foreach($BU AS $b)
-
-                                    <option value="{{ $b['ctg_id'] }}"> {{ $b['ctg_name'] }} </option>
-
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Area / Linea</label>
-                            <select id="jrq-area-line" name="jrq-area" class="form-control bc-choco slctReporte">
-                                <option value=''>Seleccionar Elemento</option>
-                                @foreach($areaLinea AS $al)
-
-                                    <option value="{{ $al['ctg_id'] }}"> {{ $al['ctg_name'] }} </option>
-
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Proceso</label>
-                            <select id="jrq-proceso" name="jrq-proceso" class="form-control bc-choco slctReporte">
-                                <option value=''>Seleccionar Elemento</option>
-                            </select>
-                        </div>
-
                         <div class="showReport">
-                            <button id="showReportButton" class="btn btn-primary"> Mostrar <i class="fas fa-chart-line" aria-hidden="true"> </i></button>
-                            <button id="downloadExcel" class="btn btn-secondary">CSV <i class="fas fa-cloud-download-alt" aria-hidden="true"> </i></button>
+                            <button id="showReportButton_Users" class="btn btn-primary"> Mostrar <i class="fas fa-chart-line" aria-hidden="true"> </i></button>
+                            <button id="downloadExcel_Users" class="btn btn-secondary">CSV <i class="fas fa-cloud-download-alt" aria-hidden="true"> </i></button>
                         </div>
                 </div>
             </div>
@@ -162,8 +133,8 @@
 
     <script>
 
-        $('a[href *= "/Reporte/reporte_general"]').addClass('active');
-        var parent = $('a[href *= "/Reporte/reporte_general"]').parents('div .collapse').addClass('show');
+        $('a[href *= "/Reporte/reporte_usuarios"]').addClass('active');
+        var parent = $('a[href *= "/Reporte/reporte_usuarios"]').parents('div .collapse').addClass('show');
 
     </script>
 

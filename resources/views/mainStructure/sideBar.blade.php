@@ -64,6 +64,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
 
                 <a class="collapse-item" href="{{ config('app.url', '') }}Reporte/reporte_general">Reporte de fallas</a>
+                <a class="collapse-item" href="{{ config('app.url', '') }}Reporte/reporte_usuarios">Reporte de Usuarios</a>
                 <!-- <a class="collapse-item" href="/Reporte/reporte_fallas">Reporteee</a> -->
             </div>
         </div>

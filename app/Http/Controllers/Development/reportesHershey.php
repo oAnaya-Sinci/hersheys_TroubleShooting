@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class reportesHershey extends Controller
 {
-    public function reporte_general(){
+    public function reporte_incidencias(){
 
         $BU = Catalogos::where('ctg_tipo', '=', 'jrq-bussn')->orderby('ctg_name')->get();
         $areaLinea = Catalogos::where('ctg_tipo', '=', 'jrq-area-line')->orderby('ctg_name')->get();
@@ -193,7 +193,7 @@ class reportesHershey extends Controller
         $query = 'SELECT DISTINCT
                                 icd.*, DT.ctg_name AS icd_DiagramaProcManual,
                                 RP.ctg_name AS icd_Respaldo, RF.ctg_name AS icd_Refaccion,
-                                ST.ctg_name AS Estatus, bu.ctg_name AS bssnu, 
+                                ST.ctg_name AS Estatus, bu.ctg_name AS bssnu,
                                 area_linea.ctg_name AS area_linea, proceso.ctg_name AS proceso,
                                 equip_system.ctg_name AS equipment_system, component.ctg_name AS component,
                                 TC.ctg_name AS Tipo_Ctrl,
@@ -253,6 +253,22 @@ class reportesHershey extends Controller
 
         return json_encode($reportData);
     }
+
+    /**
+     * Funciones para mostrar los reportes de usuarios
+     */
+
+     public function reporte_usuarios(){
+
+        $loggin_User = Auth()->User()->name;
+        $adminUser = Auth()->User()->admin_user;
+
+        return view('Development/Reportes/reporte_usuarios', compact('loggin_User', 'adminUser'));
+     }
+
+     public function get_data_usuarios(){
+
+     }
 
     /**
      * Funciones para quitar cararctees a cadena
