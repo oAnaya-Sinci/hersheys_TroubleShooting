@@ -125,9 +125,9 @@
                         <label class="mb-0">Turno</label>
                         <select name="Shift" class="form-control bc-choco mb-1">
                             <option value=''>Seleccionar Turno</option>
-                            <option value='1'>Matutino</option>
-                            <option value='2'>Vespertino</option>
-                            <option value='2'>Nocturno</option>
+                            <option value='Matutino'>Matutino</option>
+                            <option value='Vespertino'>Vespertino</option>
+                            <option value='Nocturno'>Nocturno</option>
                         </select>
                     </div>
 
