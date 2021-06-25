@@ -408,10 +408,7 @@ class reportesHershey extends Controller
 
      public function get_DataTableUsuarios(Request $arrayData){
 
-        // $ColumnsIncidencias = array('bssnu', 'area_linea', 'proceso', 'equipment_system', 'component', 'icd_Subsystem', 'icd_ControlPanel','issue', 'action_r', 'icd_Priority', 'icd_Estatus', 'icd_DiagramaProcManual', 'icd_Respaldo', 'icd_reportedBy', 'icd_ProblemDescription', 'icd_Comments', 'icd_Refaccion');
-
         $data = $arrayData['data'];
-        // $pos = (sizeof($data)-1);
 
         $startDate = explode("-", $data[0]['val']);
         $startDate = $startDate[2] . "-" . $startDate[1] . "-" . $startDate[0];
@@ -420,20 +417,6 @@ class reportesHershey extends Controller
         $endDate = $endDate[2] . "-" . $endDate[1] . "-" . $endDate[0];
 
         $Join = ($data[3]['val'] == "jrq-component" ? " INNER JOIN catalogos CtrlComp ON icd.icd_Component = CtrlComp.ctg_id " : " INNER JOIN catalogos CtrlComp ON icd.icd_Tipo_Controlador = CtrlComp.ctg_id ");
-
-        // unset( $data[0], $data[1] );
-
-        // $lastCol = sizeof($data);
-
-        // if($lastCol != 0){
-
-        //     $nextEle = $data[$pos]['val'];
-
-        //     $query = "SELECT ctg_id FROM catalogos ctg WHERE ctg.ctg_padre = '$nextEle' ORDER BY ctg_name";
-        //     $nextElementos = DB::select($query);
-        // }
-
-        // $Columns = array('icd_bu', 'icd_area_linea', 'icd_proceso', 'icd_equipment_system', 'icd_component');
 
         $query = 'SELECT DISTINCT
                                 icd.*, DT.ctg_name AS icd_DiagramaProcManual,
@@ -444,7 +427,9 @@ class reportesHershey extends Controller
                                 TC.ctg_name AS Tipo_Ctrl, users.name AS Reported_by,
                                 issue.ctg_name AS issue, actionr.ctg_name AS action_r, users.name AS user_name
 
-                    FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.icd_bu' /* . $Columns[$lastCol] */;
+                                #,SUM(LEFT( icd.icd_TotalTime, INSTR( icd.icd_TotalTime, ":") -1) * 60 + RIGHT(icd.icd_TotalTime, INSTR( icd.icd_TotalTime, ":") -1)) AS SUM_TIEMPO
+
+                    FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.icd_bu';
 
         $query .= ' INNER JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType ';
 
@@ -467,35 +452,9 @@ class reportesHershey extends Controller
 
         $query .= ' WHERE UNIX_TIMESTAMP(DATE_FORMAT(icd.created_at, "%Y-%m-%d")) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
 
-        // if($lastCol != 0){
-
-        //     $concatNE = '';
-        //     $x = 1;
-        //     foreach($nextElementos AS $ne){
-
-        //         if( sizeof($nextElementos) > $x )
-        //             $concatNE .= "'" . $ne->ctg_id . "',";
-
-        //         else
-        //             $concatNE .= "'" . $ne->ctg_id . "'";
-
-        //         $x++;
-        //     }
-
-        //     $concatNE == '' ? '' : $query .= " AND icd.". $Columns[$lastCol] ." IN (" . $concatNE .  ")";
-        // }
-
-        $query .= " ORDER BY bssnu, area_linea, proceso, equipment_system, component";
+        $query .= " ORDER BY Tipo_Ctrl, component";
 
         $reportData = DB::select($query);
-
-        // foreach($reportData AS $rd){
-
-        //     foreach($ColumnsIncidencias AS $ci){
-
-        //         $rd->$ci = $this->changueEspecialCaracters($rd->$ci);
-        //     }
-        // }
 
         return json_encode($reportData);
     }

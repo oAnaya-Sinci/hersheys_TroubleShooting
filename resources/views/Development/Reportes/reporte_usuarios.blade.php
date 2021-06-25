@@ -38,20 +38,21 @@
                                         <th>Report By</th>
                                         <th>Response Time</th>
                                         <th>Tiempo Diagnosticar</th>
-                                        <th>Start Time</th>
-                                        <th>End Time</th>
                                         <th>Total Time</th>
+                                        <th>Tipo Controlador</th>
+                                        <th>Componet</th>
                                         <th>BU</th>
                                         <th>Area / Line</th>
                                         <th>Proceso</th>
                                         <th>Equipment / System</th>
                                         <th>SubSystem</th>
-                                        <th>Tipo Controlador</th>
-                                        <th>Componet</th>
                                         <th>Control Panel</th>
                                         <th>Issue Type</th>
                                         <th>Priority</th>
                                         <th>Action Require</th>
+                                        <th>Start Time</th>
+                                        <th>End Time</th>
+                                        <th>Total Time</th>
                                         <th>Reporting Date</th>
                                         <th>Closing Date</th>
                                         <th>Shift</th>
