@@ -198,7 +198,7 @@ class reportesHershey extends Controller
                                 ST.ctg_name AS Estatus, bu.ctg_name AS bssnu,
                                 area_linea.ctg_name AS area_linea, proceso.ctg_name AS proceso,
                                 equip_system.ctg_name AS equipment_system, component.ctg_name AS component,
-                                TC.ctg_name AS Tipo_Ctrl,
+                                TC.ctg_name AS Tipo_Ctrl, users.name AS Reported_by,
                                 issue.ctg_name AS issue, actionr.ctg_name AS action_r, users.name AS user_name
 
                     FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.' . $Columns[$lastCol];

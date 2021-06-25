@@ -135,7 +135,7 @@ function get_dataTable() {
                 tbody += '<td>' + value['issue'] + '</td>';
                 tbody += '<td>' + value['icd_Priority'] + '</td>';
                 tbody += '<td>' + value['action_r'] + '</td>';
-                tbody += '<td>' + value['icd_reportedBy'] + '</td>';
+                tbody += '<td>' + value['Reported_by'] + '</td>';
                 tbody += '<td>' + value['icd_ReportingDate'] + '</td>';
                 tbody += '<td>' + value['icd_ClosingDate'] + '</td>';
                 tbody += '<td>' + value['icd_Shift'] + '</td>';

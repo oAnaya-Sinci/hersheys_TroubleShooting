@@ -98,15 +98,15 @@ class consultaIncidencias extends Controller
                             IT.ctg_name AS issue_type, AR.ctg_name AS action_required,
                             DT.ctg_name AS Diagrama_procedimiento_manual,
                             RP.ctg_name AS Respaldo, RF.ctg_name AS Refaccion, ST.ctg_name AS Estatus,
+                            users.name AS Reportado_Por,
                             incidencias.id,
                             incidencias.created_at AS Fecha_Registro, incidencias.icd_subsystem AS SubSistema,
-                             incidencias.icd_controlpanel AS Control_Panel,
+                            incidencias.icd_controlpanel AS Control_Panel,
                             incidencias.icd_priority AS Prioridad, incidencias.icd_shift AS Turno,
                             incidencias.icd_ReportingDate AS Fecha_Reporte,
                             incidencias.icd_ClosingDate AS Fecha_Cierre, incidencias.icd_ResponseTime AS Tiempo_Respuesta,
                             incidencias.icd_StartTime AS Hora_Inicio, incidencias.icd_EndTime AS Hora_Termino,
                             incidencias.icd_TotalTime AS Tiempo_Total,
-                            incidencias.icd_reportedBy AS Reportado_Por,
                             incidencias.icd_tiempoDiagnosticar AS Tiempo_Diagnosticar";
 
         $Incidencias = Incidencias::select(Incidencias::raw($columnsIncidenc))
@@ -122,6 +122,7 @@ class consultaIncidencias extends Controller
                         ->leftjoin('catalogos AS DT', 'incidencias.icd_DiagramaProcManual', 'DT.ctg_id')
                         ->leftjoin('catalogos AS RP', 'incidencias.icd_Respaldo', 'RP.ctg_id')
                         ->leftjoin('catalogos AS RF', 'incidencias.icd_Refaccion', 'RF.ctg_id')
+                        ->join('users', 'users.id', 'incidencias.user_id')
                         // ->distinct()
                         ->get();
 
