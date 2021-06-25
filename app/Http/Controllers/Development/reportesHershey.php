@@ -358,7 +358,7 @@ class reportesHershey extends Controller
         else
             $fieldSelect = ( $rqst[2]['val'] == 'TD' ? ",SUM( incd.icd_tiempoDiagnosticar ) AS SUM_TIEMPO, AVG( incd.icd_tiempoDiagnosticar ) AS PROM_TIEMPO" : ",SUM( incd.icd_ResponseTime ) AS SUM_TIEMPO, AVG( incd.icd_ResponseTime ) AS PROM_TIEMPO");
 
-        $Join = ($rqst[3]['val'] == "jrq-component" ? " LEFT JOIN catalogos ctg ON incd.icd_Component = ctg.ctg_id " : " LEFT JOIN catalogos ctg ON incd.icd_Tipo_Controlador = ctg.ctg_id ");
+        $Join = ($rqst[3]['val'] == "jrq-component" ? " INNER JOIN catalogos ctg ON incd.icd_Component = ctg.ctg_id " : " INNER JOIN catalogos ctg ON incd.icd_Tipo_Controlador = ctg.ctg_id ");
         // $AndType = ($typeJoin = "jrq-component" ? " AND incd.icd_Component = " : " AND incd.icd_Tipo_Controlador = ");
 
         $valuesToReturn = [];
@@ -405,6 +405,100 @@ class reportesHershey extends Controller
 
         return $valuesToReturn;
      }
+
+     public function get_DataTableUsuarios(Request $arrayData){
+
+        // $ColumnsIncidencias = array('bssnu', 'area_linea', 'proceso', 'equipment_system', 'component', 'icd_Subsystem', 'icd_ControlPanel','issue', 'action_r', 'icd_Priority', 'icd_Estatus', 'icd_DiagramaProcManual', 'icd_Respaldo', 'icd_reportedBy', 'icd_ProblemDescription', 'icd_Comments', 'icd_Refaccion');
+
+        $data = $arrayData['data'];
+        // $pos = (sizeof($data)-1);
+
+        $startDate = explode("-", $data[0]['val']);
+        $startDate = $startDate[2] . "-" . $startDate[1] . "-" . $startDate[0];
+
+        $endDate = explode("-", $data[1]['val']);
+        $endDate = $endDate[2] . "-" . $endDate[1] . "-" . $endDate[0];
+
+        $Join = ($data[3]['val'] == "jrq-component" ? " INNER JOIN catalogos CtrlComp ON icd.icd_Component = CtrlComp.ctg_id " : " INNER JOIN catalogos CtrlComp ON icd.icd_Tipo_Controlador = CtrlComp.ctg_id ");
+
+        // unset( $data[0], $data[1] );
+
+        // $lastCol = sizeof($data);
+
+        // if($lastCol != 0){
+
+        //     $nextEle = $data[$pos]['val'];
+
+        //     $query = "SELECT ctg_id FROM catalogos ctg WHERE ctg.ctg_padre = '$nextEle' ORDER BY ctg_name";
+        //     $nextElementos = DB::select($query);
+        // }
+
+        // $Columns = array('icd_bu', 'icd_area_linea', 'icd_proceso', 'icd_equipment_system', 'icd_component');
+
+        $query = 'SELECT DISTINCT
+                                icd.*, DT.ctg_name AS icd_DiagramaProcManual,
+                                RP.ctg_name AS icd_Respaldo, RF.ctg_name AS icd_Refaccion,
+                                ST.ctg_name AS Estatus, bu.ctg_name AS bssnu,
+                                area_linea.ctg_name AS area_linea, proceso.ctg_name AS proceso,
+                                equip_system.ctg_name AS equipment_system, component.ctg_name AS component,
+                                TC.ctg_name AS Tipo_Ctrl, users.name AS Reported_by,
+                                issue.ctg_name AS issue, actionr.ctg_name AS action_r, users.name AS user_name
+
+                    FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.icd_bu' /* . $Columns[$lastCol] */;
+
+        $query .= ' INNER JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType ';
+
+        $query .= ' LEFT JOIN catalogos AS bu ON icd.icd_bu = bu.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS area_linea ON icd.icd_area_linea = area_linea.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS proceso ON icd.icd_proceso = proceso.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS equip_system ON icd.icd_equipment_system = equip_system.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS subsystem ON icd.icd_Subsystem = subsystem.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS TC ON icd.icd_Tipo_Controlador = TC.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS component ON icd.icd_component = component.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS cntrlp ON icd.icd_controlpanel = cntrlp.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS issue ON icd.icd_issuetype = issue.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS actionr ON icd.icd_actionrequired = actionr.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS ST ON icd.icd_Estatus = ST.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS DT ON icd.icd_DiagramaProcManual = DT.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS RP ON icd.icd_Respaldo = RP.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS RF ON icd.icd_Refaccion = RF.ctg_id';
+        $query .= ' LEFT JOIN users ON icd.user_id = users.id';
+        $query .= $Join;
+
+        $query .= ' WHERE UNIX_TIMESTAMP(DATE_FORMAT(icd.created_at, "%Y-%m-%d")) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
+
+        // if($lastCol != 0){
+
+        //     $concatNE = '';
+        //     $x = 1;
+        //     foreach($nextElementos AS $ne){
+
+        //         if( sizeof($nextElementos) > $x )
+        //             $concatNE .= "'" . $ne->ctg_id . "',";
+
+        //         else
+        //             $concatNE .= "'" . $ne->ctg_id . "'";
+
+        //         $x++;
+        //     }
+
+        //     $concatNE == '' ? '' : $query .= " AND icd.". $Columns[$lastCol] ." IN (" . $concatNE .  ")";
+        // }
+
+        $query .= " ORDER BY bssnu, area_linea, proceso, equipment_system, component";
+
+        $reportData = DB::select($query);
+
+        // foreach($reportData AS $rd){
+
+        //     foreach($ColumnsIncidencias AS $ci){
+
+        //         $rd->$ci = $this->changueEspecialCaracters($rd->$ci);
+        //     }
+        // }
+
+        return json_encode($reportData);
+    }
 
     /**
      * Funciones para quitar cararctees a cadena

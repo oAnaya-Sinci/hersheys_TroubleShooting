@@ -35,7 +35,12 @@
                                 <table class="table table-bordered" id="dataTableReport" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                        <th>Id</th>
+                                        <th>Report By</th>
+                                        <th>Response Time</th>
+                                        <th>Tiempo Diagnosticar</th>
+                                        <th>Start Time</th>
+                                        <th>End Time</th>
+                                        <th>Total Time</th>
                                         <th>BU</th>
                                         <th>Area / Line</th>
                                         <th>Proceso</th>
@@ -47,18 +52,12 @@
                                         <th>Issue Type</th>
                                         <th>Priority</th>
                                         <th>Action Require</th>
-                                        <th>Report By</th>
                                         <th>Reporting Date</th>
                                         <th>Closing Date</th>
                                         <th>Shift</th>
-                                        <th>Response Time</th>
-                                        <th>Start Time</th>
-                                        <th>End Time</th>
-                                        <th>Total Time</th>
                                         <th>Detractores</th>
                                         <th>Respaldo</th>
                                         <th>Refaccion</th>
-                                        <th>Tiempo Diagnosticar</th>
                                         <th>Estatus</th>
                                         </tr>
                                     </thead>

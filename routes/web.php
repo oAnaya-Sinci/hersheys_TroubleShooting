@@ -72,6 +72,7 @@ Route::group(['middleware'=>['auth']],function(){
     //Reporte de Usuarios
     Route::get('Reporte/reporte_usuarios', [reportesHershey::class, 'reporte_usuarios']);
     Route::post('Reporte/getDataUsersReport', [reportesHershey::class, 'get_data_usuarios']);
+    Route::post('Reporte/getDataTableUsuarios', [reportesHershey::class, 'get_DataTableUsuarios']);
     /**Fin rutas reportes */
 
     /* Consultar Usuarios */

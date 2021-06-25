@@ -534,13 +534,67 @@ function showGraphUsers() {
 
 function get_DataTableUsuarios() {
 
-    $('#TipoPromedio').removeClass('slctReporte');
-    $('#TipoFiltro').removeClass('slctReporte');
+    var dataSlcts = [];
+    var val;
 
-    get_dataTable();
+    $('.slctReporte').each(function() {
 
-    $('#TipoPromedio').addClass('slctReporte');
-    $('#TipoFiltro').addClass('slctReporte');
+        val = $(this).val();
+
+        if (val != '')
+            dataSlcts.push({ val });
+    });
+
+    var data = {
+        data: dataSlcts,
+        _token: $('meta[name="csrf-token"]').attr('content')
+    }
+
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/Reporte/getDataTableUsuarios',
+        data: data,
+        success: function(data) {
+
+            var tbody = '';
+
+            $.each(data, function(index, value) {
+
+                tbody += '<tr>'
+                tbody += '<td>' + value['Reported_by'] + '</td>';
+                tbody += '<td>' + value['icd_ResponseTime'] + '</td>';
+                tbody += '<td>' + value['icd_tiempoDiagnosticar'] + '</td>';
+                tbody += '<td>' + value['icd_StartTime'] + '</td>';
+                tbody += '<td>' + value['icd_EndTime'] + '</td>';
+                tbody += '<td>' + value['icd_TotalTime'] + '</td>';
+                tbody += '<td>' + value['bssnu'] + '</td>';
+                tbody += '<td>' + value['area_linea'] + '</td>';
+                tbody += '<td>' + value['proceso'] + '</td>';
+                tbody += '<td>' + value['equipment_system'] + '</td>';
+                tbody += '<td>' + value['icd_Subsystem'] + '</td>';
+                tbody += '<td>' + value['Tipo_Ctrl'] + '</td>';
+                tbody += '<td>' + value['component'] + '</td>';
+                tbody += '<td>' + value['icd_ControlPanel'] + '</td>';
+                tbody += '<td>' + value['issue'] + '</td>';
+                tbody += '<td>' + value['icd_Priority'] + '</td>';
+                tbody += '<td>' + value['action_r'] + '</td>';
+                tbody += '<td>' + value['icd_ReportingDate'] + '</td>';
+                tbody += '<td>' + value['icd_ClosingDate'] + '</td>';
+                tbody += '<td>' + value['icd_Shift'] + '</td>';
+                tbody += '<td>' + value['icd_DiagramaProcManual'] + '</td>';
+                tbody += '<td>' + value['icd_Respaldo'] + '</td>';
+                tbody += '<td>' + value['icd_Refaccion'] + '</td>';
+                tbody += '<td>' + value['Estatus'] + '</td>';
+                tbody += '</tr>';
+            });
+
+            $('#dataTableReport tbody').html(tbody);
+        },
+        error: function(Message) {
+            showError(Message)
+        }
+    });
 }
 
 function getDataUsuarios() {
