@@ -55,7 +55,7 @@
                                         <th>Start Time</th>
                                         <th>End Time</th>
                                         <th>Total Time</th>
-                                        <th>Diagrama Procedimiento Manual</th>
+                                        <th>Detractores</th>
                                         <th>Respaldo</th>
                                         <th>Refaccion</th>
                                         <th>Tiempo Diagnosticar</th>
@@ -100,6 +100,27 @@
                         <div class="form-group">
                             <label>Fecha 2</label>
                             <input type="text" id="fechaFin" class="form-control bc-choco datetimepickerChart slctReporte" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Promediar por...</label>
+                            <select id="TipoPromedio" name="TipoPromedio" class="form-control bc-choco slctReporte">
+                                <option value='TR'>Tiempo de Respuesta</option>
+                                <option value='TD'>Tiempo en Diagnosticar</option>
+                                <option value='TT'>Tiempo Total</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Filtar Por...</label>
+                            <select id="TipoFiltro" name="TipoFiltro" class="form-control bc-choco slctReporte">
+                                <!-- <option value=''>Seleccionar Elemento</option> -->
+                                @foreach($filtrarPor AS $fp)
+
+                                    <option value="{{ $fp['jrq_id'] }}"> {{ $fp['jrq_nombre'] }}</option>
+
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="showReport">

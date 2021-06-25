@@ -55,7 +55,7 @@
                                         <th>Start Time</th>
                                         <th>End Time</th>
                                         <th>Total Time</th>
-                                        <th>Diagrama Procedimiento Manual</th>
+                                        <th>Detractores</th>
                                         <th>Respaldo</th>
                                         <th>Refaccion</th>
                                         <th>Tiempo Diagnosticar</th>

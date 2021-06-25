@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Incidencias;
 use App\Models\Catalogos;
+use App\Models\jerarquia_catalogos;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class reportesHershey extends Controller
@@ -258,16 +260,150 @@ class reportesHershey extends Controller
      * Funciones para mostrar los reportes de usuarios
      */
 
-     public function reporte_usuarios(){
+     public function reporte_usuarios(Request $request){
 
         $loggin_User = Auth()->User()->name;
         $adminUser = Auth()->User()->admin_user;
+        $filtrarPor = jerarquia_catalogos::whereIn('jrq_id', ['jrq-tipo-controlador', 'jrq-component'])->get();
 
-        return view('Development/Reportes/reporte_usuarios', compact('loggin_User', 'adminUser'));
+        return view('Development/Reportes/reporte_usuarios', compact('loggin_User', 'adminUser', 'filtrarPor'));
      }
 
-     public function get_data_usuarios(){
+     public function get_data_usuarios(Request $data){
 
+        $rqst = $data['data'];
+
+        $Elementos = $this->getElemetos($rqst[3]['val']);
+        $users = $this->getUsers();
+
+        $data = $this->get_PromUsersData($rqst, $Elementos[0], $users[0]);
+
+        $dataReportReturn = [ $Elementos[1], $users[1], $data ];
+
+        return json_encode( $dataReportReturn );
+        // return $dataReportReturn;
+     }
+
+     public function getUsers(){
+
+        $query = "SELECT id, name FROM users WHERE id <> 1 ORDER BY id";
+        $users = DB::select($query);
+
+        $userId = [];
+        $userName = [];
+        $userWhereIn = '';
+
+        $i = 1;
+        foreach($users AS $usr){
+
+            array_push($userId, $usr->id);
+            array_push($userName, $usr->name);
+
+            if($i < sizeof($users))
+                $userWhereIn .= $usr->id . ',';
+
+            else
+                $userWhereIn .= $usr->id;
+
+            $i++;
+        }
+
+        return [$userId, $userName, $userWhereIn];
+     }
+
+     public function getElemetos($ctgTipo){
+
+        $query = "SELECT id, ctg_id, ctg_name FROM catalogos WHERE ctg_tipo = '$ctgTipo' ORDER BY ctg_name";
+        $TipoElemento = DB::select($query);
+
+        $elementoId = [];
+        $elementoName = [];
+        $elementoWhereIn = '';
+
+        $i = 1;
+        foreach($TipoElemento AS $te){
+
+            array_push($elementoId, $te->ctg_id);
+            array_push($elementoName, $te->ctg_name);
+
+            if($i < sizeof($TipoElemento))
+                $elementoWhereIn .= "'" . $te->ctg_id . "',";
+
+            else
+                $elementoWhereIn .= "'" . $te->ctg_id . "'";
+
+            $i++;
+        }
+
+        return [$elementoId, $elementoName, $elementoWhereIn];
+     }
+
+     public function get_PromUsersData($rqst, $Elementos, $users){
+
+        $ctgTipo = $rqst[3]['val'];
+
+        $startDate = explode("-", $rqst[0]['val']);
+        $startDate = $startDate[2] . "-" . $startDate[1] . "-" . $startDate[0];
+
+        $endDate = explode("-", $rqst[1]['val']);
+        $endDate = $endDate[2] . "-" . $endDate[1] . "-" . $endDate[0];
+
+        $fieldSelect = '';
+        if($rqst[2]['val'] == 'TT'){
+
+            $fieldSelect = ",SUM(LEFT( incd.icd_TotalTime, INSTR( incd.icd_TotalTime, ':') -1) * 60 + RIGHT(incd.icd_TotalTime, INSTR( incd.icd_TotalTime, ':') -1)) AS SUM_TIEMPO";
+            $fieldSelect .= ",AVG((LEFT( incd.icd_TotalTime, INSTR( incd.icd_TotalTime, ':') -1) * 60) + RIGHT(incd.icd_TotalTime, INSTR( incd.icd_TotalTime, ':') -1)) AS PROM_TIEMPO";
+        }
+
+        else
+            $fieldSelect = ( $rqst[2]['val'] == 'TD' ? ",SUM( incd.icd_tiempoDiagnosticar ) AS SUM_TIEMPO, AVG( incd.icd_tiempoDiagnosticar ) AS PROM_TIEMPO" : ",SUM( incd.icd_ResponseTime ) AS SUM_TIEMPO, AVG( incd.icd_ResponseTime ) AS PROM_TIEMPO");
+
+        $Join = ($rqst[3]['val'] == "jrq-component" ? " LEFT JOIN catalogos ctg ON incd.icd_Component = ctg.ctg_id " : " LEFT JOIN catalogos ctg ON incd.icd_Tipo_Controlador = ctg.ctg_id ");
+        // $AndType = ($typeJoin = "jrq-component" ? " AND incd.icd_Component = " : " AND incd.icd_Tipo_Controlador = ");
+
+        $valuesToReturn = [];
+
+        foreach($users AS $user){
+
+            $valuesChart = [];
+
+            $query = "SELECT
+                        ctg.ctg_id,
+                        ctg.ctg_name AS TipoControladorComponente
+                        $fieldSelect
+
+                    FROM incidencias incd
+                    $Join
+
+                    WHERE UNIX_TIMESTAMP(DATE_FORMAT(incd.created_at, '%Y-%m-%d')) BETWEEN UNIX_TIMESTAMP('" . $startDate . "') AND UNIX_TIMESTAMP('" . $endDate . "')
+                    AND incd.user_id = $user
+
+                    GROUP BY ctg.ctg_id, ctg.ctg_name
+
+                    ORDER BY ctg.ctg_name";
+
+            $reportData = DB::select($query);
+
+            foreach($Elementos AS $el){
+
+                $banNotFound = true;
+                foreach($reportData AS $rd){
+
+                    if($el == $rd->ctg_id){
+                        array_push($valuesChart, $rd->PROM_TIEMPO);
+                        $banNotFound = false;
+                        break;
+                    }
+                }
+
+                if($banNotFound)
+                    array_push($valuesChart, 0);
+            }
+
+            array_push($valuesToReturn, $valuesChart);
+        }
+
+        return $valuesToReturn;
      }
 
     /**
