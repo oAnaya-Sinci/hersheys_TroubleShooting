@@ -59,7 +59,7 @@
                     </div>
                     <div class="col-lg-4">
                         <label class="mb-0">Tipo de Controlador</label>
-                        <select id="jrq-component" name="jrq-component" class="form-control bc-choco mb-1">
+                        <select id="jrq-tipo-controlador" name="jrq-tipo-controlador" class="form-control bc-choco mb-1">
                             <option value=''>Seleccionar Elemento</option>
                             @foreach($TipoCtrl AS $t_ctrl)
 
