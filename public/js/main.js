@@ -47,7 +47,13 @@ jQuery(document).ready(function($) {
         });
     }
 
-    $('#dataTable.nonIncidencias').DataTable({ searching: true, pageLength: 25 });
+    $('#dataTable.nonIncidencias').DataTable({
+        searching: true,
+        pageLength: 25,
+        language: {
+            "url": "../plugins/DataTables/json/spanish.json"
+        }
+    });
 
     dataTableIncidencias = $('#dataTable.incidencias').DataTable({
         searching: true,

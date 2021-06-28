@@ -69,3 +69,7 @@
     .lblTimeData {
         margin: 0.5rem 0.5rem 0 0;
     }
+
+    #timeOfData {
+        margin-bottom: 0.5rem;
+    }

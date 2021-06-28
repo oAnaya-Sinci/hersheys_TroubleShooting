@@ -69,7 +69,7 @@
                         </select>
                     </div>
                     <div class="col-lg-4">
-                        <label class="mb-0">Componet</label>
+                        <label class="mb-0">Componente</label>
                         <select id="jrq-component" name="jrq-component" class="form-control bc-choco mb-1">
                             <option value=''>Seleccionar Elemento</option>
                             @foreach($Componente AS $Com)
@@ -234,7 +234,7 @@
                         <label class="mb-0">Reported By</label>
                         <input type="text" name="ReportedBy" class="form-control bc-choco mb-1" placeholder="Reported By" value="{{$loggin_User}}"/>
                     </div> -->
-                    
+
                 </div>
                 <div class="my-2"></div>
 
