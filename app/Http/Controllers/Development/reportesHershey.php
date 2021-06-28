@@ -358,7 +358,7 @@ class reportesHershey extends Controller
         else
             $fieldSelect = ( $rqst[2]['val'] == 'TD' ? ",SUM( incd.icd_tiempoDiagnosticar ) AS SUM_TIEMPO, AVG( incd.icd_tiempoDiagnosticar ) AS PROM_TIEMPO" : ",SUM( incd.icd_ResponseTime ) AS SUM_TIEMPO, AVG( incd.icd_ResponseTime ) AS PROM_TIEMPO");
 
-        $Join = ($rqst[3]['val'] == "jrq-component" ? " INNER JOIN catalogos ctg ON incd.icd_Component = ctg.ctg_id " : " INNER JOIN catalogos ctg ON incd.icd_Tipo_Controlador = ctg.ctg_id ");
+        $Join = ($rqst[3]['val'] == "jrq-component" ? " INNER JOIN catalogos ctg ON incd.icd_Component = ctg.ctg_id AND incd.icd_Component <> 'jrq-component-N/A' " : " INNER JOIN catalogos ctg ON incd.icd_Tipo_Controlador = ctg.ctg_id AND incd.icd_Tipo_Controlador <> 'jrq-component-N/A' ");
         // $AndType = ($typeJoin = "jrq-component" ? " AND incd.icd_Component = " : " AND incd.icd_Tipo_Controlador = ");
 
         $valuesToReturn = [];
@@ -438,8 +438,8 @@ class reportesHershey extends Controller
         $query .= ' LEFT JOIN catalogos AS proceso ON icd.icd_proceso = proceso.ctg_id';
         $query .= ' LEFT JOIN catalogos AS equip_system ON icd.icd_equipment_system = equip_system.ctg_id';
         $query .= ' LEFT JOIN catalogos AS subsystem ON icd.icd_Subsystem = subsystem.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS TC ON icd.icd_Tipo_Controlador = TC.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS component ON icd.icd_component = component.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS TC ON icd.icd_Tipo_Controlador = TC.ctg_id AND icd.icd_Tipo_Controlador <> "jrq-component-N/A"';
+        $query .= ' LEFT JOIN catalogos AS component ON icd.icd_component = component.ctg_id AND icd.icd_component <> "jrq-component-N/A"';
         $query .= ' LEFT JOIN catalogos AS cntrlp ON icd.icd_controlpanel = cntrlp.ctg_id';
         $query .= ' LEFT JOIN catalogos AS issue ON icd.icd_issuetype = issue.ctg_id';
         $query .= ' LEFT JOIN catalogos AS actionr ON icd.icd_actionrequired = actionr.ctg_id';

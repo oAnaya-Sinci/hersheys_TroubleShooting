@@ -5,6 +5,7 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
+
 <div class="row">
 
     <div class="col-lg-12">
@@ -15,6 +16,22 @@
                 Consulta de Incidencias
             </div>
             <div class="card-body">
+
+                <div class="col-lg-4 slctTimeData">
+                    <label class="lblTimeData" for="">Mostrar</label>
+                    <select class="form-control" name="timeOfData" id="timeOfData">
+                        <option value="D0">Registros del Dia</option>
+                        <option value="D3">Ultimos tres días</option>
+                        <option value="D7">Ultima semana</option>
+                        <option value="D15">Ultimas dos semanas</option>
+                        <option value="M1">Ultimo mes</option>
+                        <option value="M3">Ultimos tres meses</option>
+                        <option value="M6">Ultimos seis meses</option>
+                        <option value="Y1">Ultimo año</option>
+                        <option value="Y2">Ultimos dos años</option>
+                        <option value="Y3">Ultimos tres años</option>
+                    </select>
+                </div>
 
                 <div class="table-responsive">
                     <table class="table table-bordered incidencias" id="dataTable" width="100%" cellspacing="0">
@@ -29,7 +46,6 @@
                                 <th>Tipo Controlador</th>
                                 <th>Componet</th>
                                 <th>Control Panel</th>
-                                <!-- <th>Problem Description</th> -->
                                 <th>Issue Type</th>
                                 <th>Priority</th>
                                 <th>Action Require</th>

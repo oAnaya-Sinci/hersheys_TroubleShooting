@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Development;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Incidencias;
+use Illuminate\Support\Facades\DB;
 
 class consultaIncidencias extends Controller
 {
@@ -91,40 +92,45 @@ class consultaIncidencias extends Controller
      *
      */
 
-     public function getIncidencias(){
+     public function getIncidencias(Request $request){
 
-        $columnsIncidenc = "BU.ctg_name AS BU, AL.ctg_name AS area_linea, PC.ctg_name AS proceso,
-                            ES.ctg_name AS equip_system, TC.ctg_name AS TipoCtrl, CP.ctg_name AS component,
-                            IT.ctg_name AS issue_type, AR.ctg_name AS action_required,
-                            DT.ctg_name AS Diagrama_procedimiento_manual,
-                            RP.ctg_name AS Respaldo, RF.ctg_name AS Refaccion, ST.ctg_name AS Estatus,
-                            users.name AS Reportado_Por,
-                            incidencias.id,
-                            incidencias.created_at AS Fecha_Registro, incidencias.icd_subsystem AS SubSistema,
-                            incidencias.icd_controlpanel AS Control_Panel,
-                            incidencias.icd_priority AS Prioridad, incidencias.icd_shift AS Turno,
-                            incidencias.icd_ReportingDate AS Fecha_Reporte,
-                            incidencias.icd_ClosingDate AS Fecha_Cierre, incidencias.icd_ResponseTime AS Tiempo_Respuesta,
-                            incidencias.icd_StartTime AS Hora_Inicio, incidencias.icd_EndTime AS Hora_Termino,
-                            incidencias.icd_TotalTime AS Tiempo_Total,
-                            incidencias.icd_tiempoDiagnosticar AS Tiempo_Diagnosticar";
+        $date = $request['date'] . " 00:00:000";
 
-        $Incidencias = Incidencias::select(Incidencias::raw($columnsIncidenc))
-                        ->leftjoin('catalogos AS BU', 'incidencias.icd_bu', 'BU.ctg_id')
-                        ->leftjoin('catalogos AS AL', 'incidencias.icd_area_linea', 'AL.ctg_id')
-                        ->leftjoin('catalogos AS PC', 'incidencias.icd_proceso', 'PC.ctg_id')
-                        ->leftjoin('catalogos AS ES', 'incidencias.icd_equipment_system', 'ES.ctg_id')
-                        ->leftjoin('catalogos AS TC', 'incidencias.icd_Tipo_Controlador', 'TC.ctg_id')
-                        ->leftjoin('catalogos AS CP', 'incidencias.icd_component', 'CP.ctg_id')
-                        ->leftjoin('catalogos AS IT', 'incidencias.icd_issuetype', 'IT.ctg_id')
-                        ->leftjoin('catalogos AS AR', 'incidencias.icd_actionrequired', 'AR.ctg_id')
-                        ->leftjoin('catalogos AS ST', 'incidencias.icd_Estatus', 'ST.ctg_id')
-                        ->leftjoin('catalogos AS DT', 'incidencias.icd_DiagramaProcManual', 'DT.ctg_id')
-                        ->leftjoin('catalogos AS RP', 'incidencias.icd_Respaldo', 'RP.ctg_id')
-                        ->leftjoin('catalogos AS RF', 'incidencias.icd_Refaccion', 'RF.ctg_id')
-                        ->join('users', 'users.id', 'incidencias.user_id')
-                        // ->distinct()
-                        ->get();
+        $query = "SELECT
+                    BU.ctg_name AS BU, AL.ctg_name AS area_linea, PC.ctg_name AS proceso,
+                    ES.ctg_name AS equip_system, TC.ctg_name AS TipoCtrl, CP.ctg_name AS component,
+                    IT.ctg_name AS issue_type, AR.ctg_name AS action_required,
+                    DT.ctg_name AS Diagrama_procedimiento_manual,
+                    RP.ctg_name AS Respaldo, RF.ctg_name AS Refaccion, ST.ctg_name AS Estatus,
+                    users.name AS Reportado_Por,
+                    incidencias.id,
+                    incidencias.created_at AS Fecha_Registro, incidencias.icd_subsystem AS SubSistema,
+                    incidencias.icd_controlpanel AS Control_Panel,
+                    incidencias.icd_priority AS Prioridad, incidencias.icd_shift AS Turno,
+                    incidencias.icd_ReportingDate AS Fecha_Reporte,
+                    incidencias.icd_ClosingDate AS Fecha_Cierre, incidencias.icd_ResponseTime AS Tiempo_Respuesta,
+                    incidencias.icd_StartTime AS Hora_Inicio, incidencias.icd_EndTime AS Hora_Termino,
+                    incidencias.icd_TotalTime AS Tiempo_Total,
+                    incidencias.icd_tiempoDiagnosticar AS Tiempo_Diagnosticar
+
+                FROM incidencias
+                LEFT JOIN catalogos AS BU ON incidencias.icd_bu = BU.ctg_id
+                LEFT JOIN catalogos AS AL ON incidencias.icd_area_linea = AL.ctg_id
+                LEFT JOIN catalogos AS PC ON incidencias.icd_proceso = PC.ctg_id
+                LEFT JOIN catalogos AS ES ON incidencias.icd_equipment_system = ES.ctg_id
+                LEFT JOIN catalogos AS TC ON incidencias.icd_Tipo_Controlador = TC.ctg_id
+                LEFT JOIN catalogos AS CP ON incidencias.icd_component = CP.ctg_id
+                LEFT JOIN catalogos AS IT ON incidencias.icd_issuetype = IT.ctg_id
+                LEFT JOIN catalogos AS AR ON incidencias.icd_actionrequired = AR.ctg_id
+                LEFT JOIN catalogos AS ST ON incidencias.icd_Estatus = ST.ctg_id
+                LEFT JOIN catalogos AS DT ON incidencias.icd_DiagramaProcManual = DT.ctg_id
+                LEFT JOIN catalogos AS RP ON incidencias.icd_Respaldo = RP.ctg_id
+                LEFT JOIN catalogos AS RF ON incidencias.icd_Refaccion = RF.ctg_id
+                JOIN users ON users.id = incidencias.user_id
+
+                WHERE UNIX_TIMESTAMP(DATE_FORMAT(incidencias.created_at, '%Y-%m-%d')) >= UNIX_TIMESTAMP('$date')";
+
+        $Incidencias = DB::select( DB::raw( $query ) );
 
         return json_encode($Incidencias);
      }

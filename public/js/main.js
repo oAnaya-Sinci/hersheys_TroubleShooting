@@ -1,8 +1,7 @@
 let dataTableIncidencias;
+let daysLeft = 0;
 
 jQuery(document).ready(function($) {
-
-    iniciateRowsCommentsProblems();
 
     if (window.jQuery().datetimepicker) {
         $('.datetimepicker').datetimepicker({
@@ -50,19 +49,26 @@ jQuery(document).ready(function($) {
 
     $('#dataTable.nonIncidencias').DataTable({ searching: true, pageLength: 25 });
 
-    var data = {
-        _token: $('meta[name="csrf-token"]').attr('content')
-    }
-
     dataTableIncidencias = $('#dataTable.incidencias').DataTable({
         searching: true,
         pageLength: 25,
         dom: "Bfrtip",
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
         ajax: {
             url: "/TroubleShooting/getIncidenciasData",
             type: 'POST',
-            data: data,
+            data: function(d) {
+                return $.extend({}, d, {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    date: getDateToSearh()
+                });
+            },
             "dataSrc": ""
+        },
+        language: {
+            "url": "../plugins/DataTables/json/spanish.json"
         },
         columns: [
             { data: "id" },
@@ -111,12 +117,6 @@ jQuery(document).ready(function($) {
         ]
     });
 });
-
-/**Reload table incidencais By date */
-
-// dataTableIncidencias.ajax.reload();
-
-/* End */
 
 $('#startTime').blur(function() { calculeTotalTime(); });
 $('#endTime').blur(function() { calculeTotalTime(); });
@@ -295,7 +295,6 @@ $('#jrq-proceso').change(function() {
 
 function getDataSelcts(element, select) {
 
-
     var data = [element, select];
 
     var data = {
@@ -382,9 +381,10 @@ $('#storeIncidencias').click(function() {
     });
 });
 
-/*
-    Funcion para eliminar las cookies de el registro de inicio de sesion
-*/
+/**
+ * Funcion para eliminar las cookies de el registro de inicio de sesion
+ */
+
 $('#logoutBtn').click(function() {
 
     logoutFunction();
@@ -624,8 +624,6 @@ function getCommentsProblems(id, column) {
         }
     }).done(function(Message) {
 
-        // Message = JSON.parse(Message);
-
         $('#MessageModal .modal-body').empty();
 
         $('#MessageModal .modal-body').append(Header);
@@ -634,4 +632,73 @@ function getCommentsProblems(id, column) {
 
         $('#MessageModal').modal('show');
     });
+}
+
+/**
+ *
+ * Funciones para refrescar la tabala de busqueda de el registro de incidenias
+ *
+ */
+
+function getDateToSearh() {
+
+    date = new Date();
+    date.setDate(date.getDate() - daysLeft);
+
+    dateReport = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate());
+
+    return dateReport;
+}
+
+$('#timeOfData').change(function() {
+
+    let val = $(this).val();
+    setDaysLeft(val);
+    dataTableIncidencias.ajax.reload(iniciateRowsCommentsProblems);
+});
+
+function setDaysLeft(val) {
+
+    switch (val) {
+
+        case 'D0':
+            daysLeft = 0;
+            break;
+
+        case 'D3':
+            daysLeft = 3;
+            break;
+
+        case 'D7':
+            daysLeft = 7;
+            break;
+
+        case 'D15':
+            daysLeft = 15;
+            break;
+
+        case 'M1':
+            daysLeft = 31;
+            break;
+
+        case 'M3':
+            daysLeft = 61;
+            break;
+
+        case 'M6':
+            daysLeft = 181;
+            break;
+
+        case 'Y1':
+            daysLeft = 365;
+            break;
+
+        case 'Y2':
+            daysLeft = 731;
+            break;
+
+        case 'Y3':
+            daysLeft = 1096;
+            break;
+    }
 }
