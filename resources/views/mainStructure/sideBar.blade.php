@@ -52,7 +52,7 @@
     </div>
 </li>
 
-@if($adminUser)
+@if($adminUser && $seeReports)
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">

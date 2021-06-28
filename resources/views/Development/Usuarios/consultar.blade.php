@@ -24,6 +24,7 @@
                                 <th>Nombre</th>
                                 <th>Email</th>
                                 <th>Admin User</th>
+                                <th>Ver Reportes Usuarios</th>
                                 <th>Registrado</th>
                                 <th>Acciones</th>
                             </tr>
@@ -37,6 +38,7 @@
                                     <td>{{$user['name']}}</td>
                                     <td>{{$user['email']}}</td>
                                     <td value="{{$user['admin_user']}}">{{$user['admin_user_text']}}</td>
+                                    <td value="{{$user['see_reports']}}">{{$user['see_report_text']}}</td>
                                     <td>{{$user['created_at']}}</td>
                                     <td style="text-align: center;">
                                     <button id="editUser" class="btn btn-success"><i class="fas fa-fw far fa-edit"></i></button>

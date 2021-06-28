@@ -18,8 +18,9 @@ class reportesHershey extends Controller
         $areaLinea = Catalogos::where('ctg_tipo', '=', 'jrq-area-line')->orderby('ctg_name')->get();
         $loggin_User = Auth()->User()->name;
         $adminUser = Auth()->User()->admin_user;
+        $seeReports = Auth()->User()->see_reports;
 
-        return view('Development/Reportes/reporte_general', compact('BU', 'areaLinea', 'loggin_User', 'adminUser'));
+        return view('Development/Reportes/reporte_general', compact('BU', 'areaLinea', 'loggin_User', 'adminUser', 'seeReports'));
     }
 
     public function get_data_reporte(Request $data){
@@ -264,9 +265,10 @@ class reportesHershey extends Controller
 
         $loggin_User = Auth()->User()->name;
         $adminUser = Auth()->User()->admin_user;
+        $seeReports = Auth()->User()->see_reports;
         $filtrarPor = jerarquia_catalogos::whereIn('jrq_id', ['jrq-tipo-controlador', 'jrq-component'])->get();
 
-        return view('Development/Reportes/reporte_usuarios', compact('loggin_User', 'adminUser', 'filtrarPor'));
+        return view('Development/Reportes/reporte_usuarios', compact('loggin_User', 'adminUser', 'seeReports', 'filtrarPor'));
      }
 
      public function get_data_usuarios(Request $data){

@@ -440,6 +440,7 @@ $('.table.table-bordered.usuarios tbody tr td #editUser').each(function() {
         $('#nombreEdit').val($(this).parents('tr').children(0)[1].innerText);
         $('#emailEdit').val($(this).parents('tr').children(0)[2].innerText);
         $('#adminUserEdit').val($(this).parents('tr').children(0)[3].innerText);
+        $('#seeReportEdit').val($(this).parents('tr').children(0)[4].innerText);
 
         $('#ModificarUsuariosModal').modal('show');
     })
@@ -463,6 +464,7 @@ $('#updateInfoUser').click(function() {
             nombreUser: $('#nombreEdit').val(),
             // emailUser: $('#emailEdit').val(),
             adminUser: $('#adminUserEdit').val(),
+            seeReports: $('#seeReportEdit').val(),
             newPassword: $('#newPassword').val()
         }
     };

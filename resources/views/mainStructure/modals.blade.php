@@ -96,6 +96,12 @@
                     <option value="False">False</option>
                 </select>
 
+                <label class="mb-0 mt-3">Ver Reportes:</label>
+                <select id="seeReportEdit" class="form-control">
+                    <option value="True">True</option>
+                    <option value="False">False</option>
+                </select>
+
                 <label class="mb-0 mt-3">Nueva Contraseña:</label>
                 <input type="text" class="form-control mt-0" id="newPassword" />
             </div>

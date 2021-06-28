@@ -26,7 +26,8 @@ class HomeController extends Controller
     {
         $loggin_User = Auth()->User()->name;
         $adminUser = Auth()->User()->admin_user;
+        $seeReports = Auth()->User()->see_reports;
 
-        return view('Development/main/index', compact('loggin_User', 'adminUser'));
+        return view('Development/main/index', compact('loggin_User', 'adminUser', 'seeReports'));
     }
 }

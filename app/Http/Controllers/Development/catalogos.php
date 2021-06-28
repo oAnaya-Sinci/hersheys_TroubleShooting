@@ -20,8 +20,9 @@ class catalogos extends Controller
         $loggin_User = Auth()->User()->name;
         $Elementos = jerarquia_catalogos::all();
         $adminUser = Auth()->User()->admin_user;
+        $seeReports = Auth()->User()->see_reports;
 
-        return view('Development/Catalogos/registro', compact('Elementos', 'loggin_User', 'adminUser'));
+        return view('Development/Catalogos/registro', compact('Elementos', 'loggin_User', 'adminUser', 'seeReports'));
     }
 
     /**
@@ -146,7 +147,7 @@ class catalogos extends Controller
         $type = $data['data'];
 
         $elemento = DB::table('jerarquia_catalogos')->where('jrq_id', '=', $type)->value('jrq_padre');
-        
+
         if($elemento != 'jrq-bussn'){
 
             $catalogos = DB::table('catalogos')
@@ -182,8 +183,9 @@ class catalogos extends Controller
         $Elementos = jerarquia_catalogos::all();
         $loggin_User = Auth()->User()->name;
         $adminUser = Auth()->User()->admin_user;
+        $seeReports = Auth()->User()->see_reports;
 
-        return view('Development/Catalogos/modificar', compact('Elementos', 'loggin_User', 'adminUser'));
+        return view('Development/Catalogos/modificar', compact('Elementos', 'loggin_User', 'adminUser', 'seeReports'));
      }
 
      public function get_elements_modificar(){

@@ -17,10 +17,11 @@ class usuariosController extends Controller
     public function index()
     {
         $loggin_User = Auth()->User()->name;
-        $users = User::select(User::raw('id, name, email, IF(admin_user = 1, "True", "False") AS admin_user_text, admin_user, created_at'))->where('id', '<>', '1')->get();
+        $users = User::select(User::raw('id, name, email, IF(admin_user = 1, "True", "False") AS admin_user_text, IF(see_reports = 1, "True", "False") AS see_report_text, admin_user, see_reports, created_at'))->where('id', '<>', '1')->get();
         $adminUser = Auth()->User()->admin_user;
+        $seeReports = Auth()->User()->see_reports;
 
-        return view('Development/Usuarios/consultar', compact('users', 'loggin_User', 'adminUser'));
+        return view('Development/Usuarios/consultar', compact('users', 'loggin_User', 'adminUser', 'seeReports'));
     }
 
     public function dataTable(){
@@ -40,6 +41,7 @@ class usuariosController extends Controller
             ->update([
                 'name' => $data['nombreUser'],
                 'admin_user' => $data['adminUser'] == 'True' ? 1 : 0,
+                'see_reports' => $data['seeReports'] == 'True' ? 1 : 0
             ]);
         }
 
@@ -49,9 +51,12 @@ class usuariosController extends Controller
             ->update([
                 'name' => $data['nombreUser'],
                 'admin_user' => $data['adminUser'] == 'True' ? 1 : 0,
+                'see_reports' => $data['seeReports'] == 'True' ? 1 : 0,
                 'password' => Hash::make($data['newPassword'])
             ]);
         }
+
+        User::where('admin_user', '=', '0')->update([ 'see_reports' => 0 ]);
 
         return false;
     }
