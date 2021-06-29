@@ -17,10 +17,9 @@
     body {
         background-color: #ededed;
     }
-
-    #description {
+    /* #description {
         display: none;
-    }
+    } */
 
     textarea {
         resize: none;

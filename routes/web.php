@@ -44,24 +44,27 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('Catalogos/registros', [catalogos::class, 'index']);
     Route::get('Catalogos/modificar', [catalogos::class, 'modificar']);
     Route::get('Catalogos/modificar/getData', [catalogos::class, 'get_elements_modificar']);
-    Route::get('Catalogos/consultas', [consultaCatalogos::class, 'index']);
-    Route::post('Catalogos/eliminar', [consultaCatalogos::class, 'deleteCatalog']);
+    Route::post('Catalogos/modificar/getParent', [catalogos::class, 'get_parent_element']);
     /* Obtener informacion segun el elemento seleccionado */
     Route::post('Catalogos/getDataElement', [catalogos::class, 'getElements']);
     /* Guardar informacion sobre los catalogos */
     Route::post('Catalogos/storeCatalogos', [catalogos::class, 'store']);
-
-    // Rutas para acciones con incidencias
-    Route::get('TroubleShooting/registros', [incidencias::class, 'index']);
-    Route::get('TroubleShooting/consultas', [consultaIncidencias::class, 'index']);
-    Route::post('TroubleShooting/getCommentsProblems', [consultaIncidencias::class, 'getData_Comments_Problem']);
-    Route::post('TroubleShooting/getIncidenciasData', [consultaIncidencias::class, 'getIncidencias']);
     /* Guardar informacion a actualizar sobre los catalogos */
     Route::post('TroubleShooting/upadateCatalogos', [catalogos::class, 'update']);
+
+    Route::get('Catalogos/consultas', [consultaCatalogos::class, 'index']);
+    Route::post('Catalogos/eliminar', [consultaCatalogos::class, 'deleteCatalog']);
+
+    // Rutas para acciones con incidencias
     /* Obtener informacion de los catalogos para registra incidencias */
     Route::post('TroubleShooting/getDataSelects', [incidencias::class, 'getElements']);
     /* Guardar informacion sobre los catalogos */
     Route::post('TroubleShooting/storeIncidencias', [incidencias::class, 'store']);
+    Route::get('TroubleShooting/registros', [incidencias::class, 'index']);
+
+    Route::get('TroubleShooting/consultas', [consultaIncidencias::class, 'index']);
+    Route::post('TroubleShooting/getCommentsProblems', [consultaIncidencias::class, 'getData_Comments_Problem']);
+    Route::post('TroubleShooting/getIncidenciasData', [consultaIncidencias::class, 'getIncidencias']);
 
     /** * Rutas Reportes Proyecto */
     //Reportes de Incidencias

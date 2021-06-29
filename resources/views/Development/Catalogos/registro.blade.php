@@ -51,12 +51,6 @@
                         </div>
                     </div>
                     <div class="my-2"></div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <textarea class="form-control bc-choco mb-1" rows="5" id="description"> Describir elemento</textarea>
-                        </div>
-                    </div>
-                    <div class="my-2"></div>
                     <hr class="sidebar-divider d-none d-md-block">
                     <div class="row">
                         <div class="col-lg-12" style="text-align: right;">

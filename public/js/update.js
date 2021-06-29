@@ -6,11 +6,6 @@ $('#element_parent').change(function() {
 
     var Element = $(this).val();
 
-    /* var data = {
-        data: formulario,
-        _token: $('meta[name="csrf-token"]').attr('content')
-    } */
-
     $.ajax({
         type: 'GET',
         url: '../Catalogos/modificar/getData?element=' + Element,
@@ -19,15 +14,23 @@ $('#element_parent').change(function() {
 
             data = JSON.parse(data);
 
+            dataEle = data[0];
+            parent = data[1];
+
             $("#element_update").empty();
             $("#element_update").append("<option value=''>Seleccionar Elemento</option>");
 
-            /* if (Element != 'jrq-bussn')
-                $("#element_update").append("<option value='NA'>No Aplica</option>"); */
-
-            $.each(data, function(index, value) {
+            $.each(dataEle, function(index, value) {
 
                 $("#element_update").append("<option value='" + value.ctg_id + "'>" + value.ctg_name + "</option>");
+            });
+
+            $("#elemento_padre").empty();
+            $("#elemento_padre").append("<option value=''>Elemento padre</option>");
+
+            $.each(parent, function(index, value) {
+
+                $("#elemento_padre").append("<option value='" + value.ctg_id + "'>" + value.ctg_name + "</option>");
             });
         },
         error: function(Message) {
@@ -49,26 +52,26 @@ $('#updateCatalogos').click(function() {
         _token: $('meta[name="csrf-token"]').attr('content')
     }
 
-    console.log(data);
-
     $.ajax({
         type: "POST",
         dataType: 'json',
-        url: "../TroubleShooting/upadateCatalogos",
+        url: "/TroubleShooting/upadateCatalogos",
         data: data,
         success: function() {
 
             $("#element_update").empty();
             $("#element_update").append("<option value=''>Seleccionar Elemento</option>");
+
+            $("#elemento_padre").empty();
+            $("#elemento_padre").append("<option value=''>Seleccionar Elemento</option>");
         },
         error: function(Message) {
             showError(Message);
         }
     }).done(function(respuesta) {
+
+        $("#elementForm")[0].reset();
         $('#successModal').modal('show');
-        $('#element_parent').val('');
-        $('#element_update  ').val('');
-        $('#nombre_elemento').val('');
     });
 });
 
@@ -92,3 +95,28 @@ function showError(Message) {
 
     $('#ErrorModal').modal('show');
 }
+
+/**
+ *
+ */
+$('#element_update').change(function() {
+
+    var data = {
+        _token: $('meta[name="csrf-token"]').attr('content'),
+        data: $(this).val()
+    }
+
+    $.ajax({
+        type: "POST",
+        dataType: 'json',
+        url: "/Catalogos/modificar/getParent",
+        data: data,
+        success: function(parent) {
+            console.log(parent);
+            $('#elemento_padre').val(parent);
+        },
+        error: function(Message) {
+            showError(Message);
+        }
+    })
+});

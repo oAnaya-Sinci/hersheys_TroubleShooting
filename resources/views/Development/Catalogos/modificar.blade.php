@@ -37,7 +37,7 @@
                         </select>
                     </div>
                     <div class="col-lg-6">
-                        <label class="mb-0">Nombre</label>
+                        <label class="mb-0">Elemento a Modificar</label>
                         <select id="element_update" name="elemento" class="form-control bc-choco mb-1">
                             <option value="">Seleccionar Elemento</option>
                         </select>
@@ -47,13 +47,13 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <label class="mb-0">Nuevo Nombre</label>
-                        <input type="text" id="nombre_elemento" name="nombre_elemento" class="form-control bc-choco mb-1" placeholder="nuevo nombre elemento">
+                        <input type="text" id="nombre_elemento" name="nombre_elemento" class="form-control bc-choco mb-1" placeholder="Nuevo nombre elemento">
                     </div>
-                </div>
-                <div class="my-2"></div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <textarea class="form-control bc-choco mb-1" rows="5" id="description"> Describir elemento</textarea>
+                    <div class="col-lg-6">
+                        <label class="mb-0">Nuevo elemento padre</label>
+                        <select id="elemento_padre" name="elemento_padre" class="form-control bc-choco">
+                            <option value="">Elemento padre</option>
+                        </select>
                     </div>
                 </div>
                 <div class="my-2"></div>
