@@ -463,6 +463,16 @@ $('.table.table-bordered.usuarios tbody tr td #deleteUser').each(function() {
 
 $('#updateInfoUser').click(function() {
 
+    newPass = $('#newPassword').val();
+
+    if (newPass.length < 8) {
+
+        htmlAlert = '<span role="alert" class="invalid-feedback"><strong>La contraseña debe contener al menos 8 caracteres</strong></span>';
+        $('#newPassword').after(htmlAlert);
+
+        return false;
+    }
+
     var data = {
         _token: $('meta[name="csrf-token"]').attr('content'),
         data: {
