@@ -29,36 +29,36 @@
                     </div>
 
                     <!-- <h5>Data Reported</h5> -->
-                    <div class="row">
+                    <div class="row mt-4">
                         <div class="col-lg-12">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTableReport" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                        <th>Report By</th>
-                                        <th>Response Time</th>
-                                        <th>Tiempo Diagnosticar</th>
-                                        <th>Total Time</th>
-                                        <th>Tipo Controlador</th>
-                                        <th>Componet</th>
+                                        <th>Id</th>
                                         <th>BU</th>
                                         <th>Area / Line</th>
                                         <th>Proceso</th>
                                         <th>Equipment / System</th>
                                         <th>SubSystem</th>
+                                        <th>Tipo Controlador</th>
+                                        <th>Componet</th>
                                         <th>Control Panel</th>
                                         <th>Issue Type</th>
                                         <th>Priority</th>
                                         <th>Action Require</th>
-                                        <th>Start Time</th>
-                                        <th>End Time</th>
-                                        <th>Total Time</th>
+                                        <th>Report By</th>
                                         <th>Reporting Date</th>
                                         <th>Closing Date</th>
                                         <th>Shift</th>
+                                        <th>Response Time</th>
+                                        <th>Start Time</th>
+                                        <th>End Time</th>
+                                        <th>Total Time</th>
                                         <th>Detractores</th>
                                         <th>Respaldo</th>
                                         <th>Refaccion</th>
+                                        <th>Tiempo Diagnosticar</th>
                                         <th>Estatus</th>
                                         </tr>
                                     </thead>
@@ -124,8 +124,8 @@
                         </div>
 
                         <div class="showReport">
-                            <button id="showReportButton_Users" class="btn btn-primary"> Mostrar <i class="fas fa-chart-line" aria-hidden="true"> </i></button>
-                            <button id="downloadExcel_Users" class="btn btn-secondary">CSV <i class="fas fa-cloud-download-alt" aria-hidden="true"> </i></button>
+                            <button id="showReportButton_Users" class="btn btn-primary"> Mostrar Grafica <i class="fas fa-chart-line" aria-hidden="true"> </i></button>
+                            <!-- <button id="downloadExcel_Users" class="btn btn-secondary">CSV <i class="fas fa-cloud-download-alt" aria-hidden="true"> </i></button> -->
                         </div>
                 </div>
             </div>
@@ -148,7 +148,18 @@
 
 @section('jsScripts')
 
+    <script> let typeGraph = "usuarios"; </script>
+
     <!-- Page level custom scripts -->
+    <script src="{{ config('app.url', '') }}/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="{{ config('app.url', '') }}/js/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <script src="{{ config('app.url', '') }}/js/datatables/dataTables.buttons.min.js"></script>
+    <script src="{{ config('app.url', '') }}/js/datatables/jszip.min.js"></script>
+    <script src="{{ config('app.url', '') }}/js/datatables/pdfmake.min.js"></script>
+    <script src="{{ config('app.url', '') }}/js/datatables/vfs_fonts.js"></script>
+    <script src="{{ config('app.url', '') }}/js/datatables/buttons.html5.min.js"></script>
+
     <script src="{{ config('app.url', '') }}/js/charts/echart.js"></script>
     <script src="{{ config('app.url', '') }}/js/charts/mainChart.js"></script>
 

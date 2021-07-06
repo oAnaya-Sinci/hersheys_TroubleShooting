@@ -49,7 +49,8 @@ jQuery(document).ready(function($) {
 
     $('#dataTable.nonIncidencias').DataTable({
         searching: true,
-        pageLength: 25,
+        pageLength: 100,
+        dom: "Bfrtip",
         language: {
             "url": "../plugins/DataTables/json/spanish.json"
         }
@@ -57,7 +58,7 @@ jQuery(document).ready(function($) {
 
     dataTableIncidencias = $('#dataTable.incidencias').DataTable({
         searching: true,
-        pageLength: 25,
+        pageLength: 100,
         dom: "Bfrtip",
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'

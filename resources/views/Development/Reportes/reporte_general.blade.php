@@ -29,10 +29,10 @@
                     </div>
 
                     <!-- <h5>Data Reported</h5> -->
-                    <div class="row">
+                    <div class="row mt-4">
                         <div class="col-lg-12">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTableReport" width="100%" cellspacing="0">
+                                <table class="table table-bordered incidencias" id="dataTableReport" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                         <th>Id</th>
@@ -132,8 +132,8 @@
                         </div>
 
                         <div class="showReport">
-                            <button id="showReportButton" class="btn btn-primary"> Mostrar <i class="fas fa-chart-line" aria-hidden="true"> </i></button>
-                            <button id="downloadExcel" class="btn btn-secondary">CSV <i class="fas fa-cloud-download-alt" aria-hidden="true"> </i></button>
+                            <button id="showReportButton" class="btn btn-primary"> Mostrar Grafica <i class="fas fa-chart-line" aria-hidden="true"> </i></button>
+                            <!-- <button id="downloadExcel" class="btn btn-secondary">CSV <i class="fas fa-cloud-download-alt" aria-hidden="true"> </i></button> -->
                         </div>
                 </div>
             </div>
@@ -156,7 +156,18 @@
 
 @section('jsScripts')
 
+    <script> let typeGraph = "fallas"; </script>
+
     <!-- Page level custom scripts -->
+    <script src="{{ config('app.url', '') }}/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="{{ config('app.url', '') }}/js/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <script src="{{ config('app.url', '') }}/js/datatables/dataTables.buttons.min.js"></script>
+    <script src="{{ config('app.url', '') }}/js/datatables/jszip.min.js"></script>
+    <script src="{{ config('app.url', '') }}/js/datatables/pdfmake.min.js"></script>
+    <script src="{{ config('app.url', '') }}/js/datatables/vfs_fonts.js"></script>
+    <script src="{{ config('app.url', '') }}/js/datatables/buttons.html5.min.js"></script>
+
     <script src="{{ config('app.url', '') }}/js/charts/echart.js"></script>
     <script src="{{ config('app.url', '') }}/js/charts/mainChart.js"></script>
 

@@ -168,7 +168,7 @@ class reportesHershey extends Controller
 
     public function get_DataTable(Request $arrayData){
 
-        $ColumnsIncidencias = array('bssnu', 'area_linea', 'proceso', 'equipment_system', 'component', 'icd_Subsystem', 'icd_ControlPanel','issue', 'action_r', 'icd_Priority', 'icd_Estatus', 'icd_DiagramaProcManual', 'icd_Respaldo', 'icd_reportedBy', 'icd_ProblemDescription', 'icd_Comments', 'icd_Refaccion');
+        $ColumnsIncidencias = array('BU', 'area_linea', 'proceso', 'equip_system', 'TipoCtrl', 'component', 'SubSistema', 'Control_Panel','issue_type', 'action_required', 'Prioridad', 'Estatus', 'Diagrama_procedimiento_manual', 'Respaldo', 'Reportado_Por', 'Refaccion');
 
         $data = $arrayData['data'];
         $pos = (sizeof($data)-1);
@@ -194,35 +194,40 @@ class reportesHershey extends Controller
         $Columns = array('icd_bu', 'icd_area_linea', 'icd_proceso', 'icd_equipment_system', 'icd_component');
 
         $query = 'SELECT DISTINCT
-                                icd.*, DT.ctg_name AS icd_DiagramaProcManual,
-                                RP.ctg_name AS icd_Respaldo, RF.ctg_name AS icd_Refaccion,
-                                ST.ctg_name AS Estatus, bu.ctg_name AS bssnu,
-                                area_linea.ctg_name AS area_linea, proceso.ctg_name AS proceso,
-                                equip_system.ctg_name AS equipment_system, component.ctg_name AS component,
-                                TC.ctg_name AS Tipo_Ctrl, users.name AS Reported_by,
-                                issue.ctg_name AS issue, actionr.ctg_name AS action_r, users.name AS user_name
+                        BU.ctg_name AS BU, AL.ctg_name AS area_linea, PC.ctg_name AS proceso,
+                        ES.ctg_name AS equip_system, TC.ctg_name AS TipoCtrl, CP.ctg_name AS component,
+                        IT.ctg_name AS issue_type, AR.ctg_name AS action_required,
+                        DT.ctg_name AS Diagrama_procedimiento_manual, users.name AS Reportado_Por,
+                        RP.ctg_name AS Respaldo, RF.ctg_name AS Refaccion, ST.ctg_name AS Estatus,
+                        incidencias.id,
+                        incidencias.created_at AS Fecha_Registro, incidencias.icd_subsystem AS SubSistema,
+                        incidencias.icd_controlpanel AS Control_Panel,
+                        incidencias.icd_priority AS Prioridad, incidencias.icd_shift AS Turno,
+                        incidencias.icd_ReportingDate AS Fecha_Reporte,
+                        incidencias.icd_ClosingDate AS Fecha_Cierre, incidencias.icd_ResponseTime AS Tiempo_Respuesta,
+                        incidencias.icd_StartTime AS Hora_Inicio, incidencias.icd_EndTime AS Hora_Termino,
+                        incidencias.icd_TotalTime AS Tiempo_Total,
+                        incidencias.icd_tiempoDiagnosticar AS Tiempo_Diagnosticar
 
-                    FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.' . $Columns[$lastCol];
+                    FROM incidencias INNER JOIN catalogos ctg ON ctg.ctg_id = incidencias.' . $Columns[$lastCol];
 
-        $query .= ' INNER JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType ';
+        $query .= ' INNER JOIN catalogos iss ON iss.ctg_id = incidencias.icd_IssueType ';
 
-        $query .= ' LEFT JOIN catalogos AS bu ON icd.icd_bu = bu.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS area_linea ON icd.icd_area_linea = area_linea.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS proceso ON icd.icd_proceso = proceso.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS equip_system ON icd.icd_equipment_system = equip_system.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS subsystem ON icd.icd_Subsystem = subsystem.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS TC ON icd.icd_Tipo_Controlador = TC.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS component ON icd.icd_component = component.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS cntrlp ON icd.icd_controlpanel = cntrlp.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS issue ON icd.icd_issuetype = issue.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS actionr ON icd.icd_actionrequired = actionr.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS ST ON icd.icd_Estatus = ST.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS DT ON icd.icd_DiagramaProcManual = DT.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS RP ON icd.icd_Respaldo = RP.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS RF ON icd.icd_Refaccion = RF.ctg_id';
-        $query .= ' LEFT JOIN users ON icd.user_id = users.id';
+        $query .= ' LEFT JOIN catalogos AS BU ON incidencias.icd_bu = BU.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS AL ON incidencias.icd_area_linea = AL.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS PC ON incidencias.icd_proceso = PC.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS ES ON incidencias.icd_equipment_system = ES.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS TC ON incidencias.icd_Tipo_Controlador = TC.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS CP ON incidencias.icd_component = CP.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS IT ON incidencias.icd_issuetype = IT.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS AR ON incidencias.icd_actionrequired = AR.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS ST ON incidencias.icd_Estatus = ST.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS DT ON incidencias.icd_DiagramaProcManual = DT.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS RP ON incidencias.icd_Respaldo = RP.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS RF ON incidencias.icd_Refaccion = RF.ctg_id';
+        $query .= ' LEFT JOIN users ON incidencias.user_id = users.id';
 
-        $query .= ' WHERE UNIX_TIMESTAMP(DATE_FORMAT(icd.created_at, "%Y-%m-%d")) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
+        $query .= ' WHERE UNIX_TIMESTAMP(DATE_FORMAT(incidencias.created_at, "%Y-%m-%d")) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
 
         if($lastCol != 0){
 
@@ -239,10 +244,10 @@ class reportesHershey extends Controller
                 $x++;
             }
 
-            $concatNE == '' ? '' : $query .= " AND icd.". $Columns[$lastCol] ." IN (" . $concatNE .  ")";
+            $concatNE == '' ? '' : $query .= " AND incidencias.". $Columns[$lastCol] ." IN (" . $concatNE .  ")";
         }
 
-        $query .= " ORDER BY bssnu, area_linea, proceso, equipment_system, component";
+        $query .= " ORDER BY BU, area_linea, proceso, equip_system, component";
 
         $reportData = DB::select($query);
 
@@ -283,7 +288,6 @@ class reportesHershey extends Controller
         $dataReportReturn = [ $Elementos[1], $users[1], $data ];
 
         return json_encode( $dataReportReturn );
-        // return $dataReportReturn;
      }
 
      public function getUsers(){
@@ -361,7 +365,6 @@ class reportesHershey extends Controller
             $fieldSelect = ( $rqst[2]['val'] == 'TD' ? ",SUM( incd.icd_tiempoDiagnosticar ) AS SUM_TIEMPO, AVG( incd.icd_tiempoDiagnosticar ) AS PROM_TIEMPO" : ",SUM( incd.icd_ResponseTime ) AS SUM_TIEMPO, AVG( incd.icd_ResponseTime ) AS PROM_TIEMPO");
 
         $Join = ($rqst[3]['val'] == "jrq-component" ? " INNER JOIN catalogos ctg ON incd.icd_Component = ctg.ctg_id AND incd.icd_Component <> 'jrq-component-N/A' " : " INNER JOIN catalogos ctg ON incd.icd_Tipo_Controlador = ctg.ctg_id AND incd.icd_Tipo_Controlador <> 'jrq-component-N/A' ");
-        // $AndType = ($typeJoin = "jrq-component" ? " AND incd.icd_Component = " : " AND incd.icd_Tipo_Controlador = ");
 
         $valuesToReturn = [];
 
@@ -421,40 +424,42 @@ class reportesHershey extends Controller
         $Join = ($data[3]['val'] == "jrq-component" ? " INNER JOIN catalogos CtrlComp ON icd.icd_Component = CtrlComp.ctg_id " : " INNER JOIN catalogos CtrlComp ON icd.icd_Tipo_Controlador = CtrlComp.ctg_id ");
 
         $query = 'SELECT DISTINCT
-                                icd.*, DT.ctg_name AS icd_DiagramaProcManual,
-                                RP.ctg_name AS icd_Respaldo, RF.ctg_name AS icd_Refaccion,
-                                ST.ctg_name AS Estatus, bu.ctg_name AS bssnu,
-                                area_linea.ctg_name AS area_linea, proceso.ctg_name AS proceso,
-                                equip_system.ctg_name AS equipment_system, component.ctg_name AS component,
-                                TC.ctg_name AS Tipo_Ctrl, users.name AS Reported_by,
-                                issue.ctg_name AS issue, actionr.ctg_name AS action_r, users.name AS user_name
+                BU.ctg_name AS BU, AL.ctg_name AS area_linea, PC.ctg_name AS proceso,
+                ES.ctg_name AS equip_system, TC.ctg_name AS TipoCtrl, CP.ctg_name AS component,
+                IT.ctg_name AS issue_type, AR.ctg_name AS action_required,
+                DT.ctg_name AS Diagrama_procedimiento_manual, users.name AS Reportado_Por,
+                RP.ctg_name AS Respaldo, RF.ctg_name AS Refaccion, ST.ctg_name AS Estatus,
+                incidencias.id,
+                incidencias.created_at AS Fecha_Registro, incidencias.icd_subsystem AS SubSistema,
+                incidencias.icd_controlpanel AS Control_Panel,
+                incidencias.icd_priority AS Prioridad, incidencias.icd_shift AS Turno,
+                incidencias.icd_ReportingDate AS Fecha_Reporte,
+                incidencias.icd_ClosingDate AS Fecha_Cierre, incidencias.icd_ResponseTime AS Tiempo_Respuesta,
+                incidencias.icd_StartTime AS Hora_Inicio, incidencias.icd_EndTime AS Hora_Termino,
+                incidencias.icd_TotalTime AS Tiempo_Total,
+                incidencias.icd_tiempoDiagnosticar AS Tiempo_Diagnosticar
 
-                                #,SUM(LEFT( icd.icd_TotalTime, INSTR( icd.icd_TotalTime, ":") -1) * 60 + RIGHT(icd.icd_TotalTime, INSTR( icd.icd_TotalTime, ":") -1)) AS SUM_TIEMPO
+            FROM incidencias INNER JOIN catalogos ctg ON ctg.ctg_id = incidencias.icd_bu';
 
-                    FROM incidencias icd INNER JOIN catalogos ctg ON ctg.ctg_id = icd.icd_bu';
+        $query .= ' INNER JOIN catalogos iss ON iss.ctg_id = incidencias.icd_IssueType ';
 
-        $query .= ' INNER JOIN catalogos iss ON iss.ctg_id = icd.icd_IssueType ';
+        $query .= ' LEFT JOIN catalogos AS BU ON incidencias.icd_bu = BU.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS AL ON incidencias.icd_area_linea = AL.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS PC ON incidencias.icd_proceso = PC.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS ES ON incidencias.icd_equipment_system = ES.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS TC ON incidencias.icd_Tipo_Controlador = TC.ctg_id AND incidencias.icd_Tipo_Controlador <> "jrq-component-N/A"';
+        $query .= ' LEFT JOIN catalogos AS CP ON incidencias.icd_component = CP.ctg_id AND incidencias.icd_component <> "jrq-component-N/A"';
+        $query .= ' LEFT JOIN catalogos AS IT ON incidencias.icd_issuetype = IT.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS AR ON incidencias.icd_actionrequired = AR.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS ST ON incidencias.icd_Estatus = ST.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS DT ON incidencias.icd_DiagramaProcManual = DT.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS RP ON incidencias.icd_Respaldo = RP.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS RF ON incidencias.icd_Refaccion = RF.ctg_id';
+        $query .= ' LEFT JOIN users ON incidencias.user_id = users.id';
 
-        $query .= ' LEFT JOIN catalogos AS bu ON icd.icd_bu = bu.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS area_linea ON icd.icd_area_linea = area_linea.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS proceso ON icd.icd_proceso = proceso.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS equip_system ON icd.icd_equipment_system = equip_system.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS subsystem ON icd.icd_Subsystem = subsystem.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS TC ON icd.icd_Tipo_Controlador = TC.ctg_id AND icd.icd_Tipo_Controlador <> "jrq-component-N/A"';
-        $query .= ' LEFT JOIN catalogos AS component ON icd.icd_component = component.ctg_id AND icd.icd_component <> "jrq-component-N/A"';
-        $query .= ' LEFT JOIN catalogos AS cntrlp ON icd.icd_controlpanel = cntrlp.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS issue ON icd.icd_issuetype = issue.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS actionr ON icd.icd_actionrequired = actionr.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS ST ON icd.icd_Estatus = ST.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS DT ON icd.icd_DiagramaProcManual = DT.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS RP ON icd.icd_Respaldo = RP.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS RF ON icd.icd_Refaccion = RF.ctg_id';
-        $query .= ' LEFT JOIN users ON icd.user_id = users.id';
-        $query .= $Join;
+        $query .= ' WHERE UNIX_TIMESTAMP(DATE_FORMAT(incidencias.created_at, "%Y-%m-%d")) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
 
-        $query .= ' WHERE UNIX_TIMESTAMP(DATE_FORMAT(icd.created_at, "%Y-%m-%d")) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
-
-        $query .= " ORDER BY Tipo_Ctrl, component";
+        $query .= " ORDER BY TipoCtrl, component";
 
         $reportData = DB::select($query);
 

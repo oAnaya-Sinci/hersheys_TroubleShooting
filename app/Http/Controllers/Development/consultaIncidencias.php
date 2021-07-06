@@ -101,9 +101,8 @@ class consultaIncidencias extends Controller
                     BU.ctg_name AS BU, AL.ctg_name AS area_linea, PC.ctg_name AS proceso,
                     ES.ctg_name AS equip_system, TC.ctg_name AS TipoCtrl, CP.ctg_name AS component,
                     IT.ctg_name AS issue_type, AR.ctg_name AS action_required,
-                    DT.ctg_name AS Diagrama_procedimiento_manual,
+                    DT.ctg_name AS Diagrama_procedimiento_manual, users.name AS Reportado_Por,
                     RP.ctg_name AS Respaldo, RF.ctg_name AS Refaccion, ST.ctg_name AS Estatus,
-                    users.name AS Reportado_Por,
                     incidencias.id,
                     incidencias.created_at AS Fecha_Registro, incidencias.icd_subsystem AS SubSistema,
                     incidencias.icd_controlpanel AS Control_Panel,
@@ -115,19 +114,19 @@ class consultaIncidencias extends Controller
                     incidencias.icd_tiempoDiagnosticar AS Tiempo_Diagnosticar
 
                 FROM incidencias
-                LEFT JOIN catalogos AS BU ON incidencias.icd_bu = BU.ctg_id
-                LEFT JOIN catalogos AS AL ON incidencias.icd_area_linea = AL.ctg_id
-                LEFT JOIN catalogos AS PC ON incidencias.icd_proceso = PC.ctg_id
-                LEFT JOIN catalogos AS ES ON incidencias.icd_equipment_system = ES.ctg_id
-                LEFT JOIN catalogos AS TC ON incidencias.icd_Tipo_Controlador = TC.ctg_id
-                LEFT JOIN catalogos AS CP ON incidencias.icd_component = CP.ctg_id
-                LEFT JOIN catalogos AS IT ON incidencias.icd_issuetype = IT.ctg_id
-                LEFT JOIN catalogos AS AR ON incidencias.icd_actionrequired = AR.ctg_id
-                LEFT JOIN catalogos AS ST ON incidencias.icd_Estatus = ST.ctg_id
-                LEFT JOIN catalogos AS DT ON incidencias.icd_DiagramaProcManual = DT.ctg_id
-                LEFT JOIN catalogos AS RP ON incidencias.icd_Respaldo = RP.ctg_id
-                LEFT JOIN catalogos AS RF ON incidencias.icd_Refaccion = RF.ctg_id
-                JOIN users ON users.id = incidencias.user_id
+                LEFT JOIN catalogos AS BU ON incidencias.icd_bu = BU.ctg_id AND BU.ctg_eliminado = 0
+                LEFT JOIN catalogos AS AL ON incidencias.icd_area_linea = AL.ctg_id AND AL.ctg_eliminado = 0
+                LEFT JOIN catalogos AS PC ON incidencias.icd_proceso = PC.ctg_id AND PC.ctg_eliminado = 0
+                LEFT JOIN catalogos AS ES ON incidencias.icd_equipment_system = ES.ctg_id AND ES.ctg_eliminado = 0
+                LEFT JOIN catalogos AS TC ON incidencias.icd_Tipo_Controlador = TC.ctg_id AND TC.ctg_eliminado = 0
+                LEFT JOIN catalogos AS CP ON incidencias.icd_component = CP.ctg_id AND CP.ctg_eliminado = 0
+                LEFT JOIN catalogos AS IT ON incidencias.icd_issuetype = IT.ctg_id AND IT.ctg_eliminado = 0
+                LEFT JOIN catalogos AS AR ON incidencias.icd_actionrequired = AR.ctg_id AND AR.ctg_eliminado = 0
+                LEFT JOIN catalogos AS ST ON incidencias.icd_Estatus = ST.ctg_id AND ST.ctg_eliminado = 0
+                LEFT JOIN catalogos AS DT ON incidencias.icd_DiagramaProcManual = DT.ctg_id AND DT.ctg_eliminado = 0
+                LEFT JOIN catalogos AS RP ON incidencias.icd_Respaldo = RP.ctg_id AND RP.ctg_eliminado = 0
+                LEFT JOIN catalogos AS RF ON incidencias.icd_Refaccion = RF.ctg_id AND RF.ctg_eliminado = 0
+                INNER JOIN users ON users.id = incidencias.user_id
 
                 WHERE UNIX_TIMESTAMP(DATE_FORMAT(incidencias.created_at, '%Y-%m-%d')) >= UNIX_TIMESTAMP('$date')";
 

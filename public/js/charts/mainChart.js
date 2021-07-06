@@ -1,3 +1,5 @@
+let tableReport;
+
 jQuery(document).ready(function($) {
 
     if (window.jQuery().datetimepicker) {
@@ -24,6 +26,12 @@ jQuery(document).ready(function($) {
 
     $('#fechaInicio').data("DateTimePicker").date(new Date());
     $('#fechaFin').data("DateTimePicker").date(new Date());
+
+    if (typeGraph == 'fallas')
+        iniciateDataTable_ReporteFallas('/Reporte/getDataTable');
+
+    else
+        iniciateDataTable_ReporteFallas('/Reporte/getDataTableUsuarios');
 });
 
 var myChart = null;
@@ -51,7 +59,9 @@ $('#typeChart').change(function() {
 $('#showReportButton').click(function() {
 
     getDataIncidencias();
-    get_dataTable();
+    // get_dataTable();
+    tableReport.ajax.reload($('.buttons-html5').addClass('btn btn-secondary'));
+
 
     $('#downloadExcel').prop("disabled", false);
 });
@@ -85,74 +95,6 @@ function getDataIncidencias() {
 
             dataReport = data;
             showGraph();
-        },
-        error: function(Message) {
-            showError(Message)
-        }
-    });
-}
-
-function get_dataTable() {
-
-    var dataSlcts = [];
-    var val;
-
-    $('.slctReporte').each(function() {
-
-        val = $(this).val();
-
-        if (val != '')
-            dataSlcts.push({ val });
-    });
-
-    var data = {
-        data: dataSlcts,
-        _token: $('meta[name="csrf-token"]').attr('content')
-    }
-
-    $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        url: '/Reporte/getDataTable',
-        data: data,
-        success: function(data) {
-
-            var tbody = '';
-
-            $.each(data, function(index, value) {
-
-                tbody += '<tr>'
-                tbody += '<td>' + value['id'] + '</td>';
-                tbody += '<td>' + value['bssnu'] + '</td>';
-                tbody += '<td>' + value['area_linea'] + '</td>';
-                tbody += '<td>' + value['proceso'] + '</td>';
-                tbody += '<td>' + value['equipment_system'] + '</td>';
-                tbody += '<td>' + value['icd_Subsystem'] + '</td>';
-                tbody += '<td>' + value['Tipo_Ctrl'] + '</td>';
-                tbody += '<td>' + value['component'] + '</td>';
-                tbody += '<td>' + value['icd_ControlPanel'] + '</td>';
-                // tbody += '<td>' + value['icd_ProblemDescription'] + '</td>';
-                tbody += '<td>' + value['issue'] + '</td>';
-                tbody += '<td>' + value['icd_Priority'] + '</td>';
-                tbody += '<td>' + value['action_r'] + '</td>';
-                tbody += '<td>' + value['Reported_by'] + '</td>';
-                tbody += '<td>' + value['icd_ReportingDate'] + '</td>';
-                tbody += '<td>' + value['icd_ClosingDate'] + '</td>';
-                tbody += '<td>' + value['icd_Shift'] + '</td>';
-                tbody += '<td>' + value['icd_ResponseTime'] + '</td>';
-                tbody += '<td>' + value['icd_StartTime'] + '</td>';
-                tbody += '<td>' + value['icd_EndTime'] + '</td>';
-                tbody += '<td>' + value['icd_TotalTime'] + '</td>';
-                tbody += '<td>' + value['icd_DiagramaProcManual'] + '</td>';
-                tbody += '<td>' + value['icd_Respaldo'] + '</td>';
-                tbody += '<td>' + value['icd_Refaccion'] + '</td>';
-                tbody += '<td>' + value['icd_tiempoDiagnosticar'] + '</td>';
-                tbody += '<td>' + value['Estatus'] + '</td>';
-                // tbody += '<td>' + value['icd_Comments'] + '</td>';
-                tbody += '</tr>';
-            });
-
-            $('#dataTableReport tbody').html(tbody);
         },
         error: function(Message) {
             showError(Message)
@@ -515,7 +457,8 @@ function showError(Message) {
 $('#showReportButton_Users').click(function() {
 
     getDataUsuarios();
-    get_DataTableUsuarios();
+    // get_DataTableUsuarios();
+    tableReport.ajax.reload($('.buttons-html5').addClass('btn btn-secondary'));
 });
 
 function showGraphUsers() {
@@ -530,72 +473,6 @@ function showGraphUsers() {
 
     // use configuration item and data specified to show chart
     myChart.setOption(option);
-}
-
-function get_DataTableUsuarios() {
-
-    var dataSlcts = [];
-    var val;
-
-    $('.slctReporte').each(function() {
-
-        val = $(this).val();
-
-        if (val != '')
-            dataSlcts.push({ val });
-    });
-
-    var data = {
-        data: dataSlcts,
-        _token: $('meta[name="csrf-token"]').attr('content')
-    }
-
-    $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        url: '/Reporte/getDataTableUsuarios',
-        data: data,
-        success: function(data) {
-
-            var tbody = '';
-
-            $.each(data, function(index, value) {
-
-                tbody += '<tr>'
-                tbody += '<td>' + value['Reported_by'] + '</td>';
-                tbody += '<td>' + value['icd_ResponseTime'] + '</td>';
-                tbody += '<td>' + value['icd_tiempoDiagnosticar'] + '</td>';
-                tbody += '<td>' + value['icd_TotalTime'] + '</td>';
-                tbody += '<td>' + value['Tipo_Ctrl'] + '</td>';
-                tbody += '<td>' + value['component'] + '</td>';
-                tbody += '<td>' + value['bssnu'] + '</td>';
-                tbody += '<td>' + value['area_linea'] + '</td>';
-                tbody += '<td>' + value['proceso'] + '</td>';
-                tbody += '<td>' + value['equipment_system'] + '</td>';
-                tbody += '<td>' + value['icd_Subsystem'] + '</td>';
-                tbody += '<td>' + value['icd_ControlPanel'] + '</td>';
-                tbody += '<td>' + value['issue'] + '</td>';
-                tbody += '<td>' + value['icd_Priority'] + '</td>';
-                tbody += '<td>' + value['action_r'] + '</td>';
-                tbody += '<td>' + value['icd_StartTime'] + '</td>';
-                tbody += '<td>' + value['icd_EndTime'] + '</td>';
-                tbody += '<td>' + value['icd_TotalTime'] + '</td>';
-                tbody += '<td>' + value['icd_ReportingDate'] + '</td>';
-                tbody += '<td>' + value['icd_ClosingDate'] + '</td>';
-                tbody += '<td>' + value['icd_Shift'] + '</td>';
-                tbody += '<td>' + value['icd_DiagramaProcManual'] + '</td>';
-                tbody += '<td>' + value['icd_Respaldo'] + '</td>';
-                tbody += '<td>' + value['icd_Refaccion'] + '</td>';
-                tbody += '<td>' + value['Estatus'] + '</td>';
-                tbody += '</tr>';
-            });
-
-            $('#dataTableReport tbody').html(tbody);
-        },
-        error: function(Message) {
-            showError(Message)
-        }
-    });
 }
 
 function getDataUsuarios() {
@@ -622,7 +499,7 @@ function getDataUsuarios() {
         url: '/Reporte/getDataUsersReport',
         data: data,
         success: function(data) {
-            console.log(data);
+
             dataReport = data;
             showGraphUsers();
         },
@@ -630,4 +507,80 @@ function getDataUsuarios() {
             showError(Message)
         }
     });
+}
+
+/**
+ * Funciones para incializar las tablas de los reportes con data
+ */
+
+function iniciateDataTable_ReporteFallas(typeUrl) {
+
+    tableReport = $('#dataTableReport').DataTable({
+        searching: true,
+        pageLength: 100,
+        dom: 'Bfrtip',
+        buttons: [
+            'excelHtml5',
+            'csvHtml5'
+        ],
+        ajax: {
+            url: typeUrl,
+            type: 'POST',
+            data: function(d) {
+                return $.extend({}, d, {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    data: getDataToSearh()
+                });
+            },
+            "dataSrc": ""
+        },
+        language: {
+            "url": "../plugins/DataTables/json/spanish.json"
+        },
+        columns: [
+            { data: "id" },
+            { data: "BU" },
+            { data: "area_linea" },
+            { data: "proceso" },
+            { data: "equip_system" },
+            { data: "SubSistema" },
+            { data: "TipoCtrl" },
+            { data: "component" },
+            { data: "Control_Panel" },
+            { data: "issue_type" },
+            { data: "Prioridad" },
+            { data: "action_required" },
+            { data: "Reportado_Por" },
+            { data: "Fecha_Reporte" },
+            { data: "Fecha_Cierre" },
+            { data: "Turno" },
+            { data: "Tiempo_Respuesta" },
+            { data: "Hora_Inicio" },
+            { data: "Hora_Termino" },
+            { data: "Tiempo_Total" },
+            { data: "Diagrama_procedimiento_manual" },
+            { data: "Respaldo" },
+            { data: "Refaccion" },
+            { data: "Tiempo_Diagnosticar" },
+            { data: "Estatus" }
+        ],
+        "initComplete": function() {
+            $('.buttons-html5').addClass('btn btn-secondary');
+        }
+    });
+}
+
+function getDataToSearh() {
+
+    var dataSlcts = [];
+
+    $('.slctReporte').each(function() {
+
+        val = $(this).val();
+
+        if (val != '')
+            dataSlcts.push({ val });
+    });
+
+    return dataSlcts;
 }
