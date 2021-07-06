@@ -213,18 +213,18 @@ class reportesHershey extends Controller
 
         $query .= ' INNER JOIN catalogos iss ON iss.ctg_id = incidencias.icd_IssueType ';
 
-        $query .= ' LEFT JOIN catalogos AS BU ON incidencias.icd_bu = BU.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS AL ON incidencias.icd_area_linea = AL.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS PC ON incidencias.icd_proceso = PC.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS ES ON incidencias.icd_equipment_system = ES.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS TC ON incidencias.icd_Tipo_Controlador = TC.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS CP ON incidencias.icd_component = CP.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS IT ON incidencias.icd_issuetype = IT.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS AR ON incidencias.icd_actionrequired = AR.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS ST ON incidencias.icd_Estatus = ST.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS DT ON incidencias.icd_DiagramaProcManual = DT.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS RP ON incidencias.icd_Respaldo = RP.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS RF ON incidencias.icd_Refaccion = RF.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS BU ON incidencias.icd_bu = BU.ctg_id AND BU.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS AL ON incidencias.icd_area_linea = AL.ctg_id AND AL.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS PC ON incidencias.icd_proceso = PC.ctg_id AND PC.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS ES ON incidencias.icd_equipment_system = ES.ctg_id AND ES.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS TC ON incidencias.icd_Tipo_Controlador = TC.ctg_id  AND TC.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS CP ON incidencias.icd_component = CP.ctg_id  AND CP.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS IT ON incidencias.icd_issuetype = IT.ctg_id AND IT.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS AR ON incidencias.icd_actionrequired = AR.ctg_id AND AR.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS ST ON incidencias.icd_Estatus = ST.ctg_id AND ST.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS DT ON incidencias.icd_DiagramaProcManual = DT.ctg_id AND DT.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS RP ON incidencias.icd_Respaldo = RP.ctg_id AND RP.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS RF ON incidencias.icd_Refaccion = RF.ctg_id AND RF.ctg_eliminado = 0';
         $query .= ' LEFT JOIN users ON incidencias.user_id = users.id';
 
         $query .= ' WHERE UNIX_TIMESTAMP(DATE_FORMAT(incidencias.created_at, "%Y-%m-%d")) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
@@ -443,18 +443,18 @@ class reportesHershey extends Controller
 
         $query .= ' INNER JOIN catalogos iss ON iss.ctg_id = incidencias.icd_IssueType ';
 
-        $query .= ' LEFT JOIN catalogos AS BU ON incidencias.icd_bu = BU.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS AL ON incidencias.icd_area_linea = AL.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS PC ON incidencias.icd_proceso = PC.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS ES ON incidencias.icd_equipment_system = ES.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS TC ON incidencias.icd_Tipo_Controlador = TC.ctg_id AND incidencias.icd_Tipo_Controlador <> "jrq-component-N/A"';
-        $query .= ' LEFT JOIN catalogos AS CP ON incidencias.icd_component = CP.ctg_id AND incidencias.icd_component <> "jrq-component-N/A"';
-        $query .= ' LEFT JOIN catalogos AS IT ON incidencias.icd_issuetype = IT.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS AR ON incidencias.icd_actionrequired = AR.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS ST ON incidencias.icd_Estatus = ST.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS DT ON incidencias.icd_DiagramaProcManual = DT.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS RP ON incidencias.icd_Respaldo = RP.ctg_id';
-        $query .= ' LEFT JOIN catalogos AS RF ON incidencias.icd_Refaccion = RF.ctg_id';
+        $query .= ' LEFT JOIN catalogos AS BU ON incidencias.icd_bu = BU.ctg_id AND BU.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS AL ON incidencias.icd_area_linea = AL.ctg_id AND AL.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS PC ON incidencias.icd_proceso = PC.ctg_id AND PC.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS ES ON incidencias.icd_equipment_system = ES.ctg_id AND ES.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS TC ON incidencias.icd_Tipo_Controlador = TC.ctg_id  AND TC.ctg_eliminado = 0 AND incidencias.icd_Tipo_Controlador <> "jrq-component-N/A"';
+        $query .= ' LEFT JOIN catalogos AS CP ON incidencias.icd_component = CP.ctg_id  AND CP.ctg_eliminado = 0 AND incidencias.icd_component <> "jrq-component-N/A"';
+        $query .= ' LEFT JOIN catalogos AS IT ON incidencias.icd_issuetype = IT.ctg_id AND IT.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS AR ON incidencias.icd_actionrequired = AR.ctg_id AND AR.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS ST ON incidencias.icd_Estatus = ST.ctg_id AND ST.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS DT ON incidencias.icd_DiagramaProcManual = DT.ctg_id AND DT.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS RP ON incidencias.icd_Respaldo = RP.ctg_id AND RP.ctg_eliminado = 0';
+        $query .= ' LEFT JOIN catalogos AS RF ON incidencias.icd_Refaccion = RF.ctg_id AND RF.ctg_eliminado = 0';
         $query .= ' LEFT JOIN users ON incidencias.user_id = users.id';
 
         $query .= ' WHERE UNIX_TIMESTAMP(DATE_FORMAT(incidencias.created_at, "%Y-%m-%d")) BETWEEN UNIX_TIMESTAMP("' . $startDate .'") AND UNIX_TIMESTAMP("' . $endDate . '")';
